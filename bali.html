@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Bali, Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ef;
+    --gray: #888;
+    --accent: #c8b89a;
+    --accent-dim: rgba(200,184,154,0.15);
+  }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a {
+    color: rgba(245,243,239,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--white); }
+
+  /* HERO */
+  .dest-hero {
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 2.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+  }
+  .dest-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1a1512 0%, #0a0a0a 60%);
+  }
+  .dest-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .breadcrumb {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .breadcrumb a { color: rgba(200,184,154,0.5); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .dest-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .dest-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+  .tip-count-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    position: relative;
+    z-index: 1;
+  }
+  .tc-item { text-align: left; }
+  .tc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+  }
+  .tc-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* NAV CATEGORIAS */
+  .cat-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 0 2.5rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: rgba(245,243,239,0.4);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .cat-btn:hover { color: var(--white); }
+  .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* CONTENIDO */
+  .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+
+  /* SECCIÓN */
+  .tip-section {
+    padding: 4rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .section-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .section-header-text {}
+  .section-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  /* TIP CARD */
+  .tip-card {
+    background: rgba(255,255,255,0.02);
+    border: 0.5px solid rgba(255,255,255,0.07);
+    padding: 1.5rem;
+    margin-bottom: 1px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .tip-card:hover { background: rgba(255,255,255,0.04); }
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .tip-card:hover::before { opacity: 1; }
+  .tip-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .tip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--white);
+  }
+  .tip-body {
+    font-size: 0.88rem;
+    color: rgba(245,243,239,0.65);
+    line-height: 1.85;
+  }
+  .tip-body strong { color: rgba(245,243,239,0.9); font-weight: 500; }
+  .tip-body .highlight {
+    display: inline-block;
+    background: rgba(200,184,154,0.1);
+    border: 0.5px solid rgba(200,184,154,0.2);
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    border-radius: 1px;
+  }
+  .tip-alert {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: rgba(200,50,50,0.06);
+    border-left: 2px solid rgba(200,50,50,0.4);
+    font-size: 0.8rem;
+    color: rgba(245,243,239,0.6);
+    line-height: 1.7;
+  }
+  .tip-alert strong { color: rgba(220,100,100,0.9); font-weight: 500; }
+  .tip-pro {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: rgba(200,184,154,0.05);
+    border-left: 2px solid var(--accent);
+    font-size: 0.8rem;
+    color: rgba(245,243,239,0.6);
+    line-height: 1.7;
+  }
+  .tip-pro strong { color: var(--accent); font-weight: 500; }
+
+  /* TABLA */
+  .tip-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.82rem;
+  }
+  .tip-table th {
+    text-align: left;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding: 0.5rem 0.8rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    font-weight: 400;
+  }
+  .tip-table td {
+    padding: 0.6rem 0.8rem;
+    color: rgba(245,243,239,0.65);
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+  }
+  .tip-table tr:last-child td { border-bottom: none; }
+  .tip-table .ok { color: #6db87a; }
+  .tip-table .warn { color: #e08a4a; }
+  .tip-table .bad { color: #c96060; }
+  .tip-table .name { color: var(--white); font-weight: 500; }
+
+  /* COMUNIDAD */
+  .community-strip {
+    background: #0d0d0d;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 4rem 0;
+  }
+  .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .section-label-sm {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .community-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .community-desc {
+    font-size: 0.85rem;
+    color: rgba(245,243,239,0.45);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .community-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.09);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    border-radius: 1px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: rgba(200,184,154,0.35);
+  }
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .btn-primary {
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 1px;
+    width: 100%;
+    margin-top: 1.2rem;
+  }
+  .btn-primary:hover { background: var(--accent); }
+
+  /* EXPERIENCIAS */
+  .exp-list { margin-top: 2.5rem; }
+  .exp-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+  .exp-item {
+    border: 0.5px solid rgba(255,255,255,0.06);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1px;
+    transition: background 0.2s;
+  }
+  .exp-item:hover { background: rgba(255,255,255,0.02); }
+  .exp-meta {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .exp-badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 0.5px solid rgba(200,184,154,0.3);
+    padding: 0.18rem 0.5rem;
+  }
+  .exp-cat {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .exp-author { font-size: 0.62rem; color: var(--gray); margin-left: auto; }
+  .exp-text { font-size: 0.84rem; color: rgba(245,243,239,0.65); line-height: 1.75; }
+
+  footer {
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,243,239,0.3);
+  }
+  .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .dest-hero, .content-wrap, .community-inner { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .community-form { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .cat-nav { padding: 0 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N<span>T</span>Y</a>
+  <ul>
+    <li><a href="index.html#destinos">Destinos</a></li>
+    <li><a href="index.html#tips">Tips</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+  </ul>
+</nav>
+
+<section class="dest-hero">
+  <div class="dest-hero-bg"></div>
+  <div class="dest-hero-grid"></div>
+  <div class="breadcrumb"><a href="index.html#destinos">Destinos</a> / Indonesia / Bali</div>
+  <h1 class="dest-title">Bali</h1>
+  <p class="dest-subtitle">Indonesia · Isla de los Dioses</p>
+  <div class="tip-count-bar">
+    <div class="tc-item"><span class="tc-num">8</span><span class="tc-label">Categorías</span></div>
+    <div class="tc-item"><span class="tc-num">18</span><span class="tc-label">Tips</span></div>
+    <div class="tc-item"><span class="tc-num">100%</span><span class="tc-label">Verificados</span></div>
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <button class="cat-btn active" onclick="goToSection('atm')">💳 ATM</button>
+  <button class="cat-btn" onclick="goToSection('cambio')">💵 Cambio</button>
+  <button class="cat-btn" onclick="goToSection('visa')">🛂 Visa</button>
+  <button class="cat-btn" onclick="goToSection('transporte')">🚐 Transporte</button>
+  <button class="cat-btn" onclick="goToSection('moto')">🏍️ Moto</button>
+  <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
+  <button class="cat-btn" onclick="goToSection('storage')">🧳 Storage</button>
+  <button class="cat-btn" onclick="goToSection('dormir')">🏨 Dormir</button>
+  <button class="cat-btn" onclick="goToSection('apps')">📱 Apps</button>
+  <button class="cat-btn" onclick="goToSection('sim')">📶 SIM / eSIM</button>
+  <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
+  <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ATM -->
+  <section class="tip-section" id="atm">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · Sin comisión</div>
+        <h2 class="section-title">ATM sin fees</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo esencial</div>
+      <div class="tip-title">Cajeros sin comisión: cuáles usar y cuáles evitar</div>
+      <div class="tip-body">
+        En Indonesia, a diferencia de países como Tailandia, la mayoría de cajeros <strong>no cobran comisión por parte del banco local</strong>. Pero no todos. Aquí el resumen real:
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Banco</th>
+            <th>Comisión</th>
+            <th>Visa</th>
+            <th>Mastercard</th>
+          </tr>
+          <tr><td class="name">BCA</td><td class="ok">✓ Sin comisión</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="name">BNI</td><td class="ok">✓ Sin comisión</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="name">Maybank</td><td class="ok">✓ Sin comisión</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="name">Mandiri</td><td class="warn">⚠ Variable (algunos cobran 50k)</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="name">CIMB Niaga</td><td class="bad">✗ 2,5% de comisión</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="name">BRI</td><td class="bad">✗ Hasta 3% en algunos</td><td class="bad">✗ No acepta Visa</td><td class="ok">Solo Mastercard</td></tr>
+        </table>
+
+        <div class="tip-pro" style="margin-top:1.2rem">
+          <strong>Consejo NTY:</strong> Usa siempre BCA o BNI como primera opción. Son los más extendidos y consistentes. Saca cantidades grandes de una vez para minimizar las comisiones de tu propio banco (por ejemplo, Revolut en su plan standard tiene un límite de 200€ al mes sin comisión; a partir de ahí cobra).
+        </div>
+        <div class="tip-alert">
+          <strong>Importante:</strong> Cuando el cajero te pregunte si quieres que convierta el importe a euros, siempre di <strong>NO</strong> y elige pagar en rupias (IDR). El tipo de cambio que aplica el propio cajero es mucho peor que el de tu banco.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMBIO -->
+  <section class="tip-section" id="cambio">
+    <div class="section-header">
+      <div class="section-icon">💵</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · Efectivo</div>
+        <h2 class="section-title">Cambio de efectivo</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Alerta real · Ubud</div>
+      <div class="tip-title">El truco del exchange falso que nos pasó a nosotros</div>
+      <div class="tip-body">
+        Los exchanges falsos en Bali están <strong>muy bien camuflados</strong>. Ofrecen un tipo de cambio mejor que los oficiales, precisamente para que piques. El truco más habitual es el de la mano rápida al contar: te dan el primer fajo, lo cuentas, está correcto. Lo dejas en el mostrador para contar el segundo. Y ahí, en un segundo, desaparecen billetes.
+        <br><br>
+        A nosotros nos pasó en Ubud. Nos tenían que dar 1,9 millones de rupias. Contamos el primer fajo de 1 millón — correcto — y lo dejamos en el mostrador mientras contábamos el segundo (900k). Al revisarlo todo en la calle, faltaban 400k. Cuando volvimos a reclamar, el dinero apareció mágicamente.
+        <div class="tip-alert">
+          <strong>Cómo evitarlo:</strong> Nunca dejes el dinero contado sobre el mostrador. Una vez que lo tienes en la mano, no lo sueltes. Cuenta tú mismo, despacio, y si el cajero intenta recuperarlo para "recontar", no lo permitas.
+        </div>
+        <div class="tip-pro">
+          <strong>Cómo identificar un exchange oficial:</strong> Busca el sello <strong>"PVA Berizin"</strong> (casa de cambio autorizada). Los oficiales tienen mostrador tipo banco, tablón digital con el tipo de cambio visible, y no te llaman desde la calle ofreciéndote mejor tasa. Puedes verificar si un exchange está autorizado en <strong>moneychangerbali.com</strong>, el portal oficial de Bank Indonesia.
+          <br><br>
+          Una referencia fiable y conocida entre viajeros es <strong>BMC (Best Money Changer)</strong>, presente en varias zonas de Bali.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISA -->
+  <section class="tip-section" id="visa">
+    <div class="section-header">
+      <div class="section-icon">🛂</div>
+      <div class="section-header-text">
+        <div class="section-tag">Entrada · Documentación</div>
+        <h2 class="section-title">Visado (eVOA)</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">El mejor tip del viaje</div>
+      <div class="tip-title">Haz el visado online antes de llegar: evita 2 horas de cola</div>
+      <div class="tip-body">
+        Para entrar a Indonesia necesitas una eVOA (Electronic Visa on Arrival). Puedes hacerla de dos formas:
+
+        <br><br>
+        <strong>Opción A — En el aeropuerto:</strong> Haces cola en las máquinas de pago antes de aduanas. En temporada alta puede superar los 60-90 minutos. Precio: 500.000 IDR (≈ 30€).
+
+        <br><br>
+        <strong>Opción B — Online antes de salir de casa (recomendado):</strong> La tramitas desde <strong>evisa.imigrasi.go.id</strong>, la web oficial del gobierno indonesio. El precio online es de 500.000 IDR + tasas de servicio de FinPay (la pasarela de pago oficial), lo que eleva el total a aproximadamente <strong>519.500 IDR</strong>. Pagas algo más, pero llegas al aeropuerto, pasas directamente por las <strong>puertas automáticas (eGates)</strong> y te ahorras la cola entera.
+
+        <div class="tip-pro">
+          <strong>Dato importante:</strong> Con el eVOA online no recibes el sello físico en el pasaporte. Si para ti coleccionar sellos es importante, tenlo en cuenta. Para la mayoría de viajeros no supone ningún problema.
+        </div>
+        <div class="tip-alert">
+          <strong>Ojo con las webs de terceros:</strong> Hay páginas que te cobran mucho más (20-30€ extra) por "gestionar" el eVOA. La web oficial es gratuita salvo las tasas de FinPay. Si te piden cantidades muy superiores a 519.500 IDR, es una señal de alerta.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Paso obligatorio tras el eVOA</div>
+      <div class="tip-title">All Indonesia: el QR que necesitas para pasar por las eGates</div>
+      <div class="tip-body">
+        Una vez tengas aprobado el eVOA, hay un paso más: registrarte en la app <strong>All Indonesia</strong> (disponible en App Store y Google Play, o desde <strong>imigrasi.go.id</strong>). Es gratuito y te genera un <strong>QR de entrada</strong> que necesitas para pasar por las puertas automáticas del aeropuerto.
+
+        <br><br>
+        <strong>Cómo funciona:</strong> Creas cuenta, vinculas tu pasaporte y el eVOA aprobado, y rellenas el formulario de entrada. El sistema te devuelve un QR. Puedes hacerlo hasta <strong>3 días antes de aterrizar</strong> — mejor hacerlo en casa con calma y buena conexión.
+
+        <br><br>
+        <strong>En el aeropuerto:</strong> Presentas el QR en las eGates, escaneás el pasaporte y listo — sin cola, sin agente de inmigración. El proceso dura segundos.
+
+        <div class="tip-alert">
+          <strong>Sin sello en el pasaporte:</strong> Con este sistema no recibes el sello físico de entrada a Indonesia. Si para ti coleccionar sellos es importante, tenlo en cuenta y opta por la cola convencional.
+        </div>
+        <div class="tip-pro">
+          <strong>Resumen del proceso completo:</strong> eVOA online (evisa.imigrasi.go.id) → registro en All Indonesia → QR de entrada → eGates en el aeropuerto. Todo gratuito salvo las tasas del eVOA.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Para estancias largas</div>
+      <div class="tip-title">Renovar el visado: 30 días más sin salir del país</div>
+      <div class="tip-body">
+        El eVOA te da 30 días. Si quieres quedarte hasta 60, puedes renovarlo pagando otros 500.000 IDR (≈ 30€). Lo que nadie te dice es cómo funciona desde junio de 2025:
+
+        <br><br>
+        <strong>Ya no se puede renovar online.</strong> Desde mayo de 2025, toda renovación requiere ir en persona a una oficina de inmigración. El proceso es: inicias la solicitud online, pagas la tasa, y el sistema te genera una cita presencial. En la oficina te toman foto y huellas, te preguntan cuándo sales del país y a dónde, y listo.
+
+        <div class="tip-alert">
+          <strong>La parte que nadie menciona:</strong> Las oficinas de inmigración no dan hora previa. Todo el mundo va a primera hora. Nosotros fuimos a Denpasar a las 8h de la mañana y esperamos <strong>4 horas</strong> solo para la foto. Ve lo antes posible y lleva paciencia (y cargador de móvil).
+        </div>
+        <div class="tip-pro">
+          <strong>Consejo:</strong> Si ya sabes que vas a estar más de 30 días, plantéate solicitar directamente el eVOA de 60 días (tipo C1) desde el principio. Te ahorras el trámite de renovación y la espera en inmigración.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTE -->
+  <section class="tip-section" id="transporte">
+    <div class="section-header">
+      <div class="section-icon">🚐</div>
+      <div class="section-header-text">
+        <div class="section-tag">Moverse · Apps</div>
+        <h2 class="section-title">Transporte</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo básico</div>
+      <div class="tip-title">Grab y Gojek: el Uber de Indonesia</div>
+      <div class="tip-body">
+        Las dos apps de referencia para moverse en Bali son <strong>Grab</strong> y <strong>Gojek</strong>. Funcionan igual que Uber: precio fijo, ves al conductor antes de subir y sabes el recorrido. Nada de negociar ni llevarte sorpresas.
+        <br><br>
+        Ambas ofrecen moto (más barato y más rápido en tráfico) y coche. Compara precios entre las dos antes de pedir, porque pueden variar. Gojek suele tener mejores ofertas en comida a domicilio.
+
+        <div class="tip-alert">
+          <strong>Restricciones importantes:</strong> En zonas muy turísticas como el aeropuerto, algunas playas y áreas de Seminyak, Grab y Gojek tienen prohibido recoger pasajeros. Verás señales. Tendrás que caminar unos metros hasta una calle lateral o usar un taxi convencional para esas zonas.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Que nadie te cuenta</div>
+      <div class="tip-title">Bali tiene uno de los tráficos más caóticos del sudeste asiático: ve siempre con tiempo</div>
+      <div class="tip-body">
+        No importa lo cerca que parezca en el mapa — en Bali <strong>todo tarda mucho más de lo previsto</strong> por el tráfico. Canggu, Seminyak, Denpasar y las zonas turísticas del sur pueden estar completamente colapsadas en horas punta (mañana y tarde), especialmente en temporada alta.
+        <br><br>
+        Lo que Google Maps te dice que son 15 minutos pueden fácilmente convertirse en 45. Si tienes un ferry, un vuelo, o cualquier reserva con hora fija, <strong>sal siempre con el doble de tiempo del estimado</strong>.
+
+        <div class="tip-pro">
+          <strong>Consejo práctico:</strong> Usa Grab o Gojek en modo moto en lugar de coche cuando haya tráfico — los conductores de moto conocen los atajos y pueden colarse entre coches. Mucho más rápido.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTO -->
+  <section class="tip-section" id="moto">
+    <div class="section-header">
+      <div class="section-icon">🏍️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Transporte · Libertad total</div>
+        <h2 class="section-title">Alquiler de moto</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Imprescindible</div>
+      <div class="tip-title">Alquilar moto: cómo, cuánto y dónde</div>
+      <div class="tip-body">
+        Alquilar una moto en Bali es lo que más libertad te da para moverte por la isla. El proceso es sencillo: lo mejor es preguntar directamente al host de tu villa o guesthouse (suelen tener contacto directo o tener alguna disponible) y comparar con los puestos callejeros de la zona. Así evitas intermediarios y consigues mejor precio.
+
+        <br><br>
+        <strong>Precios orientativos:</strong>
+        <br>
+        <span class="highlight">70.000 – 100.000 IDR / día</span>
+        <span class="highlight">≈ 4 – 6 € por día</span>
+        <br><br>
+        Lo más barato que encontramos fue a <strong>70.000 IDR/día en Ubud</strong>, preguntando directamente en la calle. En zonas más turísticas como Canggu o Seminyak puede subir a 100-150k. Si alquilas por semanas o meses, el precio por día baja considerablemente.
+
+        <div class="tip-pro">
+          <strong>Negocia siempre el precio:</strong> Tanto si alquilas a través del guesthouse, la villa o un local de alquiler de la calle, el precio siempre es negociable. Compara entre varias opciones antes de decidir. Si alquilas varios días o semanas, pide descuento por volumen — casi siempre lo hacen.
+        </div>
+        <div class="tip-pro">
+          <strong>Pide el WhatsApp y deja el precio por escrito:</strong> Una vez acordado el precio y las condiciones, es buena idea tenerlo por escrito en el chat para evitar malentendidos al devolver la moto.
+        </div>
+        <div class="tip-alert">
+          <strong>Nunca dejes el pasaporte como garantía.</strong> Es una práctica habitual que te pedirán, pero no es obligatorio aceptar. Ofrece una fianza en efectivo o simplemente negocia sin dejar documentación. Tu pasaporte es lo más valioso que llevas — sin él no puedes hacer nada.
+        </div>
+        <div class="tip-alert">
+          <strong>Haz un vídeo de la moto antes de salir:</strong> Graba todos los arañazos, golpes y desperfectos existentes en el momento de recogerla. Es tu seguro si al devolverla intentan cobrarte daños que no son tuyos. Ocurre con frecuencia.
+        </div>
+        <div class="tip-alert">
+          <strong>Circulación y seguridad:</strong> En Bali se conduce por la izquierda. El tráfico en zonas como Canggu o Denpasar puede ser caótico. Si no tienes experiencia con motos, empieza con trayectos cortos, ve siempre con casco y evita conducir de noche (el asfalto tiene muchos baches y la visibilidad es mala). Técnicamente necesitas carnet internacional, aunque en la práctica no suelen pedirlo — pero ten en cuenta que sin él tu seguro puede no cubrirte en caso de accidente.
+        </div>
+        <div class="tip-pro">
+          <strong>Alquiler por periodos largos (semanas o meses):</strong> Si necesitas la moto durante un mes o más, <strong>regatea el precio sin miedo</strong>. A los propietarios les interesa tener la moto alquilada de forma continuada — puedes conseguir precios de <span class="highlight">50.000 – 60.000 IDR / día</span> o incluso menos si negocias bien. Prueba con varios sitios antes de cerrar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMIDA -->
+  <section class="tip-section" id="comida">
+    <div class="section-header">
+      <div class="section-icon">🍜</div>
+      <div class="section-header-text">
+        <div class="section-tag">Gastronomía · Presupuesto</div>
+        <h2 class="section-title">Comida</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">El mito confirmado</div>
+      <div class="tip-title">Sí, se puede comer en Bali por 1-2€. Pero hay que saber dónde</div>
+      <div class="tip-body">
+        En TikTok ves vídeos de gente comiendo por 1-2€ y luego lo desmientes porque vas a un sitio más "presentable" y te cobran el doble. La clave es el <strong>warung</strong>.
+
+        <br><br>
+        Un warung es un pequeño restaurante familiar, normalmente sin decoración elaborada, donde come la gente local. Muchos funcionan como buffet: llegas, ves las bandejas con los guisos del día, pides la cantidad que quieres y pagas según lo que has cogido. La comida es local, abundante y sabrosa.
+
+        <br><br>
+        <strong>Precio orientativo en warung:</strong>
+        <span class="highlight">30.000 – 50.000 IDR por plato</span>
+        <span class="highlight">≈ 1,5 – 3 €</span>
+        <br><br>
+        Desayuno, comida y cena en warung: <strong>menos de 5€ al día</strong>. Sin exagerar.
+
+        <div class="tip-pro">
+          <strong>Consejo NTY:</strong> Si desde fuera no te inspira confianza, es buena señal: significa que va gente local. Los warungs más "bonitos" suelen ser los más caros y los menos auténticos. Lo mismo aplica en Lombok y Sulawesi, donde los precios son iguales o incluso más baratos.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Para españoles · Canggu</div>
+      <div class="tip-title">La Paella Bali: cuando llevas semanas sin comer como en casa</div>
+      <div class="tip-body">
+        Si eres español y llevas un tiempo en Bali, en algún momento te entran ganas de algo familiar. <strong>La Paella Bali</strong>, en Canggu, es exactamente eso: un sitio donde recuperar la esencia de casa sin salir de Indonesia. Paella auténtica, sabores reconocibles, y la sensación de que alguien aquí sabe lo que hace con el arroz.
+        <br><br>
+        Es una parada que merece la pena aunque solo sea para el momento — no como plan principal del viaje, sino como ese respiro que a veces necesitas cuando llevas semanas comiendo local.
+
+        <div class="tip-pro">
+          <strong>📍 Cómo llegar:</strong> <a href="https://www.google.com/maps/search/La+Paella+Bali+Canggu" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps →</a> (busca reseñas y confirma horarios antes de ir — las fotos las añadiremos pronto).
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Truco de presupuesto</div>
+      <div class="tip-title">Supermercado Pepito: 50% de descuento de 21h a 22h</div>
+      <div class="tip-body">
+        Si estás buscando una cena barata y te da igual el formato, el supermercado <strong>Pepito</strong> hace un descuento del <strong>50% en la mayoría de alimentos</strong> entre las <strong>21h y las 22h</strong>. Es su hora de cierre de producto del día.
+        <br><br>
+        Por menos de lo que cuesta un warung puedes armar una buena cena: fruta, snacks, bollería, preparados... La relación calidad-precio en ese tramo horario es difícil de superar.
+
+        <div class="tip-pro">
+          <strong>Consejo:</strong> Llega cerca de las 21h para tener más donde elegir antes de que otros viajeros vacíen las estanterías. Pepito tiene varios locales repartidos por Bali — hay uno en la mayoría de zonas turísticas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORAGE -->
+  <section class="tip-section" id="storage">
+    <div class="section-header">
+      <div class="section-icon">🧳</div>
+      <div class="section-header-text">
+        <div class="section-tag">Logística · Equipaje</div>
+        <h2 class="section-title">Guardar el equipaje (lockers)</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia</div>
+      <div class="tip-title">Si sales de Bali y vuelves, no tienes que cargar con todo: usa un storage</div>
+      <div class="tip-body">
+        Si tienes pensado salir de Bali temporalmente (a Lombok, las Gili, otra isla...) y volver, cargar con toda la maleta es innecesario. En Bali hay servicios de <strong>guardaequipajes</strong> que te guardan la maleta por días o semanas a un precio muy razonable.
+        <br><br>
+        Nosotros usamos <strong>OLA Storage</strong>, en la zona de Kuta. Lo encontramos buscando en Google Maps y el contacto es <strong>por WhatsApp</strong>: les dices cuántos días necesitas que te guarden la maleta, te dicen el precio, y te pasan un link para hacer el pago online. Sin complicaciones.
+
+        <div class="tip-pro">
+          <strong>Nuestra experiencia:</strong> Lo usamos 2 veces durante el viaje y todo fue bien. El servicio es profesional, el precio es muy económico y el proceso es rápido. Además, ofrecen <strong>recogida y entrega en el aeropuerto por un coste adicional</strong> — muy útil si llegas o sales con maleta.
+        </div>
+
+        <div class="tip-pro">
+          <strong>📍 OLA Storage Kuta — Jl. Sriwijaya No.23, Legian, Kuta, Bali:</strong><br>
+          <a href="https://www.google.com/maps/search/OLA+Storage+Kuta+Bali+Jl+Sriwijaya" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
+        </div>
+
+        <div class="tip-alert">
+          <strong>Cómo funciona:</strong> Busca "OLA Storage Kuta" en Google Maps → entra en su perfil → contacta por WhatsApp → acuerda días y precio → pago online por el link que te envían → dejas y recoge la maleta. Sencillo.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DORMIR -->
+  <section class="tip-section" id="dormir">
+    <div class="section-header">
+      <div class="section-icon">🏨</div>
+      <div class="section-header-text">
+        <div class="section-tag">Alojamiento · Zonas</div>
+        <h2 class="section-title">Dónde dormir</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Presupuesto real</div>
+      <div class="tip-title">Cuánto cuesta dormir en Bali y cómo encontrar la mejor opción</div>
+      <div class="tip-body">
+        Bali tiene alojamiento para todos los presupuestos. Lo que Instagram no te cuenta es que hay opciones muy dignas por muy poco dinero:
+
+        <br><br>
+        <span class="highlight">Hostel cama en dorm: 5 – 12€ / noche</span>
+        <span class="highlight">Guesthouse / habitación doble: 12 – 25€ / noche</span>
+        <span class="highlight">Villa privada con piscina: desde 40€ / noche</span>
+
+        <br><br>
+        Nosotros usamos <strong>Booking.com</strong> combinando las reseñas de la app con las de Google Maps antes de decidir. Es un sistema que funciona bien para tener una visión más completa del sitio.
+
+        <div class="tip-pro">
+          <strong>Tip sin confirmar (¡cuéntanos tu experiencia!):</strong> Hay quien dice que negociando directamente con el alojamiento, especialmente en temporada baja o para estancias largas, se puede conseguir un precio mejor que el de Booking. Si lo has probado, comparte tu experiencia en la sección de comunidad.
+        </div>
+        <div class="tip-alert">
+          <strong>Temporada alta:</strong> De junio a agosto los precios suben notablemente. Si viajas en esas fechas, reserva con antelación.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section class="tip-section" id="apps">
+    <div class="section-header">
+      <div class="section-icon">📱</div>
+      <div class="section-header-text">
+        <div class="section-tag">Herramientas</div>
+        <h2 class="section-title">Apps y herramientas</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Que nadie te cuenta</div>
+      <div class="tip-title">GrabUnlimited: la suscripción que merece la pena si te quedas más de 2 semanas</div>
+      <div class="tip-body">
+        Si tienes planeado estar en Bali un tiempo largo, activa <strong>GrabUnlimited</strong>. Es una suscripción de Grab que por solo <strong>24.000 IDR por 8 semanas</strong> (menos de 1,50€) te da acceso a descuentos en comida, transporte y más.
+
+        <br><br>
+        <strong>Qué incluye confirmado:</strong>
+        <br>• Hasta <strong>Rp10.000 de descuento</strong> en el fee de entrega de GrabFood — apilable con otras promos
+        <br>• Descuento en <strong>trayectos en coche y moto</strong> (hasta Rp5.000 off, acumulable)
+        <br>• Rp8.000 off en fee de entrega de GrabMart (supermercado)
+        <br>• Ofertas exclusivas de partners para miembros
+
+        <img src="grab-unlimited.jpg" alt="GrabUnlimited beneficios" style="width:100%; max-width:320px; display:block; margin:1.2rem auto; border-radius:4px; border:0.5px solid rgba(255,255,255,0.1);">
+
+        <div class="tip-pro">
+          <strong>Cómo activarlo:</strong> Entra en la app de Grab → menú → GrabUnlimited → activa la prueba gratuita de 8 semanas. Si ya llevás tiempo en Bali, busca la opción en el apartado de suscripciones.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIM / ESIM -->
+  <section class="tip-section" id="sim">
+    <div class="section-header">
+      <div class="section-icon">📶</div>
+      <div class="section-header-text">
+        <div class="section-tag">Conectividad · Internet</div>
+        <h2 class="section-title">SIM y eSIM en Bali</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">La mejor opción</div>
+      <div class="tip-title">SIM física Telkomsel: la que mejor funciona en toda Indonesia</div>
+      <div class="tip-body">
+        Si puedes, compra una <strong>SIM física local</strong> al llegar. Es más barata que cualquier eSIM internacional y funciona mejor en zonas fuera del centro turístico.
+        <br><br>
+        La operadora recomendada es <strong>Telkomsel</strong> — la red con mejor cobertura en todo Indonesia, incluyendo zonas remotas de Bali, Lombok y las demás islas. <strong>Cómprala siempre en un punto de venta oficial</strong> (tiendas Telkomsel o mostradores del aeropuerto): hay muchos locales no oficiales que las venden a precios más altos y a veces con planes peores.
+
+        <div class="tip-pro">
+          <strong>Precio orientativo:</strong> Un plan con varios GB cuesta entre <span class="highlight">50.000 – 150.000 IDR</span> (3–9€) según la duración y datos. Mucho más barato que cualquier eSIM.
+        </div>
+        <div class="tip-alert">
+          <strong>Evita los vendedores no oficiales:</strong> Funcionan, pero no son tan económicos y a veces el plan que te activan no es el que te dicen. Ve siempre a un punto oficial de Telkomsel.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Si prefieres no cambiar SIM</div>
+      <div class="tip-title">eSIM: más cara que la física, pero cómoda si llegas preparado</div>
+      <div class="tip-body">
+        Las eSIM funcionan bien en Bali. Son más caras que la SIM física, pero evitan el trámite de cambiar tarjeta. Estas son las mejor valoradas:
+
+        <br><br>
+        <strong>Airalo</strong> — La más popular y mejor relación calidad-precio entre eSIMs. Opera sobre la red de Telkomsel (la mejor de Indonesia). Planes desde ≈ 4–5€ para 1–2 GB hasta ≈ 35€ para 20 GB. Sin límite de hotspot. Mejor opción si buscas precio.
+
+        <br><br>
+        <strong>Holafly</strong> — Solo planes ilimitados, ideal si consumes muchos datos o subes contenido. Hotspot limitado a 500 MB/día. Precio orientativo: desde ≈ 7€/día hasta ≈ 76€/mes. Más cara que Airalo pero sin preocuparse de los GB.
+
+        <br><br>
+        <strong>Jetpac</strong> — Opera directamente sobre la red de Telkomsel (la mejor cobertura del país). Buena opción si la cobertura en zonas remotas es prioritaria para ti.
+
+        <div class="tip-alert">
+          <strong>Recuerda:</strong> Cualquiera de estas eSIM sale más cara que comprar la SIM física de Telkomsel en el aeropuerto. Si puedes, ve a por la física.
+        </div>
+        <div class="tip-pro">
+          <strong>Revolut:</strong> Algunos planes de Revolut incluyen datos de roaming. Consulta tu plan antes de salir — puede que ya lo tengas cubierto.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGUA -->
+  <section class="tip-section" id="agua">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Hidratación</div>
+        <h2 class="section-title">Agua: qué marcas son minerales y cuáles no</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Importante</div>
+      <div class="tip-title">El agua del grifo en Bali no es potable. Usa siempre agua embotellada</div>
+      <div class="tip-body">
+        En Bali (y en toda Indonesia) <strong>el agua del grifo no es potable</strong>. Usa siempre agua embotellada o filtrada. La buena noticia: es barata y la encuentras en cualquier tienda.
+        <br><br>
+        Hay una diferencia importante entre las marcas: algunas son agua <strong>mineral</strong> (de manantial, con minerales naturales) y otras son agua <strong>purificada</strong> (filtrada, sin apenas minerales). Aquí el resumen:
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Origen</th>
+            <th>Dónde comprar</th>
+          </tr>
+          <tr>
+            <td class="name">AQUA (Danone)</td>
+            <td class="ok">✓ Mineral</td>
+            <td>Manantiales de montaña</td>
+            <td>Indomaret, Alfamart, Circle K, cualquier warung</td>
+          </tr>
+          <tr>
+            <td class="name">Le Minerale</td>
+            <td class="ok">✓ Mineral</td>
+            <td>Manantiales volcánicos, pH 7.2–7.7</td>
+            <td>Indomaret, Alfamart, supermercados</td>
+          </tr>
+          <tr>
+            <td class="name">Pristine</td>
+            <td class="ok">✓ Mineral</td>
+            <td>Manantial de montaña</td>
+            <td>Supermercados, hoteles</td>
+          </tr>
+          <tr>
+            <td class="name">Cleo</td>
+            <td class="warn">⚠ Purificada</td>
+            <td>Agua filtrada (hiperfiltración, sin minerales)</td>
+            <td>Indomaret, Alfamart, Circle K</td>
+          </tr>
+          <tr>
+            <td class="name">Ades</td>
+            <td class="warn">⚠ Purificada</td>
+            <td>Agua tratada</td>
+            <td>Indomaret, Alfamart</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Precios orientativos:</strong> Botella pequeña (600ml): <span class="highlight">3.000 – 7.000 IDR</span> (≈ 0,20–0,40€). Botella grande 1,5L: <span class="highlight">5.000 – 12.000 IDR</span> (≈ 0,30–0,70€). Compra en <strong>Indomaret o Alfamart</strong> — son las tiendas de conveniencia más comunes en toda Indonesia, presentes en prácticamente cualquier calle.
+        </div>
+        <div class="tip-pro">
+          <strong>Consejo:</strong> Si te quedas mucho tiempo, compra un garrafón de 19L (galon) — los alojamientos suelen tenerlos o puedes pedirlos a domicilio por muy poco. Sale mucho más económico que comprar botellas individuales.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALUD Y VISADO -->
+  <section class="tip-section" id="salud">
+    <div class="section-header">
+      <div class="section-icon">💉</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Documentación</div>
+        <h2 class="section-title">Vacunas y visado: información oficial</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Fuente oficial</div>
+      <div class="tip-title">Dónde encontrar información actualizada: Ministerio de Asuntos Exteriores de España</div>
+      <div class="tip-body">
+        Para vacunas y visados, la fuente más fiable y actualizada es el <strong>Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España</strong>. Tienen fichas específicas por país que se actualizan regularmente.
+        <br><br>
+        <strong>Cómo acceder:</strong> Ve a <strong>exteriores.gob.es</strong> → "Servicios al ciudadano" → "Recomendaciones de viaje" → busca el país. O entra directamente desde el link de abajo.
+
+        <div class="tip-pro">
+          <strong>🔗 Link directo para Indonesia (Bali + Lombok + Sulawesi):</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=indonesia" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Indonesia — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Resumen actualizado · Indonesia</div>
+      <div class="tip-title">Lo esencial sobre vacunas y entrada a Indonesia</div>
+      <div class="tip-body">
+        <strong>Vacunas obligatorias:</strong> Solo hay una vacuna <strong>obligatoria</strong> para entrar en Indonesia: la <strong>fiebre amarilla</strong> — pero únicamente si vienes de un país de África o América del Sur donde hay riesgo de transmisión. Si vuelas desde España directamente, no es obligatoria.
+        <br><br>
+        <strong>Vacunas recomendadas</strong> (no obligatorias, pero aconsejables según tu perfil):
+        Hepatitis A, Hepatitis B, Tétanos, Fiebre tifoidea. Para estancias largas o zonas rurales: Rabia, Encefalitis japonesa.
+        <br><br>
+        <strong>Visado:</strong> Los ciudadanos españoles necesitan eVOA (Electronic Visa on Arrival) para entrar en Indonesia. Consulta el apartado de Visado en esta misma página para todos los detalles.
+
+        <div class="tip-alert">
+          <strong>Importante:</strong> La información de vacunas y visados puede cambiar. Consulta siempre la web del Ministerio de Exteriores antes de viajar para tener los datos más recientes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /content-wrap -->
+
+<!-- COMUNIDAD -->
+<section class="community-strip" id="comunidad">
+  <div class="community-inner">
+    <div class="section-label-sm">La comunidad habla · Bali</div>
+    <h2 class="community-title">¿Has estado en Bali?</h2>
+    <p class="community-desc">Cuéntanos algo que te hubiera gustado saber antes de ir. Cada experiencia ayuda a otro viajero.</p>
+
+    <div class="community-form">
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select class="form-select">
+          <option>ATM sin fees</option>
+          <option>Cambio de efectivo</option>
+          <option>Visa y entrada</option>
+          <option>Transporte / Grab</option>
+          <option>Alquiler de moto</option>
+          <option>Comida / Warungs</option>
+          <option>Dónde dormir</option>
+          <option>Apps y herramientas</option>
+          <option>Estafas y alertas</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Tu experiencia</label>
+        <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir a Bali..."></textarea>
+      </div>
+      <div class="form-group full">
+        <button class="btn-primary">Enviar experiencia ↗</button>
+      </div>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-label">Primeras experiencias</div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Bali</span>
+          <span class="exp-cat">ATM sin fees</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">BCA y BNI son los más fiables. Saca siempre en rupias cuando el cajero te pregunte — nunca aceptes la conversión a euros del propio cajero, el tipo de cambio es pésimo.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Bali · Ubud</span>
+          <span class="exp-cat">Cambio de efectivo</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">Nos estafaron 400.000 rupias en un exchange de Ubud con el truco de la mano rápida. Fuimos 4 personas mirando y ninguno vio cómo lo hicieron. Usa siempre exchanges con el sello PVA Berizin y no sueltes el dinero una vez contado.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Bali · Denpasar</span>
+          <span class="exp-cat">Visa · Renovación</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">Renovamos el visado en la oficina de inmigración de Denpasar. Fuimos a las 8h de la mañana y esperamos 4 horas para una foto y unas preguntas. Sin cita previa, todo el mundo llega a la vez. Ve lo antes posible y lleva paciencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  const sections = document.querySelectorAll('.tip-section');
+  const btns = document.querySelectorAll('.cat-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => {
+          b.classList.toggle('active', b.getAttribute('onclick')?.includes(id));
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

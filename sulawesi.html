@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Sulawesi, Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a { color: rgba(245,243,239,0.6); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+  nav ul li a:hover { color: var(--white); }
+
+  /* HERO */
+  .dest-hero {
+    min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 2.5rem 3.5rem; position: relative; overflow: hidden; margin-top: 60px;
+  }
+  .dest-hero-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #0e1a12 0%, #0a0f0e 40%, #0a0a0a 70%); }
+  .dest-hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-nty-badge {
+    position: absolute; top: 2rem; right: 2.5rem; z-index: 2;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(200,184,154,0.5); border: 0.5px solid rgba(200,184,154,0.2);
+    padding: 0.4rem 0.8rem;
+  }
+  .breadcrumb { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .breadcrumb a { color: rgba(200,184,154,0.5); text-decoration: none; }
+  .dest-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .dest-subtitle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 0.8rem; position: relative; z-index: 1; }
+  .hero-desc { font-size: 0.9rem; color: rgba(245,243,239,0.45); max-width: 500px; line-height: 1.8; margin-top: 1.2rem; position: relative; z-index: 1; }
+  .tip-count-bar { display: flex; gap: 2.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+  .tc-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); display: block; }
+  .tc-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+  /* ALERT BANNER */
+  .top-alert {
+    background: rgba(200,184,154,0.06); border-bottom: 0.5px solid rgba(200,184,154,0.15);
+    padding: 1rem 2.5rem; text-align: center;
+    font-size: 0.78rem; color: rgba(245,243,239,0.6); line-height: 1.7;
+  }
+  .top-alert strong { color: var(--accent); font-weight: 500; }
+
+  /* CAT NAV */
+  .cat-nav {
+    position: sticky; top: 60px; z-index: 50;
+    background: rgba(10,10,10,0.96); backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 0 2.5rem; display: flex; overflow-x: auto; scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.1rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .cat-btn:hover { color: var(--white); }
+  .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* LAYOUT */
+  .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .tip-section { padding: 4rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+  .section-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2.5rem; }
+  .section-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .section-tag { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.1; }
+
+  /* CARDS */
+  .tip-card { background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.07); padding: 1.5rem; margin-bottom: 1px; position: relative; transition: background 0.2s; }
+  .tip-card:hover { background: rgba(255,255,255,0.04); }
+  .tip-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .tip-card:hover::before { opacity: 1; }
+  .tip-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .tip-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .tip-body { font-size: 0.88rem; color: rgba(245,243,239,0.65); line-height: 1.85; }
+  .tip-body strong { color: rgba(245,243,239,0.9); font-weight: 500; }
+  .highlight { display: inline-block; background: rgba(200,184,154,0.1); border: 0.5px solid rgba(200,184,154,0.2); color: var(--accent); font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; margin: 0.15rem 0.2rem; border-radius: 1px; }
+  .tip-pro { margin-top: 1rem; padding: 0.85rem 1rem; background: rgba(200,184,154,0.05); border-left: 2px solid var(--accent); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.75; }
+  .tip-pro strong { color: var(--accent); font-weight: 500; }
+  .tip-alert { margin-top: 1rem; padding: 0.85rem 1rem; background: rgba(200,50,50,0.06); border-left: 2px solid rgba(200,50,50,0.4); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.75; }
+  .tip-alert strong { color: rgba(220,100,100,0.9); font-weight: 500; }
+
+  /* GUÍA DE RUTA — timeline */
+  .route-timeline { margin-top: 1.5rem; position: relative; }
+  .route-timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 0.5px; background: rgba(200,184,154,0.2); }
+  .route-day { display: flex; gap: 1.5rem; margin-bottom: 0; position: relative; }
+  .route-day-dot { width: 36px; height: 36px; border-radius: 50%; background: rgba(200,184,154,0.1); border: 0.5px solid rgba(200,184,154,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 500; color: var(--accent); flex-shrink: 0; position: relative; z-index: 1; margin-top: 0.2rem; }
+  .route-day-content { flex: 1; padding-bottom: 2.5rem; }
+  .route-day:last-child .route-day-content { padding-bottom: 0; }
+  .route-day-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
+  .route-day-body { font-size: 0.83rem; color: rgba(245,243,239,0.6); line-height: 1.85; }
+  .route-day-body strong { color: rgba(245,243,239,0.85); font-weight: 500; }
+  .cost-tag { display: inline-block; font-size: 0.68rem; color: rgba(200,184,154,0.8); background: rgba(200,184,154,0.08); border: 0.5px solid rgba(200,184,154,0.2); padding: 0.15rem 0.5rem; margin: 0.1rem 0.2rem; border-radius: 1px; }
+
+  /* AEROLÍNEAS */
+  .airline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.2rem; border: 0.5px solid rgba(255,255,255,0.07); }
+  .airline-card { padding: 1.2rem; background: rgba(255,255,255,0.02); }
+  .airline-name { font-size: 0.85rem; font-weight: 500; color: var(--white); margin-bottom: 0.3rem; }
+  .airline-verdict { font-size: 0.7rem; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+  .airline-verdict.ok { color: #6db87a; }
+  .airline-verdict.warn { color: #e08a4a; }
+  .airline-verdict.bad { color: #c96060; }
+  .airline-desc { font-size: 0.75rem; color: rgba(245,243,239,0.45); line-height: 1.6; }
+
+  /* AVIONETA */
+  .avioneta-box { margin-top: 1rem; background: rgba(200,184,154,0.04); border: 0.5px solid rgba(200,184,154,0.15); padding: 1.2rem 1.5rem; }
+  .avioneta-title { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .avioneta-body { font-size: 0.82rem; color: rgba(245,243,239,0.6); line-height: 1.8; }
+  .avioneta-body strong { color: rgba(245,243,239,0.85); font-weight: 500; }
+
+  /* LUGARES */
+  .lugares-zona { margin-bottom: 2.5rem; }
+  .lugares-zona-title { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 0.5px solid rgba(200,184,154,0.15); }
+  .lugares-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; border: 0.5px solid rgba(255,255,255,0.07); }
+  .lugar-card { background: rgba(255,255,255,0.02); overflow: hidden; transition: background 0.2s; position: relative; }
+  .lugar-card:hover { background: rgba(255,255,255,0.05); }
+  .lugar-foto { width: 100%; height: 140px; object-fit: cover; display: block; background: rgba(255,255,255,0.04); }
+  .lugar-foto-placeholder { width: 100%; height: 140px; background: linear-gradient(135deg, rgba(200,184,154,0.06), rgba(255,255,255,0.02)); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.4rem; }
+  .lugar-foto-placeholder span { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(200,184,154,0.3); text-align: center; padding: 0 1rem; }
+  .lugar-foto-icon { font-size: 1.6rem; opacity: 0.3; }
+  .lugar-info { padding: 1rem; }
+  .lugar-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+  .lugar-desc { font-size: 0.72rem; color: rgba(245,243,239,0.45); line-height: 1.6; margin-bottom: 0.8rem; }
+  .lugar-maps-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 0.5px solid rgba(200,184,154,0.25); padding: 0.3rem 0.7rem; text-decoration: none; transition: all 0.2s; border-radius: 1px; }
+  .lugar-maps-btn:hover { background: rgba(200,184,154,0.08); border-color: rgba(200,184,154,0.5); }
+  @media (max-width: 768px) { .lugares-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* COMUNIDAD */
+  .community-strip { background: #0d0d0d; border-top: 0.5px solid rgba(255,255,255,0.06); padding: 4rem 0; }
+  .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .community-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .community-desc { font-size: 0.85rem; color: rgba(245,243,239,0.45); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .community-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-select, .form-textarea { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09); color: var(--white); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; border-radius: 1px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(200,184,154,0.35); }
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .btn-primary { background: var(--white); color: var(--black); border: none; padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; border-radius: 1px; width: 100%; margin-top: 0.5rem; }
+  .btn-primary:hover { background: var(--accent); }
+  .exp-list { margin-top: 2.5rem; }
+  .exp-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+  .exp-item { border: 0.5px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; margin-bottom: 1px; transition: background 0.2s; }
+  .exp-item:hover { background: rgba(255,255,255,0.02); }
+  .exp-meta { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .exp-badge { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 0.5px solid rgba(200,184,154,0.3); padding: 0.18rem 0.5rem; }
+  .exp-cat { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .exp-author { font-size: 0.62rem; color: var(--gray); margin-left: auto; }
+  .exp-text { font-size: 0.84rem; color: rgba(245,243,239,0.65); line-height: 1.75; }
+
+  footer { border-top: 0.5px solid rgba(255,255,255,0.06); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: rgba(245,243,239,0.3); }
+  .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .dest-hero, .content-wrap, .community-inner { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .top-alert { padding: 1rem 1.2rem; }
+    .airline-grid { grid-template-columns: 1fr; }
+    .community-form-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .cat-nav { padding: 0 1.2rem; }
+    .hero-nty-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N<span>T</span>Y</a>
+  <ul>
+    <li><a href="index.html#destinos">Destinos</a></li>
+    <li><a href="#guia">Guía de ruta</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+  </ul>
+</nav>
+
+<section class="dest-hero">
+  <div class="dest-hero-bg"></div>
+  <div class="dest-hero-grid"></div>
+  <div class="hero-nty-badge">Guía exclusiva NTY</div>
+  <div class="breadcrumb"><a href="index.html">Destinos</a> / Indonesia / Sulawesi</div>
+  <h1 class="dest-title">Sulawesi</h1>
+  <p class="dest-subtitle">Indonesia · La isla que nadie te cuenta</p>
+  <p class="hero-desc">Playas desiertas, fauna marina única, cultura auténtica y prácticamente cero turistas. El Sulawesi que conocimos no aparece en ninguna guía. Esta es la nuestra.</p>
+  <div class="tip-count-bar">
+    <div class="tc-item"><span class="tc-num">12</span><span class="tc-label">Días de ruta</span></div>
+    <div class="tc-item"><span class="tc-num">4</span><span class="tc-label">Zonas</span></div>
+    <div class="tc-item"><span class="tc-num">100%</span><span class="tc-label">Experiencia propia</span></div>
+  </div>
+</section>
+
+<div class="top-alert">
+  <strong>Consejo clave antes de empezar:</strong> Sulawesi requiere organización previa. No es Bali — los homestays son escasos y hay que reservar con semanas de antelación. Busca en Google Maps, contacta directamente y gestiona barcos, motos y traslados desde el mismo alojamiento.
+</div>
+
+<nav class="cat-nav">
+  <button class="cat-btn active" onclick="goToSection('intro')">🌊 Por qué ir</button>
+  <button class="cat-btn" onclick="goToSection('aerolineas')">✈️ Vuelos internos</button>
+  <button class="cat-btn" onclick="goToSection('guia')">🗺️ Guía día a día</button>
+  <button class="cat-btn" onclick="goToSection('banggai')">🐟 Banggai Laut</button>
+  <button class="cat-btn" onclick="goToSection('bunaken')">🤿 Bunaken</button>
+  <button class="cat-btn" onclick="goToSection('dinero')">💵 Dinero</button>
+  <button class="cat-btn" onclick="goToSection('lugares')">📍 Lugares</button>
+  <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
+  <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- POR QUÉ IR -->
+  <section class="tip-section" id="intro">
+    <div class="section-header">
+      <div class="section-icon">🌊</div>
+      <div class="section-header-text">
+        <div class="section-tag">Destino · Sin filtros</div>
+        <h2 class="section-title">Lo que nadie te dice sobre Sulawesi</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Opinión propia · No contrastada</div>
+      <div class="tip-title">Playas paradisíacas prácticamente desiertas. Y no hablamos de Bali.</div>
+      <div class="tip-body">
+        En Indonesia hay playas que no aparecen en Instagram. Sin beach clubs, sin tráfico, sin turistas en fila para la foto. Sulawesi es eso: una mezcla de cultura, paisajes y aventura que no encontrarás en ninguna otra isla del archipiélago.
+        <br><br>
+        Nuestra teoría es que mucha gente lo descarta por la logística para llegar. Y sí, hay que combinar avión, barco y coche. Pero una vez dentro, todo ese esfuerzo desaparece. La gente local te saluda por la calle, te pide fotos con una sonrisa, y los paisajes son de otro mundo.
+        <br><br>
+        <strong>Si estás planeando un viaje a Indonesia, Sulawesi no es opcional.</strong> Es la parte que va a hacer que el viaje sea diferente a todos los demás.
+        <div class="tip-pro">
+          <strong>¿Tienes dudas o quieres una guía de cómo llegar?</strong> Escríbenos en redes sociales. Estamos preparando una guía completa, y si hay suficiente interés, la publicamos.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AEROLÍNEAS -->
+  <section class="tip-section" id="aerolineas">
+    <div class="section-header">
+      <div class="section-icon">✈️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Logística · Vuelos internos</div>
+        <h2 class="section-title">Aerolíneas para volar por Indonesia</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia · 5 vuelos internos</div>
+      <div class="tip-title">Usamos tres aerolíneas. Solo una nos dio problemas.</div>
+      <div class="tip-body">
+        Para moverse por Indonesia en vuelos domésticos, estas son las tres que usamos en nuestra ruta por Sulawesi:
+
+        <div class="airline-grid">
+          <div class="airline-card">
+            <div class="airline-name">Batik Air</div>
+            <div class="airline-verdict ok">✓ Recomendada</div>
+            <div class="airline-desc">La más fiable de las tres. Buena puntualidad, aviones en buen estado. Primera opción si está disponible en tu ruta.</div>
+          </div>
+          <div class="airline-card">
+            <div class="airline-name">Transnusa</div>
+            <div class="airline-verdict ok">✓ Sin problemas</div>
+            <div class="airline-desc">Aerolínea regional indonesa. Sin incidencias en nuestra experiencia. Cubre rutas que las grandes no operan.</div>
+          </div>
+          <div class="airline-card">
+            <div class="airline-name">Lion Air</div>
+            <div class="airline-verdict bad">✗ Evitar si puedes</div>
+            <div class="airline-desc">Los dos vuelos que cogimos salieron con <strong>1h 30min de retraso</strong>. Los locales nos confirmaron que es lo habitual. Si no tienes alternativa, añade margen a tu planificación.</div>
+          </div>
+        </div>
+
+        <div class="tip-pro" style="margin-top:1.2rem">
+          <strong>Dónde buscar vuelos domésticos indonesios:</strong> Traveloka y Tiket.com son las plataformas locales más completas. Muchas rutas regionales no aparecen en Skyscanner o Google Flights.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Alternativa · Zonas remotas</div>
+      <div class="tip-title">Susi Air: la avioneta para llegar donde no llega nadie</div>
+      <div class="tip-body">
+        Para tramos cortos entre islas o zonas muy remotas de Sulawesi, existe <strong>Susi Air</strong>. Son avionetas pequeñas tipo Cessna Grand Caravan con capacidad para unos 12 pasajeros. No es convencional, pero conecta destinos que de otra forma requieren horas de barco.
+        <div class="avioneta-box">
+          <div class="avioneta-title">Ruta Luwuk ↔ Banggai Laut · Susi Air</div>
+          <div class="avioneta-body">
+            Desde marzo de 2025, Susi Air opera la ruta <strong>Luwuk–Banggai Laut</strong> como vuelo pionero (subsidiado). El precio es de aproximadamente <strong>252.000 IDR</strong> (≈ 15€) de Luwuk a Banggai Laut, y <strong>242.000 IDR</strong> en sentido contrario. Duración: unos 30–40 minutos frente a las 8 horas de ferry.
+            <br><br>
+            Nosotros preferimos el ferry para vivir la experiencia — ver los delfines, el atardecer y compartir el viaje con los locales no tiene precio. Pero si el tiempo es lo que manda, la avioneta es una opción real.
+            <br><br>
+            <strong>Reserva:</strong> A través de Traveloka o contactando directamente con el aeropuerto de Luwuk. No aparece en buscadores generalistas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUÍA DÍA A DÍA -->
+  <section class="tip-section" id="guia">
+    <div class="section-header">
+      <div class="section-icon">🗺️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Guía de ruta · 12 días</div>
+        <h2 class="section-title">Nuestra ruta completa por Sulawesi</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Ruta real · Coste real</div>
+      <div class="tip-title">De Bali a Makassar, Banggai, Bunaken y de vuelta. 12 días.</div>
+      <div class="tip-body">
+        Esta es la ruta que hicimos. Todos los precios son reales, de nuestra experiencia. Sírvete de ella como base y adáptala a tu tiempo y presupuesto.
+
+        <div class="route-timeline" style="margin-top:2rem">
+
+          <div class="route-day">
+            <div class="route-day-dot">D1</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Bali → Makassar</div>
+              <div class="route-day-body">
+                Vuelo directo desde Bali (DPS) a Makassar (UPG). <cost-tag>≈ 110€/persona</cost-tag>
+                <br>Llegada de noche. Coordinamos recogida en el aeropuerto con el hotel de antemano (WhatsApp). <span class="cost-tag">200.000 IDR el transfer</span>
+                <br><br>
+                <strong>Makassar de noche:</strong> El hotel nos recomendó no andar solos por zonas desconocidas de noche — es una ciudad grande con muy pocos turistas. Dicho esto, fuimos a ver el CPI (Centro Pemerintahan Integrasi) y la <strong>Masjid Kubah 99</strong> (mezquita de las 99 cúpulas), pasando por el paseo marítimo lleno de puestos callejeros con mesas de plástico en la calle. Todo el mundo nos saludaba. Sensación de peligro: cero.
+                <br><br>
+                Grab funciona en Makassar. Úsalo para moverte de noche.
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D2–3</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Makassar → Luwuk → Lukpanenteng (Banggai)</div>
+              <div class="route-day-body">
+                Vuelo Makassar–Luwuk. <span class="cost-tag">≈ 116€/persona</span>
+                <br>En Luwuk ya teníamos coordinado con el homestay (por WhatsApp) que nos recogieran en el aeropuerto. Desde el aeropuerto nos llevaron en coche hasta un muelle, y desde allí en barco hasta <strong>Lukpanenteng</strong>.
+                <span class="cost-tag">Todo incluido: 700.000 IDR</span> · Trayecto en barco: <strong>2–3 horas</strong>
+                <br><br>
+                <strong>Sitios que visitamos en Lukpanenteng:</strong> Paisu Pok · Paisu Batango · Spring Bath · Pantai Poganda · Kawalu Bay
+                <br><br>
+                <strong>Homestay:</strong> 370.000 IDR por persona para 2 noches con desayuno, comida y cena incluidos. Una de las mejores relaciones calidad-precio del viaje.
+                <br>Para el atardecer, alquilamos un bote para recorrer Kawalu Bay + moto para el día: <span class="cost-tag">200.000 IDR todo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D4</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Lukpanenteng → Salakan</div>
+              <div class="route-day-body">
+                Desde Bali ya habíamos contactado con un taxista local llamado <strong>Malik</strong> para que nos llevara por carretera. El trayecto de Lukpanenteng a Salakan dura unas <strong>2h 30min</strong>.
+                <span class="cost-tag">900.000 IDR el trayecto</span>
+                <br><br>
+                De camino, Malik nos fue mostrando algunos spots sin coste extra: varias cascadas y la <strong>Pantai Teduang</strong>. Ese tipo de guía espontánea es lo que no puedes reservar en ninguna plataforma.
+                <br><br>
+                En Salakan: alquilamos moto <span class="cost-tag">150.000 IDR</span> y visitamos <strong>Corner Beach</strong> y <strong>Pantai Mandel</strong>.
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D5–7</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Salakan → Tobing → Banggai Laut (3 noches)</div>
+              <div class="route-day-body">
+                Continuamos con Malik hasta <strong>Tobing</strong> (≈ 1 hora), donde se coge el ferry para Banggai Laut.
+                <br>Ferry diario a las <strong>10h</strong>. No necesitas cabina — el trayecto dura solo <strong>30 minutos</strong>. <span class="cost-tag">24.000 IDR/persona</span>
+                <br><br>
+                Al llegar a Banggai Laut: tuktuk hasta el homestay <span class="cost-tag">50.000 IDR</span> (con mochilas, calor de Indonesia y 40 minutos a pie, valió cada rupia).
+                <br><br>
+                <strong>Día 1 en Banggai Laut:</strong> Instalación y moto para explorar la isla.
+                <br><br>
+                <strong>Día 2:</strong> Contratamos al capitán <strong>Papa Asi</strong> para ir en barco a <strong>Long Beach</strong> y <strong>Oyama Beach</strong> — playas a las que no llega ninguna carretera. <span class="cost-tag">400.000 IDR el barco</span>
+                <br>Por la tarde, moto hasta <strong>Pantai Bontolan</strong> para hacer snorkel con el <strong>Banggai fish</strong> — un pez autóctono y endémico de esta zona, que no existe en ningún otro lugar del mundo.
+                <br><br>
+                <strong>Día 3:</strong> Hacia el este de la isla. Allí conocimos a <strong>Ravi</strong>, un guía local sin reservas ese día que negoció llevarnos en su barco a <strong>Tanjung Gundul</strong> y <strong>Teluk Lalong</strong>. Por la tarde: <strong>Pantai Kelapa Lima</strong> y <strong>Pantai Salatiga</strong> en moto. Por la noche, cena con Ravi y los amigos del homestay para despedirnos.
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D8</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Banggai Laut → Luwuk (ferry 8 horas)</div>
+              <div class="route-day-body">
+                Ferry de vuelta a Luwuk. Esta vez optamos por el barco grande en lugar de la avioneta para vivir la experiencia completa. <strong>8 horas de travesía</strong>, pero con camarote.
+                <br><span class="cost-tag">130.000 IDR/persona ferry</span> + <span class="cost-tag">200.000 IDR camarote compartido</span>
+                <br><br>
+                Sorpresa: el camarote tenía ventiladores. Con el calor de Indonesia, conseguimos dormir. Vimos <strong>delfines</strong> y un atardecer que no olvidaremos. Los locales se acercaban a pedirnos fotos, siempre con mucho respeto y una sonrisa.
+                <br><br>
+                Noche en Luwuk. El aeropuerto es pequeño pero funciona bien y resulta sorprendentemente bonito.
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D9–11</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Luwuk → Makassar (escala) → Manado → Bunaken (3 noches)</div>
+              <div class="route-day-body">
+                Vuelo Luwuk–Makassar–Manado (escala). <span class="cost-tag">≈ 143€/persona en total</span>
+                <br><br>
+                El homestay de Bunaken coordinó recogida en coche desde el aeropuerto de Manado y traslado en barco hasta la isla. <span class="cost-tag">≈ 150.000 IDR coche + barco</span>
+                <br><br>
+                Durante los 3 días: snorkel en <strong>Bunaken</strong> y <strong>Siladen</strong>, visita a <strong>Long Beach de Bunaken</strong>. El arrecife de Bunaken es uno de los mejores del sudeste asiático en términos de salud del coral y diversidad de fauna marina.
+              </div>
+            </div>
+          </div>
+
+          <div class="route-day">
+            <div class="route-day-dot">D12</div>
+            <div class="route-day-content">
+              <div class="route-day-title">Bunaken → Manado → Bali</div>
+              <div class="route-day-body">
+                Ferry de Bunaken a Manado. Paseo por la ciudad, comida en el <strong>Pirates Café</strong> (vistas al mar increíbles). Vuelo de vuelta a Bali a las <strong>4:45h de la madrugada</strong> — noche de descanso incluida antes del aeropuerto.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANGGAI LAUT -->
+  <section class="tip-section" id="banggai">
+    <div class="section-header">
+      <div class="section-icon">🐟</div>
+      <div class="section-header-text">
+        <div class="section-tag">Isla remota · Fauna única</div>
+        <h2 class="section-title">Banggai Laut</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">El pez que solo existe aquí</div>
+      <div class="tip-title">El Banggai cardinalfish: endémico y único en el mundo</div>
+      <div class="tip-body">
+        El <strong>Banggai fish</strong> (Pterapogon kauderni) es una especie de pez endémica de las islas Banggai. No existe en ningún otro lugar del mundo. Puedes verlo haciendo snorkel en <strong>Pantai Bontolan</strong> sin necesidad de barco ni equipo de buceo. Solo gafas y aletas.
+        <div class="tip-pro">
+          <strong>Cómo gestionarlo todo desde el homestay:</strong> La gente del alojamiento es tu mejor recurso. Ellos conocen a los capitanes locales, saben qué playas están bien según el estado del mar, y organizan motos, barcos y traslados. No intentes buscar agencias — no existen. Todo funciona a través del contacto humano directo.
+        </div>
+        <div class="tip-alert">
+          <strong>Reserva con mucho tiempo:</strong> Los homestays en Banggai Laut se cuentan con los dedos de la mano. No es Bali — no puedes llegar y buscar sitio el mismo día. Contáctalo todo por WhatsApp desde semanas antes, buscando en Google Maps los alojamientos de la zona.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUNAKEN -->
+  <section class="tip-section" id="bunaken">
+    <div class="section-header">
+      <div class="section-icon">🤿</div>
+      <div class="section-header-text">
+        <div class="section-tag">Arrecife · Snorkel · Buceo</div>
+        <h2 class="section-title">Bunaken</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Información verificada</div>
+      <div class="tip-title">Uno de los mejores arrecifes de coral de Indonesia</div>
+      <div class="tip-body">
+        Bunaken es parte de un Parque Nacional Marino. El arrecife está en muy buen estado de conservación y tiene una diversidad de fauna marina excepcional: tortugas verdes y carey, tiburones de arrecife, bancos de peces de colores. El snorkel se puede hacer directamente desde la orilla o con barco.
+        <br><br>
+        Además de Bunaken, merece la pena hacer snorkel en la isla de <strong>Siladen</strong>, a pocos minutos en barco — menos visitada y con el arrecife igualmente impresionante.
+        <div class="tip-pro">
+          <strong>Cómo llegar desde Manado:</strong> El homestay coordina el barco desde el aeropuerto o desde el puerto. El trayecto en barco desde Manado dura unos 30–45 minutos. Coordínalo todo antes de llegar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DINERO -->
+  <section class="tip-section" id="dinero">
+    <div class="section-header">
+      <div class="section-icon">💵</div>
+      <div class="section-header-text">
+        <div class="section-tag">Esencial · Islas remotas</div>
+        <h2 class="section-title">Dinero en efectivo: lo más importante</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Tip crítico</div>
+      <div class="tip-title">Lleva rupias de sobra. En islas remotas no hay cajeros.</div>
+      <div class="tip-body">
+        En Banggai Laut, Lukpanenteng y otras zonas remotas de Sulawesi <strong>todo se paga en efectivo</strong>. No hay cajeros. No hay forma de sacar dinero. Si llegas sin suficiente efectivo, tienes un problema real.
+        <br><br>
+        <strong>La regla de oro:</strong> Aprovecha las escalas en ciudades grandes (Makassar, Manado, Luwuk) para sacar todo el efectivo que vayas a necesitar antes de meterte en las islas.
+        <div class="tip-pro">
+          <strong>Emergencia en Bunaken:</strong> Si te quedas sin efectivo en Bunaken, hay un bar llamado <strong>Cocoblue</strong> que tiene un datáfono. Te cobran un 5% extra pero te dan efectivo a cambio. Úsalo solo como último recurso — y que sirva de recordatorio para la próxima vez.
+        </div>
+        <div class="tip-alert">
+          <strong>En Makassar y Manado</strong> funciona Grab y hay cajeros sin problema. Es tu ventana de oportunidad. No la desaproveches.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LUGARES -->
+  <section class="tip-section" id="lugares">
+    <div class="section-header">
+      <div class="section-icon">📍</div>
+      <div class="section-header-text">
+        <div class="section-tag">Mapa · Fotos · Ubicaciones</div>
+        <h2 class="section-title">Todos los sitios de la ruta</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-body">
+        Aquí tienes todos los lugares que aparecen en la guía con su ubicación en Google Maps. Las fotos son nuestras — cada una corresponde al sitio exacto.
+
+        <!-- LUKPANENTENG -->
+        <div class="lugares-zona" style="margin-top:1.5rem">
+          <div class="lugares-zona-title">📍 Lukpanenteng</div>
+          <div class="lugares-grid">
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🏊</div>
+                <span>paisu-pok.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Paisu Pok</div>
+                <div class="lugar-desc">Lago de agua dulce rodeado de naturaleza, accesible desde Lukpanenteng.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Paisu+Pok+Banggai+Indonesia" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🏖️</div>
+                <span>pantai-poganda.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Pantai Poganda</div>
+                <div class="lugar-desc">Playa tranquila de Lukpanenteng, arena blanca y aguas claras.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Pantai+Poganda+Banggai" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🌅</div>
+                <span>kawalu-bay.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Kawalu Bay</div>
+                <div class="lugar-desc">La bahía del atardecer. Se recorre en bote — uno de los momentos del viaje.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Kawalu+Bay+Banggai+Indonesia" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SALAKAN -->
+        <div class="lugares-zona">
+          <div class="lugares-zona-title">📍 Salakan</div>
+          <div class="lugares-grid">
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🏖️</div>
+                <span>corner-beach-salakan.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Corner Beach</div>
+                <div class="lugar-desc">Playa escondida en Salakan, accesible en moto desde el centro.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Corner+Beach+Salakan+Banggai" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BANGGAI LAUT -->
+        <div class="lugares-zona">
+          <div class="lugares-zona-title">📍 Banggai Laut</div>
+          <div class="lugares-grid">
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🏝️</div>
+                <span>long-beach-banggai.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Long Beach</div>
+                <div class="lugar-desc">Solo accesible en barco. Playa larga y desierta, agua de cristal.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Long+Beach+Banggai+Laut" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🐟</div>
+                <span>pantai-bontolan.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Pantai Bontolan</div>
+                <div class="lugar-desc">El único lugar del mundo donde ver el Banggai cardinalfish en snorkel desde la orilla.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Pantai+Bontolan+Banggai+Laut" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🌊</div>
+                <span>tanjung-gundul.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Tanjung Gundul</div>
+                <div class="lugar-desc">Punta este de la isla. Ravi nos llevó en barco — espectacular.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Tanjung+Gundul+Banggai+Laut" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🌊</div>
+                <span>teluk-lalong.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Teluk Lalong</div>
+                <div class="lugar-desc">Bahía tranquila en el este de la isla, con fondo marino excepcional.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Teluk+Lalong+Banggai+Laut" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BUNAKEN -->
+        <div class="lugares-zona">
+          <div class="lugares-zona-title">📍 Bunaken</div>
+          <div class="lugares-grid">
+
+            <div class="lugar-card">
+              <div class="lugar-foto-placeholder">
+                <div class="lugar-foto-icon">🤿</div>
+                <span>bunaken-arrecife.jpg</span>
+              </div>
+              <div class="lugar-info">
+                <div class="lugar-name">Bunaken</div>
+                <div class="lugar-desc">Parque Nacional Marino. Uno de los mejores arrecifes de coral de Indonesia.</div>
+                <a class="lugar-maps-btn" href="https://www.google.com/maps/search/Bunaken+National+Marine+Park" target="_blank">📍 Ver en Maps</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="tip-pro" style="margin-top:0.5rem">
+          <strong>Cómo añadir tus fotos:</strong> Guarda las imágenes en la carpeta NTY TRAVEL con los nombres indicados en cada tarjeta (por ejemplo <em>bunaken-arrecife.jpg</em>) y aparecerán automáticamente en lugar del placeholder.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGUA -->
+  <section class="tip-section" id="agua">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Hidratación</div>
+        <h2 class="section-title">Agua: qué marcas son minerales y cuáles no</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Especialmente importante en zonas remotas</div>
+      <div class="tip-title">El agua del grifo no es potable en Indonesia. En islas remotas lleva reserva</div>
+      <div class="tip-body">
+        En toda Indonesia, incluyendo Sulawesi y sus islas remotas como Banggai, <strong>el agua del grifo no es potable</strong>. En zonas urbanas como Makassar o Manado encuentras agua embotellada sin problema. En islas remotas (Banggai Laut, Lukpanenteng) <strong>lleva reserva suficiente</strong> — la disponibilidad puede ser muy limitada.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Dónde encontrarla</th>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">AQUA (Danone)</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Tiendas en Makassar, Manado, Luwuk. Limitada en zonas remotas.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Le Minerale</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Ciudades principales. No siempre en islas pequeñas.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Pristine</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Supermercados en ciudades principales.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Cleo</td>
+            <td style="color:#e08a4a">⚠ Purificada (sin minerales)</td>
+            <td>Indomaret, Alfamart en ciudades.</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Consejo para zonas remotas:</strong> En Banggai Laut y otras islas pequeñas, compra agua en cantidad en la última ciudad grande que pases (Luwuk, Salakan). AQUA es la marca más distribuida y la que más probabilidades tienes de encontrar en cualquier punto.
+        </div>
+        <div class="tip-pro">
+          <strong>Precios orientativos:</strong> 600ml: <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">3.000–7.000 IDR</span>. 1,5L: <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">5.000–12.000 IDR</span>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALUD Y VISADO -->
+  <section class="tip-section" id="salud">
+    <div class="section-header">
+      <div class="section-icon">💉</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Documentación</div>
+        <h2 class="section-title">Vacunas y visado: información oficial</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Fuente oficial</div>
+      <div class="tip-title">Información actualizada: Ministerio de Asuntos Exteriores de España</div>
+      <div class="tip-body">
+        Sulawesi es parte de Indonesia — aplican las mismas reglas de entrada que para Bali y Lombok. Consulta siempre la web oficial antes de viajar.
+
+        <div class="tip-pro">
+          <strong>🔗 Link directo para Indonesia:</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=indonesia" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Indonesia — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Resumen · Indonesia</div>
+      <div class="tip-title">Lo esencial sobre vacunas y entrada</div>
+      <div class="tip-body">
+        <strong>Vacuna obligatoria:</strong> Solo fiebre amarilla si vienes de países de África o América del Sur con riesgo. Desde España directamente, no aplica.
+        <br><br>
+        <strong>Vacunas recomendadas:</strong> Hepatitis A, Hepatitis B, Tétanos, Fiebre tifoidea. Para zonas rurales o estancias largas: Rabia, Encefalitis japonesa.
+        <br><br>
+        <strong>Visado:</strong> eVOA (Electronic Visa on Arrival). El proceso es el mismo para toda Indonesia — ver detalles en la página de Bali.
+
+        <div class="tip-alert">
+          <strong>Importante:</strong> Los requisitos pueden cambiar. Consulta siempre exteriores.gob.es antes de viajar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- COMUNIDAD -->
+<section class="community-strip" id="comunidad">
+  <div class="community-inner">
+    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">La comunidad habla · Sulawesi</div>
+    <h2 class="community-title">¿Has estado en Sulawesi?</h2>
+    <p class="community-desc">Sulawesi es uno de los destinos menos documentados de Indonesia. Si tienes experiencia de primera mano — nuevos homestays, rutas, precios actualizados, capitanes de barco de confianza — cuéntanoslo.</p>
+
+    <div class="community-form-grid">
+      <div class="form-group">
+        <label class="form-label">Zona</label>
+        <select class="form-select">
+          <option>Makassar</option>
+          <option>Luwuk / Banggai</option>
+          <option>Banggai Laut</option>
+          <option>Bunaken / Manado</option>
+          <option>Otra zona de Sulawesi</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tu experiencia</label>
+      <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir a Sulawesi..."></textarea>
+    </div>
+    <button class="btn-primary">Enviar experiencia ↗</button>
+
+    <div class="exp-list">
+      <div class="exp-label">Primeras experiencias</div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Banggai Laut</span>
+          <span class="exp-cat">Logística</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">Organiza todo con tiempo. Los homestays son escasos y hay que reservar con semanas de antelación por WhatsApp. Busca en Google Maps los alojamientos de la zona y contacta directamente. Desde el alojamiento puedes gestionar motos, barcos y taxis — no existen agencias.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Sulawesi · General</span>
+          <span class="exp-cat">Dinero</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">Lleva rupias de sobra antes de meterte en zonas remotas. En Banggai Laut no hay cajeros. Aprovecha las escalas en Makassar, Manado o Luwuk para sacar todo el efectivo que necesites. En Bunaken existe el bar Cocoblue como último recurso (te cobran 5% extra por darte efectivo con tarjeta), pero es eso: último recurso.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Banggai Laut · Ferry</span>
+          <span class="exp-cat">Transporte</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">El ferry Tobing–Banggai Laut sale a las 10h y cuesta 24.000 IDR por persona. Dura 30 minutos — no necesitas cabina. Para la vuelta a Luwuk, el ferry grande dura 8 horas pero alquilamos camarote (200.000 IDR) y pudimos dormir. Vimos delfines y un atardecer increíble. Merece la pena vivir esa experiencia aunque la avioneta de Susi Air sea más rápida.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  // Reemplaza placeholders por fotos reales si existen
+  document.querySelectorAll('.lugar-foto-placeholder').forEach(placeholder => {
+    const filename = placeholder.querySelector('span')?.textContent?.trim();
+    if (!filename) return;
+    const img = new Image();
+    img.onload = () => {
+      img.className = 'lugar-foto';
+      placeholder.replaceWith(img);
+    };
+    img.src = filename;
+  });
+
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  const sections = document.querySelectorAll('.tip-section');
+  const btns = document.querySelectorAll('.cat-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => { b.classList.toggle('active', b.getAttribute('onclick')?.includes(id)); });
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

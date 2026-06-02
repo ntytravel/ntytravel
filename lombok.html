@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Lombok, Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,10,10,0.9); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a { color: rgba(245,243,239,0.6); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+  nav ul li a:hover { color: var(--white); }
+
+  .dest-hero {
+    min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 2.5rem 3rem; position: relative; overflow: hidden; margin-top: 60px;
+  }
+  .dest-hero-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #101a15 0%, #0a0a0a 60%); }
+  .dest-hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .breadcrumb { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .breadcrumb a { color: rgba(200,184,154,0.5); text-decoration: none; }
+  .dest-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .dest-subtitle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 0.8rem; position: relative; z-index: 1; }
+  .tip-count-bar { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+  .tc-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); display: block; }
+  .tc-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+  .cat-nav {
+    position: sticky; top: 60px; z-index: 50;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    padding: 0 2.5rem; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 1rem 1.2rem; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  }
+  .cat-btn:hover { color: var(--white); }
+  .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .tip-section { padding: 4rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+  .section-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2.5rem; }
+  .section-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .section-tag { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.1; }
+
+  .tip-card {
+    background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.07);
+    padding: 1.5rem; margin-bottom: 1px; position: relative; transition: background 0.2s;
+  }
+  .tip-card:hover { background: rgba(255,255,255,0.04); }
+  .tip-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: var(--accent); opacity: 0; transition: opacity 0.2s;
+  }
+  .tip-card:hover::before { opacity: 1; }
+  .tip-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .tip-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .tip-body { font-size: 0.88rem; color: rgba(245,243,239,0.65); line-height: 1.85; }
+  .tip-body strong { color: rgba(245,243,239,0.9); font-weight: 500; }
+  .highlight { display: inline-block; background: rgba(200,184,154,0.1); border: 0.5px solid rgba(200,184,154,0.2); color: var(--accent); font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; margin: 0.2rem 0.2rem 0.2rem 0; border-radius: 1px; }
+  .tip-alert { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(200,50,50,0.06); border-left: 2px solid rgba(200,50,50,0.4); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.7; }
+  .tip-alert strong { color: rgba(220,100,100,0.9); font-weight: 500; }
+  .tip-pro { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(200,184,154,0.05); border-left: 2px solid var(--accent); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.7; }
+  .tip-pro strong { color: var(--accent); font-weight: 500; }
+
+  .route-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1.2rem; border: 0.5px solid rgba(255,255,255,0.07); }
+  .route-card { padding: 1.2rem; background: rgba(255,255,255,0.02); }
+  .route-card:first-child { border-right: 0.5px solid rgba(255,255,255,0.07); }
+  .route-name { font-size: 0.72rem; font-weight: 500; color: var(--white); letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+  .route-detail { font-size: 0.75rem; color: rgba(245,243,239,0.5); line-height: 1.7; }
+
+  .tip-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .tip-table th { text-align: left; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); padding: 0.5rem 0.8rem; border-bottom: 0.5px solid rgba(255,255,255,0.08); font-weight: 400; }
+  .tip-table td { padding: 0.6rem 0.8rem; color: rgba(245,243,239,0.65); border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+  .tip-table tr:last-child td { border-bottom: none; }
+  .tip-table .name { color: var(--white); font-weight: 500; }
+
+  .community-strip { background: #0d0d0d; border-top: 0.5px solid rgba(255,255,255,0.06); padding: 4rem 0; }
+  .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .community-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .community-desc { font-size: 0.85rem; color: rgba(245,243,239,0.45); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-select, .form-textarea { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09); color: var(--white); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; border-radius: 1px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(200,184,154,0.35); }
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .community-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-primary { background: var(--white); color: var(--black); border: none; padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; border-radius: 1px; width: 100%; margin-top: 0.5rem; }
+  .btn-primary:hover { background: var(--accent); }
+  .exp-list { margin-top: 2.5rem; }
+  .exp-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+  .exp-item { border: 0.5px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; margin-bottom: 1px; transition: background 0.2s; }
+  .exp-item:hover { background: rgba(255,255,255,0.02); }
+  .exp-meta { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .exp-badge { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 0.5px solid rgba(200,184,154,0.3); padding: 0.18rem 0.5rem; }
+  .exp-cat { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .exp-author { font-size: 0.62rem; color: var(--gray); margin-left: auto; }
+  .exp-text { font-size: 0.84rem; color: rgba(245,243,239,0.65); line-height: 1.75; }
+
+  footer { border-top: 0.5px solid rgba(255,255,255,0.06); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: rgba(245,243,239,0.3); }
+  .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .dest-hero, .content-wrap, .community-inner { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .route-grid, .community-form-grid { grid-template-columns: 1fr; }
+    .route-card:first-child { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .cat-nav { padding: 0 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N<span>T</span>Y</a>
+  <ul>
+    <li><a href="index.html#destinos">Destinos</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+  </ul>
+</nav>
+
+<section class="dest-hero">
+  <div class="dest-hero-bg"></div>
+  <div class="dest-hero-grid"></div>
+  <div class="breadcrumb"><a href="index.html">Destinos</a> / Indonesia / Lombok</div>
+  <h1 class="dest-title">Lombok</h1>
+  <p class="dest-subtitle">Indonesia · La isla sin filtros</p>
+  <div class="tip-count-bar">
+    <div class="tc-item"><span class="tc-num">6</span><span class="tc-label">Categorías</span></div>
+    <div class="tc-item"><span class="tc-num">12</span><span class="tc-label">Tips</span></div>
+    <div class="tc-item"><span class="tc-num">100%</span><span class="tc-label">Verificados</span></div>
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <button class="cat-btn active" onclick="goToSection('llegar')">🚢 Cómo llegar</button>
+  <button class="cat-btn" onclick="goToSection('transporte')">🚐 Transporte</button>
+  <button class="cat-btn" onclick="goToSection('moto')">🏍️ Moto</button>
+  <button class="cat-btn" onclick="goToSection('atm')">💳 ATM / Dinero</button>
+  <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
+  <button class="cat-btn" onclick="goToSection('laundry')">👕 Laundry</button>
+  <button class="cat-btn" onclick="goToSection('zonas')">📍 Zonas</button>
+  <button class="cat-btn" onclick="goToSection('gili')">🏝️ Islas Gili</button>
+  <button class="cat-btn" onclick="goToSection('rinjani')">🌋 Rinjani</button>
+  <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
+  <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- CÓMO LLEGAR -->
+  <section class="tip-section" id="llegar">
+    <div class="section-header">
+      <div class="section-icon">🚢</div>
+      <div class="section-header-text">
+        <div class="section-tag">Logística · Rutas</div>
+        <h2 class="section-title">Cómo llegar desde Bali</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">La ruta más popular · Experiencia propia</div>
+      <div class="tip-title">Fast boat desde Sanur: ≈ 30€, 3 horas, con paradas en Nusa Penida y las Gili</div>
+      <div class="tip-body">
+        La forma más habitual entre viajeros independientes es la <strong>lancha rápida (fast boat)</strong> desde el puerto de Sanur, en Bali. El precio ronda los <strong>30€ por persona</strong> dependiendo del operador y la temporada, y el trayecto dura unas <strong>3 horas</strong>.
+        <br><br>
+        La ruta suele hacer paradas intermedias: <strong>Nusa Penida</strong> y dos de las Islas Gili (habitualmente Gili Air y Gili Trawangan), antes de llegar al norte de Lombok. Si tu destino es Kuta Lombok o el sur de la isla, ten en cuenta que desde el puerto de llegada en el noroeste necesitas un taxi local de unas <strong>2 horas más</strong>.
+        <div class="tip-pro">
+          <strong>Dónde comprar:</strong> La plataforma más cómoda es <strong>12go.asia</strong> — puedes comparar operadores, horarios y precios desde casa y llegas con el billete en el móvil. También se venden físicamente en los puestos de la <strong>playa de Sanur</strong>, donde además te ofrecen tours de snorkel combinados con el traslado.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Todas las opciones</div>
+      <div class="tip-title">Las dos rutas principales y sus puertos de llegada en Lombok</div>
+      <div class="tip-body">
+        Hay dos tipos de conexión y dos puertos principales de llegada en Lombok. Elige según a dónde vayas:
+
+        <div class="route-grid">
+          <div class="route-card">
+            <div class="route-name">🚤 Fast boat · Sanur o Serangan → Bangsal</div>
+            <div class="route-detail">
+              Puerto de llegada al <strong>noroeste</strong> de Lombok. Ideal si vas a las Gili o al norte de la isla. Desde Bangsal hasta Kuta Lombok: ≈ 2h en taxi. Precio: <strong>25–35€</strong> por persona. Duración: <strong>2,5–3h</strong>.
+            </div>
+          </div>
+          <div class="route-card">
+            <div class="route-name">⛴️ Ferry público · Padang Bai → Lembar</div>
+            <div class="route-detail">
+              El ferry más barato y frecuente (casi cada hora, 24h). Puerto de llegada al <strong>suroeste</strong>, cerca de Mataram. Más cómodo si vas a Kuta o Senggigi. Precio: <strong>5–10€</strong>. Duración: <strong>4–5h</strong>.
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-alert" style="margin-top:1rem">
+          <strong>Importante:</strong> En Lombok <strong>no funciona Grab ni Gojek</strong> de forma generalizada fuera de zonas muy concretas. Al bajar del barco tendrás que negociar con taxistas locales. Lleva una idea del precio antes de bajar — de Bangsal a Kuta Lombok lo razonable son unos 150.000–250.000 IDR (9–15€).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTE -->
+  <section class="tip-section" id="transporte">
+    <div class="section-header">
+      <div class="section-icon">🚐</div>
+      <div class="section-header-text">
+        <div class="section-tag">Moverse · Taxis locales</div>
+        <h2 class="section-title">Transporte en Lombok</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo que cambia respecto a Bali</div>
+      <div class="tip-title">Sin Grab: todo es taxi local y negociación</div>
+      <div class="tip-body">
+        A diferencia de Bali, en Lombok <strong>no hay apps de transporte tipo Grab o Gojek</strong> funcionando de forma generalizada. El sistema es el de siempre: taxi local, precio negociado antes de subir.
+        <br><br>
+        No es un problema, solo hay que saber cómo funciona. Cuando bajes del barco o del avión, los conductores se acercan directamente. <strong>Pregunta el precio antes de subir y no lo confirmes hasta tenerlo claro.</strong> Si tienes referencia de precios orientativos, negociar es mucho más fácil.
+        <div class="tip-pro">
+          <strong>Precios orientativos:</strong><br>
+          Bangsal → Kuta Lombok: <span class="highlight">150.000 – 250.000 IDR</span> (≈ 9–15€, 2h)<br>
+          Lembar → Kuta Lombok: <span class="highlight">100.000 – 180.000 IDR</span> (≈ 6–11€, 1h)<br>
+          Kuta → Mataram: <span class="highlight">80.000 – 120.000 IDR</span> (≈ 5–7€, 40min)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTO -->
+  <section class="tip-section" id="moto">
+    <div class="section-header">
+      <div class="section-icon">🏍️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Transporte · Libertad total</div>
+        <h2 class="section-title">Alquiler de moto</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia</div>
+      <div class="tip-title">Pregunta en tu alojamiento o busca alquiladores locales</div>
+      <div class="tip-body">
+        En Lombok el sistema de alquiler de motos funciona sin agencias ni apps — todo es contacto directo. Lo mejor es <strong>preguntar en tu guesthouse o homestay</strong>: muchos tienen motos propias disponibles o te conectan con alguien de confianza del barrio.
+        <br><br>
+        Nosotros alquilamos <strong>dos motos</strong>: una directamente del homestay donde estábamos, y la otra a través de un chico local que conocimos que se dedicaba al alquiler. Sin intermediarios, precio justo y sin problemas. La gente de Lombok es muy amable y cercana — ese tipo de contacto fluye con naturalidad.
+
+        <div class="tip-pro">
+          <strong>Precios orientativos en Lombok:</strong><br>
+          <span class="highlight">70.000 – 100.000 IDR / día</span> (≈ 4–6€)<br>
+          Similar a Bali, o incluso algo más barato. Igual que allí, haz fotos y vídeo de la moto al recogerla.
+        </div>
+        <div class="tip-pro">
+          <strong>Si alquilas por un periodo largo (semanas o un mes):</strong> Regatea el precio — puedes conseguir tarifas bastante más bajas por día si lo negocias bien. Los propietarios prefieren tener la moto ocupada de forma continua.
+        </div>
+        <div class="tip-alert">
+          <strong>Las carreteras de Lombok</strong> son en general más tranquilas que las de Bali, especialmente fuera de Mataram. Menos tráfico, más paisaje. Pero ojo con los tramos de tierra o mal asfaltados hacia playas alejadas — conviene ir despacio.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATM / DINERO -->
+  <section class="tip-section" id="atm">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · ATM · Cambio</div>
+        <h2 class="section-title">ATM, efectivo y cambio de moneda</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo que cambia respecto a Bali</div>
+      <div class="tip-title">Cajeros disponibles pero menos opciones: saca dinero antes de llegar a zonas rurales</div>
+      <div class="tip-body">
+        En Lombok hay cajeros automáticos, pero la red es mucho menos densa que en Bali. En la zona de <strong>Kuta Lombok y Mataram</strong> los encuentras sin problema. En playas alejadas o zonas rurales puede no haber ninguno cerca.
+
+        <br><br>
+        <strong>Bancos presentes en Lombok:</strong>
+        <table class="tip-table" style="margin-top:0.8rem">
+          <tr>
+            <th>Banco</th>
+            <th>Comisión local</th>
+            <th>Disponibilidad</th>
+          </tr>
+          <tr><td class="name">BCA</td><td style="color:#6db87a">✓ Sin comisión</td><td>Mataram, Kuta, principales zonas</td></tr>
+          <tr><td class="name">BNI</td><td style="color:#6db87a">✓ Sin comisión</td><td>Mataram y algunas zonas turísticas</td></tr>
+          <tr><td class="name">Mandiri</td><td style="color:#e08a4a">⚠ Variable</td><td>Mataram, algunos en Kuta</td></tr>
+          <tr><td class="name">BRI</td><td style="color:#c96060">✗ Comisión</td><td>Extendido por toda la isla</td></tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Consejo NTY:</strong> Saca suficiente efectivo antes de salir de Kuta o Mataram si tienes planeado explorar playas alejadas o el norte de la isla. Muchos sitios en Lombok solo aceptan efectivo.
+        </div>
+        <div class="tip-alert">
+          <strong>Recuerda siempre:</strong> Cuando el cajero te ofrezca convertir a euros, di NO y paga en rupias (IDR). El tipo de cambio del cajero es siempre peor que el de tu banco.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Efectivo · Cambio</div>
+      <div class="tip-title">Dónde cambiar dinero en Lombok</div>
+      <div class="tip-body">
+        En Lombok hay casas de cambio en Kuta y Mataram, pero <strong>hay muchas menos que en Bali</strong> y la oferta es más limitada. Las recomendaciones son las mismas: busca siempre exchanges con el sello oficial <strong>"PVA Berizin"</strong> y nunca cambies con alguien que te aborde en la calle.
+        <br><br>
+        Si llegas desde Bali con rupias suficientes, mejor — ahorras el trámite de cambiar aquí. Si necesitas cambiar, el centro de Mataram tiene mejores opciones que Kuta en cuanto a variedad y tasas.
+
+        <div class="tip-pro">
+          <strong>Alternativa cómoda:</strong> Usa una tarjeta Revolut o N26 para sacar en cajero BCA o BNI — sin comisión local y con buen tipo de cambio. Más práctico que buscar una casa de cambio.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMIDA -->
+  <section class="tip-section" id="comida">
+    <div class="section-header">
+      <div class="section-icon">🍜</div>
+      <div class="section-header-text">
+        <div class="section-tag">Gastronomía · Presupuesto</div>
+        <h2 class="section-title">Comida: warungs recomendados en Kuta</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia · Kuta Lombok</div>
+      <div class="tip-title">Comer en Lombok por 2€: los warungs que funcionan de verdad</div>
+      <div class="tip-body">
+        En Lombok los precios son iguales o más baratos que en Bali. Con 2€ comes bien, de verdad. Los tres que siguen están todos en la zona de <strong>Kuta Lombok</strong> y son recomendación directa nuestra.
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Desayuno · Kuta Lombok</div>
+      <div class="tip-title">Warung Mama — desayuno grande por ~2€</div>
+      <div class="tip-body">
+        El sitio para el desayuno en Kuta. <strong>5 huevos, 2 tostadas y fruta</strong> por algo así como 2 euros. Abundante, sabroso y a buen precio — perfecto para empezar el día antes de salir a explorar en moto.
+
+        <div class="tip-pro">
+          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Mama+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Comida local · Kuta Lombok</div>
+      <div class="tip-title">Warung Bu De — comida local recién hecha, a tu medida</div>
+      <div class="tip-body">
+        Tienen la comida <strong>preparada pero recién hecha</strong>. Llegas, hablas con las chicas, y les dices qué quieres en el plato — lo montas tú a tu medida. También tienen menú si lo prefieres. Comida local auténtica y muy buena, por unos <strong>2 euros</strong>.
+
+        <div class="tip-pro">
+          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Bu+De+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Pescado · Kuta Lombok</div>
+      <div class="tip-title">Warung Maorin Seafood — el mejor pescado de la zona</div>
+      <div class="tip-body">
+        Para los días que quieres comer pescado fresco. Es algo más caro que los otros dos warungs, pero el pescado está muy bueno. Vale la pena gastarse un poco más para una buena comida de marisco y pescado local.
+
+        <div class="tip-pro">
+          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Maorin+Seafood+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNDRY -->
+  <section class="tip-section" id="laundry">
+    <div class="section-header">
+      <div class="section-icon">👕</div>
+      <div class="section-header-text">
+        <div class="section-tag">Servicios · Día a día</div>
+        <h2 class="section-title">Lavandería</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Recomendación directa · Kuta Lombok</div>
+      <div class="tip-title">Laundry local: trato cercano, profesional y muy económico</div>
+      <div class="tip-body">
+        En Kuta Lombok hay varias lavanderías locales donde dejar la ropa por kilos a precios muy bajos. Nosotros usamos <strong>Lasingan Laundry</strong>, regentada por Bali (el dueño) — trato muy cercano y profesional, precio muy económico y sin complicaciones.
+
+        <div class="tip-pro">
+          <strong>📍 Lasingan Laundry, Kuta Lombok:</strong><br>
+          <a href="https://www.google.com/maps/search/Lasingan+Laundry+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
+        </div>
+        <div class="tip-pro">
+          <strong>Cómo funciona:</strong> Dejas la ropa, te dicen cuándo está lista (normalmente al día siguiente) y pagas por kilo. Fácil, barato y de confianza.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONAS -->
+  <section class="tip-section" id="zonas">
+    <div class="section-header">
+      <div class="section-icon">📍</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dónde ir · Dónde dormir</div>
+        <h2 class="section-title">Zonas principales</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia</div>
+      <div class="tip-title">Kuta Lombok: lo justo y necesario, y eso es suficiente</div>
+      <div class="tip-body">
+        Kuta Lombok no es Kuta Bali. Es un pueblo tranquilo en el sur de la isla, con algunas de las playas más bonitas de Indonesia a pocos kilómetros, y ambiente muy relajado. Tienes lo básico bien cubierto: playas, restaurantes, algún gym, alojamiento variado. Nada de beach clubs masificados ni turismo de masas.
+        <br><br>
+        Si vienes buscando algo auténtico, tranquilo y con naturaleza, Kuta Lombok es el sitio. Si buscas vida nocturna o mucha oferta de ocio, no es tu destino.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr><th>Zona</th><th>A qué distancia de Kuta</th><th>Por qué ir</th></tr>
+          <tr><td class="name">Tanjung Aan</td><td>≈ 10 min en moto</td><td>Una de las mejores playas de la isla. Aguas turquesa, arena blanca, poca gente</td></tr>
+          <tr><td class="name">Selong Belanak</td><td>≈ 20 min en moto</td><td>Playa grande y tranquila, ideal para surf o simplemente estar</td></tr>
+          <tr><td class="name">Mataram</td><td>≈ 40 min en taxi</td><td>La capital de Lombok. Supermercados, hospitales, bancos. No es turística pero útil</td></tr>
+          <tr><td class="name">Senggigi</td><td>≈ 1h</td><td>Principal núcleo turístico del norte. Más tranquilo que antes pero buena base</td></tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Laundry:</strong> La gente en Lombok es encantadora, y los servicios locales como la lavandería son muy económicos. Pregunta en tu alojamiento o en la calle — suele haber servicios locales a precios muy bajos. Una buena forma de apoyar a los negocios del barrio.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GILI -->
+  <section class="tip-section" id="gili">
+    <div class="section-header">
+      <div class="section-icon">🏝️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Isla · Paraíso sin coches</div>
+        <h2 class="section-title">Islas Gili</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Información verificada</div>
+      <div class="tip-title">Tres islas, tres ambientes. Sin coches, sin motos</div>
+      <div class="tip-body">
+        Las Islas Gili son tres islotes pequeños frente a la costa noroeste de Lombok. Son uno de los mejores lugares para bucear y hacer snorkel del sudeste asiático, con tortugas marinas, tiburones de arrecife y aguas cristalinas.
+        <br><br>
+        Lo que las hace únicas: <strong>no hay coches ni motos</strong>. El transporte es a pie, en bici o en carro de caballos. Eso cambia completamente el ambiente.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr><th>Isla</th><th>Ambiente</th><th>Para quién</th></tr>
+          <tr><td class="name">Gili Trawangan</td><td>Fiesta y vida social</td><td>Mochileros jóvenes, vida nocturna, mucha oferta de buceo</td></tr>
+          <tr><td class="name">Gili Air</td><td>Equilibrio</td><td>Mezcla de tranquilidad y algo de ambiente. La favorita de muchos</td></tr>
+          <tr><td class="name">Gili Meno</td><td>Tranquilidad total</td><td>Parejas, desconexión absoluta, santuario de tortugas</td></tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Cómo llegar desde Lombok:</strong> Desde el puerto de <strong>Bangsal</strong> hay ferries locales a las tres Gili. El trayecto a Gili Air dura unos <strong>15 minutos</strong> y cuesta unos <strong>5–8€</strong>. A Gili Trawangan son unos 30–45 minutos. Salen con frecuencia durante el día.
+          <br><br>
+          También puedes coger un fast boat directo desde Bali que pasa por las Gili antes de llegar a Lombok — así ves las islas de camino sin hacer un desvío.
+        </div>
+        <div class="tip-alert">
+          <strong>Nota NTY:</strong> Nosotros no fuimos a las Gili en este viaje. Si has estado, cuéntanos tu experiencia en la sección de comunidad — ¡es exactamente para eso!
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RINJANI -->
+  <section class="tip-section" id="rinjani">
+    <div class="section-header">
+      <div class="section-icon">🌋</div>
+      <div class="section-header-text">
+        <div class="section-tag">Aventura · Trekking</div>
+        <h2 class="section-title">Monte Rinjani</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Información verificada</div>
+      <div class="tip-title">El segundo volcán más alto de Indonesia: 3.726m y un lago en el cráter</div>
+      <div class="tip-body">
+        El Rinjani domina toda la isla de Lombok. Con 3.726 metros de altura, es el segundo volcán más alto de Indonesia. Dentro de su cráter hay un lago de aguas turquesas, el Segara Anak, y aguas termales naturales. Las vistas desde el borde del cráter son de las más impresionantes del sudeste asiático.
+        <br><br>
+        <strong>No se hace solo</strong> — es obligatorio contratar guía y porter. Los paquetes incluyen equipo de acampada, comida, transporte y tasas de entrada.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr><th>Ruta</th><th>Duración</th><th>Precio aprox. / persona</th><th>Qué ves</th></tr>
+          <tr><td class="name">Crater Rim (Senaru)</td><td>2 días / 1 noche</td><td>≈ 185 USD</td><td>Borde del cráter, vistas al lago</td></tr>
+          <tr><td class="name">Cima (Sembalun)</td><td>2–3 días</td><td>≈ 195–235 USD</td><td>Cumbre 3.726m + lago Segara Anak</td></tr>
+          <tr><td class="name">Ruta completa (Sembalun–Torean)</td><td>4 días / 3 noches</td><td>≈ 250–300 USD</td><td>Todo: cima, lago, aguas termales, descenso diferente</td></tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Nueva normativa desde abril 2026:</strong> El Parque Nacional del Rinjani exige seguro obligatorio para subir. Se puede contratar a través de la agencia de trekking o por tu cuenta (≈ 290.000 IDR / 17€). Sin seguro no te dejan entrar.
+        </div>
+        <div class="tip-alert">
+          <strong>Mejor época:</strong> De abril a noviembre (temporada seca). En temporada de lluvias los senderos se vuelven peligrosos y el parque puede cerrar. Reserva con al menos 1–2 semanas de antelación en temporada alta.
+        </div>
+        <div class="tip-pro">
+          <strong>NTY no ha subido el Rinjani.</strong> Si tienes experiencia de primera mano, cuéntanosla en la comunidad — precios reales, agencias fiables, dificultad real. Es justo el tipo de información que más ayuda.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGUA -->
+  <section class="tip-section" id="agua">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Hidratación</div>
+        <h2 class="section-title">Agua: qué marcas son minerales y cuáles no</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Igual que en Bali</div>
+      <div class="tip-title">El agua del grifo no es potable. Usa siempre agua embotellada</div>
+      <div class="tip-body">
+        En Lombok, igual que en toda Indonesia, <strong>el agua del grifo no es potable</strong>. Bebe siempre agua embotellada o filtrada.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Dónde comprar en Lombok</th>
+          </tr>
+          <tr>
+            <td class="name">AQUA (Danone)</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Indomaret, Alfamart, warung, tiendas locales</td>
+          </tr>
+          <tr>
+            <td class="name">Le Minerale</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Indomaret, Alfamart, supermercados</td>
+          </tr>
+          <tr>
+            <td class="name">Pristine</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Supermercados y tiendas turísticas</td>
+          </tr>
+          <tr>
+            <td class="name">Cleo</td>
+            <td style="color:#e08a4a">⚠ Purificada (sin minerales)</td>
+            <td>Indomaret, Alfamart</td>
+          </tr>
+          <tr>
+            <td class="name">Ades</td>
+            <td style="color:#e08a4a">⚠ Purificada</td>
+            <td>Indomaret, Alfamart</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Precios orientativos:</strong> 600ml: <span class="highlight">3.000 – 7.000 IDR</span>. 1,5L: <span class="highlight">5.000 – 12.000 IDR</span>. Compra en Indomaret o Alfamart para mejor precio — los encuentras en la mayoría de pueblos de la isla.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALUD Y VISADO -->
+  <section class="tip-section" id="salud">
+    <div class="section-header">
+      <div class="section-icon">💉</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Documentación</div>
+        <h2 class="section-title">Vacunas y visado: información oficial</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Fuente oficial</div>
+      <div class="tip-title">Información actualizada: Ministerio de Asuntos Exteriores de España</div>
+      <div class="tip-body">
+        Lombok forma parte de Indonesia — aplican exactamente las mismas normas de entrada, visado y vacunas que para Bali. Consulta siempre la web oficial del <strong>Ministerio de Exteriores de España</strong> para tener los datos más actualizados.
+
+        <div class="tip-pro">
+          <strong>🔗 Link directo para Indonesia:</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=indonesia" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Indonesia — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Resumen · Indonesia</div>
+      <div class="tip-title">Lo esencial sobre vacunas y entrada</div>
+      <div class="tip-body">
+        <strong>Vacuna obligatoria:</strong> Solo fiebre amarilla, y únicamente si vienes de países de África o América del Sur con riesgo de transmisión. Si vuelas desde España directamente, no aplica.
+        <br><br>
+        <strong>Vacunas recomendadas:</strong> Hepatitis A, Hepatitis B, Tétanos, Fiebre tifoidea. Para estancias largas o zonas rurales: Rabia, Encefalitis japonesa.
+        <br><br>
+        <strong>Visado:</strong> Necesitas eVOA (Electronic Visa on Arrival). Ver detalles en la página de Bali — el proceso es el mismo.
+
+        <div class="tip-alert">
+          <strong>Importante:</strong> Los requisitos pueden cambiar. Consulta exteriores.gob.es antes de viajar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- COMUNIDAD -->
+<section class="community-strip" id="comunidad">
+  <div class="community-inner">
+    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">La comunidad habla · Lombok</div>
+    <h2 class="community-title">¿Has estado en Lombok?</h2>
+    <p class="community-desc">Lombok tiene mucho por descubrir. Si has estado en las Gili, has subido el Rinjani, o tienes tips sobre transporte o alojamiento, cuéntanoslo.</p>
+
+    <div class="community-form-grid">
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select class="form-select">
+          <option>Cómo llegar / ferries</option>
+          <option>Transporte en la isla</option>
+          <option>Alquiler de moto</option>
+          <option>Zonas y playas</option>
+          <option>Islas Gili</option>
+          <option>Monte Rinjani</option>
+          <option>Dónde dormir</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tu experiencia</label>
+      <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir a Lombok..."></textarea>
+    </div>
+    <button class="btn-primary">Enviar experiencia ↗</button>
+
+    <div class="exp-list">
+      <div class="exp-label">Primeras experiencias</div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Lombok</span>
+          <span class="exp-cat">Cómo llegar</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">Fast boat desde Sanur, 30€ por persona. El barco para en Nusa Penida y dos de las Gili antes de llegar al noroeste de Lombok. Trayecto de unas 3 horas. Compramos en 12go desde casa, sin problemas. En la playa de Sanur también te los venden en persona y puedes combinarlos con tours de snorkel.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Lombok · Kuta</span>
+          <span class="exp-cat">Transporte</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">En Lombok no hay Grab. Bajas del barco y negocias con taxistas locales. De Bangsal a Kuta son unas 2 horas. Lleva una referencia de precios antes de negociar. La gente es honesta pero si ven que no tienes ni idea del precio, pueden aprovechar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  const sections = document.querySelectorAll('.tip-section');
+  const btns = document.querySelectorAll('.cat-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => { b.classList.toggle('active', b.getAttribute('onclick')?.includes(id)); });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

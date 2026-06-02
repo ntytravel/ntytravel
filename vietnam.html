@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Vietnam</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a { color: rgba(245,243,239,0.6); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+  nav ul li a:hover { color: var(--white); }
+
+  .dest-hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2.5rem 3.5rem; position: relative; overflow: hidden; margin-top: 60px; }
+  .dest-hero-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #12100a 0%, #0e0c0a 40%, #0a0a0a 70%); }
+  .dest-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 60px 60px; }
+  .breadcrumb { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .breadcrumb a { color: rgba(200,184,154,0.5); text-decoration: none; }
+  .dest-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .dest-subtitle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 0.8rem; position: relative; z-index: 1; }
+  .hero-desc { font-size: 0.9rem; color: rgba(245,243,239,0.45); max-width: 500px; line-height: 1.8; margin-top: 1.2rem; position: relative; z-index: 1; }
+  .tip-count-bar { display: flex; gap: 2.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+  .tc-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); display: block; }
+  .tc-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+  .cat-nav { position: sticky; top: 60px; z-index: 50; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 0.5px solid rgba(255,255,255,0.06); padding: 0 2.5rem; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.1rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .cat-btn:hover { color: var(--white); }
+  .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .tip-section { padding: 4rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+  .section-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2.5rem; }
+  .section-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .section-tag { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.1; }
+
+  .tip-card { background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.07); padding: 1.5rem; margin-bottom: 1px; position: relative; transition: background 0.2s; }
+  .tip-card:hover { background: rgba(255,255,255,0.04); }
+  .tip-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .tip-card:hover::before { opacity: 1; }
+  .tip-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .tip-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .tip-body { font-size: 0.88rem; color: rgba(245,243,239,0.65); line-height: 1.85; }
+  .tip-body strong { color: rgba(245,243,239,0.9); font-weight: 500; }
+  .highlight { display: inline-block; background: rgba(200,184,154,0.1); border: 0.5px solid rgba(200,184,154,0.2); color: var(--accent); font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; margin: 0.15rem 0.2rem; border-radius: 1px; }
+  .tip-pro { margin-top: 1rem; padding: 0.85rem 1rem; background: rgba(200,184,154,0.05); border-left: 2px solid var(--accent); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.75; }
+  .tip-pro strong { color: var(--accent); font-weight: 500; }
+  .tip-alert { margin-top: 1rem; padding: 0.85rem 1rem; background: rgba(200,50,50,0.06); border-left: 2px solid rgba(200,50,50,0.4); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.75; }
+  .tip-alert strong { color: rgba(220,100,100,0.9); font-weight: 500; }
+
+  .bus-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1.2rem; border: 0.5px solid rgba(255,255,255,0.07); }
+  .bus-card { padding: 1.2rem 1.4rem; background: rgba(255,255,255,0.02); }
+  .bus-card:first-child { border-right: 0.5px solid rgba(255,255,255,0.07); }
+  .bus-type { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .bus-name { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.6rem; }
+  .bus-detail { font-size: 0.78rem; color: rgba(245,243,239,0.5); line-height: 1.7; }
+
+  .atm-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .atm-table th { text-align: left; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); padding: 0.5rem 0.8rem; border-bottom: 0.5px solid rgba(255,255,255,0.08); font-weight: 400; }
+  .atm-table td { padding: 0.6rem 0.8rem; color: rgba(245,243,239,0.65); border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+  .atm-table tr:last-child td { border-bottom: none; }
+  .atm-table .name { color: var(--white); font-weight: 500; }
+  .ok { color: #6db87a !important; }
+  .warn { color: #e08a4a !important; }
+  .bad { color: #c96060 !important; }
+
+  .ruta-strip { display: flex; gap: 0; overflow-x: auto; margin-top: 1.2rem; border: 0.5px solid rgba(255,255,255,0.07); scrollbar-width: none; }
+  .ruta-strip::-webkit-scrollbar { display: none; }
+  .ruta-city { padding: 1rem 1.2rem; border-right: 0.5px solid rgba(255,255,255,0.07); flex-shrink: 0; min-width: 110px; }
+  .ruta-city:last-child { border-right: none; }
+  .ruta-city-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+  .ruta-city-note { font-size: 0.68rem; color: rgba(245,243,239,0.4); line-height: 1.5; }
+
+  .community-strip { background: #0d0d0d; border-top: 0.5px solid rgba(255,255,255,0.06); padding: 4rem 0; }
+  .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .community-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .community-desc { font-size: 0.85rem; color: rgba(245,243,239,0.45); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .community-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-select, .form-textarea { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09); color: var(--white); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; border-radius: 1px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(200,184,154,0.35); }
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .btn-primary { background: var(--white); color: var(--black); border: none; padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; border-radius: 1px; width: 100%; margin-top: 0.5rem; }
+  .btn-primary:hover { background: var(--accent); }
+  .exp-list { margin-top: 2.5rem; }
+  .exp-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+  .exp-item { border: 0.5px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; margin-bottom: 1px; transition: background 0.2s; }
+  .exp-item:hover { background: rgba(255,255,255,0.02); }
+  .exp-meta { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .exp-badge { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 0.5px solid rgba(200,184,154,0.3); padding: 0.18rem 0.5rem; }
+  .exp-cat { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .exp-author { font-size: 0.62rem; color: var(--gray); margin-left: auto; }
+  .exp-text { font-size: 0.84rem; color: rgba(245,243,239,0.65); line-height: 1.75; }
+
+  footer { border-top: 0.5px solid rgba(255,255,255,0.06); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: rgba(245,243,239,0.3); }
+  .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .dest-hero, .content-wrap, .community-inner { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .bus-compare, .community-form-grid { grid-template-columns: 1fr; }
+    .bus-card:first-child { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .cat-nav { padding: 0 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N<span>T</span>Y</a>
+  <ul>
+    <li><a href="index.html#destinos">Destinos</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+  </ul>
+</nav>
+
+<section class="dest-hero">
+  <div class="dest-hero-bg"></div>
+  <div class="dest-hero-grid"></div>
+  <div class="breadcrumb"><a href="index.html">Destinos</a> / Vietnam</div>
+  <h1 class="dest-title">Vietnam</h1>
+  <p class="dest-subtitle">Asia · De norte a sur en sleep bus</p>
+  <p class="hero-desc">Hanói, Ninh Binh, Phong Nha, Hội An, Ho Chi Minh. 9 días, un reto de presupuesto y la historia del sleep bus que llegó 4 horas antes de lo previsto.</p>
+  <div class="tip-count-bar">
+    <div class="tc-item"><span class="tc-num">6</span><span class="tc-label">Ciudades</span></div>
+    <div class="tc-item"><span class="tc-num">10</span><span class="tc-label">Categorías</span></div>
+    <div class="tc-item"><span class="tc-num">0€</span><span class="tc-label">Visado (españoles)</span></div>
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <button class="cat-btn active" onclick="goToSection('visado')">🛂 Visado</button>
+  <button class="cat-btn" onclick="goToSection('ruta')">📍 Ruta</button>
+  <button class="cat-btn" onclick="goToSection('sleepbus')">🚌 Sleep bus</button>
+  <button class="cat-btn" onclick="goToSection('atm')">💳 ATM</button>
+  <button class="cat-btn" onclick="goToSection('transporte')">🛺 Transporte</button>
+  <button class="cat-btn" onclick="goToSection('sim')">📱 SIM / eSIM</button>
+  <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
+  <button class="cat-btn" onclick="goToSection('compras')">🛍️ Compras</button>
+  <button class="cat-btn" onclick="goToSection('laundry')">👕 Laundry</button>
+  <button class="cat-btn" onclick="goToSection('estafas')">⚠️ Alertas</button>
+  <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
+  <button class="cat-btn" onclick="goToSection('saludvisa')">💉 Salud y visado</button>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- VISADO -->
+  <section class="tip-section" id="visado">
+    <div class="section-header">
+      <div class="section-icon">🛂</div>
+      <div class="section-header-text">
+        <div class="section-tag">Entrada · Documentación</div>
+        <h2 class="section-title">Visado: los españoles entran gratis</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">El tip que mucha gente no sabe</div>
+      <div class="tip-title">Si eres español y te quedas menos de 45 días, no necesitas visado. Cero trámites.</div>
+      <div class="tip-body">
+        Desde agosto de 2023, <strong>los ciudadanos españoles pueden entrar a Vietnam sin visado por hasta 45 días</strong>. Sin solicitud previa, sin pagar nada, sin colas de inmigración especiales. Llegas al aeropuerto, presentas el pasaporte y te ponen el sello. Listo.
+        <br><br>
+        Esta exención está vigente hasta <strong>marzo de 2028</strong>. Antes eran solo 15 días — si encuentras información antigua que lo diga así, está desactualizada.
+
+        <div class="tip-pro">
+          <strong>Requisitos:</strong> Pasaporte con mínimo 6 meses de validez desde la fecha de entrada. Llevar billete de salida de Vietnam (te lo pueden pedir en el check-in de tu vuelo de origen). Dos páginas en blanco en el pasaporte para el sello.
+        </div>
+        <div class="tip-alert">
+          <strong>Si eres latinoamericano:</strong> La mayoría de países latinoamericanos necesitan e-Visa (25 USD entrada simple, 50 USD múltiple entrada). Se solicita en <strong>evisa.gov.vn</strong>, la web oficial. No uses otras webs — cobran comisiones innecesarias.
+        </div>
+        <div class="tip-pro">
+          <strong>Truco para quedarse más de 45 días:</strong> Puedes salir a un país vecino (Laos, Camboya, Tailandia) y volver a entrar — recibes otros 45 días limpios. Ya no hay obligación de esperar 30 días entre estancias.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUTA -->
+  <section class="tip-section" id="ruta">
+    <div class="section-header">
+      <div class="section-icon">📍</div>
+      <div class="section-header-text">
+        <div class="section-tag">Itinerario · De norte a sur</div>
+        <h2 class="section-title">La ruta que hicimos</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia</div>
+      <div class="tip-title">Hanói → Ninh Binh → Tam Coc → Phong Nha → Hội An → Ho Chi Minh</div>
+      <div class="tip-body">
+        Hicimos esta ruta de norte a sur combinando sleep bus, moto y Grab. El objetivo: llegar de Hanói a Hội An en 9 días. Lo que veas, lo que comas y cómo llegues, es parte de la aventura.
+
+        <div class="ruta-strip">
+          <div class="ruta-city">
+            <div class="ruta-city-name">Hanói</div>
+            <div class="ruta-city-note">Capital. Caos, cultura y mercados nocturnos</div>
+          </div>
+          <div class="ruta-city">
+            <div class="ruta-city-name">Ninh Binh</div>
+            <div class="ruta-city-note">Paisajes kársticos y barcas por los canales</div>
+          </div>
+          <div class="ruta-city">
+            <div class="ruta-city-name">Tam Coc</div>
+            <div class="ruta-city-note">Motos, cuevas de Mua y Trang An</div>
+          </div>
+          <div class="ruta-city">
+            <div class="ruta-city-name">Phong Nha</div>
+            <div class="ruta-city-note">Cuevas espectaculares, ambiente viajero</div>
+          </div>
+          <div class="ruta-city">
+            <div class="ruta-city-name">Hội An</div>
+            <div class="ruta-city-note">Ciudad antigua, farolillos, ropa a medida</div>
+          </div>
+          <div class="ruta-city">
+            <div class="ruta-city-name">Ho Chi Minh</div>
+            <div class="ruta-city-note">Ciudad que no para. Historia y caos urbano</div>
+          </div>
+        </div>
+
+        <div class="tip-pro" style="margin-top:1.2rem">
+          <strong>Nota NTY:</strong> Hicimos esta ruta con un reto de presupuesto diario filmado para YouTube. Si quieres ver cómo sobrevivimos a días de 5€ y días de 35€, está en nuestro canal. Aquí te contamos los tips prácticos que aprendimos por el camino.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Qué llevar</div>
+      <div class="tip-title">Lleva un chubasquero o impermeable ligero: en Vietnam puede llover mucho</div>
+      <div class="tip-body">
+        Dependiendo de la época del año y la zona, Vietnam puede tener lluvias fuertes e inesperadas. Un <strong>chubasquero o chaqueta impermeable ligera</strong> es uno de los objetos más útiles del equipaje.
+        <br><br>
+        El truco está en llevarlo <strong>ligero</strong>: una chaqueta gruesa te va a sobrar con las temperaturas de Vietnam. Lo que necesitas es algo que ocupe poco, pese poco y te proteja del agua cuando llegue el chaparrón.
+
+        <div class="tip-pro">
+          <strong>Norte vs Sur:</strong> El norte (Hanói, Ninh Binh) puede ser fresco y lluvioso en invierno. El sur (Ho Chi Minh) tiene una estación de lluvias intensa de mayo a noviembre. El centro (Hội An, Phong Nha) puede coger lluvias en cualquier momento. El impermeable es válido para toda la ruta.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Mentalidad viajera</div>
+      <div class="tip-title">No intentes verlo todo. Vietnam es enorme.</div>
+      <div class="tip-body">
+        Vietnam tiene más de 1.600 km de norte a sur. Es un país que requiere tiempo de verdad para verlo bien, y no pasa nada si no llegas a todo. <strong>Organiza el viaje según el tipo de turismo que te guste a ti</strong> — naturaleza, historia, gastronomía, playa — y no te agobies por lo que te queda fuera.
+        <br><br>
+        Veas lo que veas, lo disfrutarás. Es igual de inmenso que de espectacular. Un viaje bien vivido en cuatro ciudades vale más que correr por diez sin tiempo para nada.
+
+        <div class="tip-pro">
+          <strong>Consejo:</strong> Si tienes 10–15 días, elige una franja del país y hazla bien. Norte (Hanói + Ninh Binh + Sapa) o Centro-Sur (Hội An + Ho Chi Minh + Mekong) son dos rutas muy completas en sí mismas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLEEP BUS -->
+  <section class="tip-section" id="sleepbus">
+    <div class="section-header">
+      <div class="section-icon">🚌</div>
+      <div class="section-header-text">
+        <div class="section-tag">Transporte · Larga distancia</div>
+        <h2 class="section-title">Sleep bus: la guía real</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo esencial</div>
+      <div class="tip-title">Dos tipos de bus, dos experiencias muy distintas</div>
+      <div class="tip-body">
+        El sleep bus es la forma más práctica y económica de cubrir las largas distancias de Vietnam — viajas de noche y te ahorras una noche de hotel. Pero no todos son iguales.
+
+        <div class="bus-compare">
+          <div class="bus-card">
+            <div class="bus-type">Estándar</div>
+            <div class="bus-name">3 filas de literas</div>
+            <div class="bus-detail">
+              Literas más estrechas, tres columnas. Funcional pero justo de espacio, especialmente si mides más de 175–180cm. Buena opción si el presupuesto manda.<br><br>
+              <strong>Nuestra ruta:</strong> Tam Coc → Phong Nha<br>
+              <strong>Precio:</strong> 700.000 VND (≈ 26€)<br>
+              Reservado en oficina de turismo de la calle.
+            </div>
+          </div>
+          <div class="bus-card">
+            <div class="bus-type">VIP</div>
+            <div class="bus-name">2 filas de literas</div>
+            <div class="bus-detail">
+              Solo dos columnas, literas más anchas y cómodas. Más privacidad, más espacio para las piernas. Suele tener cortina, puerto USB y aire acondicionado más regulable.<br><br>
+              <strong>Nuestra ruta:</strong> Phong Nha → Hội An<br>
+              <strong>Precio:</strong> 600.000 VND (≈ 22€)<br>
+              Reservado a través del hotel donde dormíamos.
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-pro" style="margin-top:1.2rem">
+          <strong>Dónde reservar:</strong> Pregunta en tu hotel o en cualquiera de las oficinas de turismo que encontrarás en cada calle de las ciudades turísticas. Compara precios entre 2 o 3 sitios — pueden variar. También puedes reservar online en <strong>12go.asia</strong> o <strong>Vexere</strong> para tener confirmación escrita y comparar operadores.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Historia real · Lo que nadie te cuenta</div>
+      <div class="tip-title">El bus llegó 4 horas antes. Y todo estaba lleno.</div>
+      <div class="tip-body">
+        El sleep bus de Tam Coc a Phong Nha salía sobre las 8–9 de la noche. El horario previsto de llegada era las 5 de la mañana. Llegamos a la 1 de la madrugada — <strong>4 horas antes de lo previsto</strong>.
+        <br><br>
+        Esa noche coincidía con el aniversario del fin de la guerra contra Estados Unidos. Todo Vietnam estaba de fiesta y sus ciudadanos de vacaciones repartidos por el país. Resultado: todo lleno. Fuimos de hotel en hotel, ninguno tenía sitio o pedían precios desorbitados por ponernos un colchón en el lobby.
+        <br><br>
+        Al final encontramos el <strong>BeePub</strong>, un pub en Phong Nha que a la vez funciona como homestay. Fuimos a preguntar si tenían habitación disponible — no tenían, todo lleno — pero los dueños nos dejaron quedarnos en los sofás hasta que abrieran los alojamientos por la mañana. No dormimos nada, pero era seguro y teníamos donde dejar las mochilas. No éramos los únicos — allí conocimos a otros viajeros con el mismo problema, o la misma aventura, según se mire.
+
+        <div class="tip-pro">
+          <strong>Si llegas a Phong Nha de madrugada sin alojamiento:</strong> Ve al <strong>BeePub</strong>. Es pub y homestay a la vez. Si tienen habitación, perfecto. Si no, pregunta igualmente — son de los que no te dejan tirado en la calle.
+        </div>
+
+        <div class="tip-alert">
+          <strong>La lección:</strong> Si quieres ir a lo seguro, reserva siempre alojamiento antes de llegar, especialmente si el bus llega de noche. Los sleep bus <strong>no siempre cumplen el horario previsto</strong> — pueden llegar antes o mucho después. Consulta fechas de fiestas locales: en Vietnam hay celebraciones en las que el país entero se mueve.
+        </div>
+        <div class="tip-pro">
+          <strong>O abraza la aventura:</strong> Si llegas sin reserva y todo sale bien, es una de esas noches que cuentas durante años. Tú decides.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATM -->
+  <section class="tip-section" id="atm">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · Sin comisión</div>
+        <h2 class="section-title">ATM en Vietnam</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Verificado · 2025</div>
+      <div class="tip-title">Solo dos bancos sin comisión. El resto cobra.</div>
+      <div class="tip-body">
+        En Vietnam, a diferencia de Indonesia, la mayoría de cajeros sí cobran comisión por retirada con tarjeta extranjera. Estos son los que necesitas saber:
+
+        <table class="atm-table">
+          <tr>
+            <th>Banco</th>
+            <th>Comisión</th>
+            <th>Límite por operación</th>
+          </tr>
+          <tr><td class="name">VPBank</td><td class="ok">✓ Sin comisión</td><td>Hasta 10.000.000 VND (≈ 370€)</td></tr>
+          <tr><td class="name">ACB</td><td class="ok">✓ Sin comisión</td><td>Hasta 5.000.000 VND (≈ 185€)</td></tr>
+          <tr><td class="name">Sacombank</td><td class="warn">⚠ Variable (≈ 2%)</td><td>—</td></tr>
+          <tr><td class="name">Vietinbank</td><td class="bad">✗ Cobra ~10% de comisión</td><td>Límite bajo por operación</td></tr>
+          <tr><td class="name">TPBank</td><td class="bad">✗ Desde junio 2025: ≈ 3,3%</td><td>Antes era gratuito. Ya no.</td></tr>
+          <tr><td class="name">BIDV / Agribank</td><td class="bad">✗ ≈ 55.000 VND por operación</td><td>Límite bajo (3M VND)</td></tr>
+        </table>
+
+        <div class="tip-pro" style="margin-top:1rem">
+          <strong>Consejo práctico:</strong> VPBank tiene el límite más alto por operación (10 millones de VND, unos 370€). Usa ese cajero para sacar en una sola vez y minimizar las comisiones de tu banco en casa (si usas Revolut o Wise, esto no te afecta).
+        </div>
+        <div class="tip-alert">
+          <strong>Realidad sobre el terreno:</strong> En zonas rurales o menos turísticas como la zona de Phong Nha, puede que el único cajero cercano sea Sacombank (≈ 2% de comisión). En ese caso, es lo que hay. Lo ideal es sacar dinero suficiente en las ciudades grandes antes de ir a zonas más remotas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTE -->
+  <section class="tip-section" id="transporte">
+    <div class="section-header">
+      <div class="section-icon">🛺</div>
+      <div class="section-header-text">
+        <div class="section-tag">Moverse · Apps y motos</div>
+        <h2 class="section-title">Transporte</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo básico</div>
+      <div class="tip-title">Grab para las ciudades, moto para explorar</div>
+      <div class="tip-body">
+        <strong>Grab funciona perfectamente en Vietnam</strong> — Hanói, Hội An, Ho Chi Minh. Es lo más cómodo y seguro para moverse por ciudad sin negociar con taxis. Precio fijo, conductor identificado, sin sorpresas.
+        <br><br>
+        Para explorar zonas de naturaleza y pueblos, la <strong>moto es lo mejor</strong>. Nosotros la alquilamos en Tam Coc para ir a ver Trang An y las Mua Caves — sin moto, llegar a esos sitios sería mucho más caro y menos flexible.
+
+        <div class="tip-alert">
+          <strong>Taxis en Hanói:</strong> Hay taxis falsos con logos casi idénticos a los oficiales (Mai Linh, Vinasun). Usa siempre Grab o pide al hotel que te llame un taxi de confianza. Negocia el precio siempre antes de subir si no usas app.
+        </div>
+        <div class="tip-pro">
+          <strong>Alquiler de moto en Vietnam:</strong> Similar a Indonesia. Pregunta en el alojamiento, en oficinas de turismo o directamente en la calle. Precio orientativo: <span class="highlight">100.000 – 150.000 VND / día</span> (≈ 4–6€). Haz fotos antes de cogerla.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SIM / ESIM -->
+  <section class="tip-section" id="sim">
+    <div class="section-header">
+      <div class="section-icon">📱</div>
+      <div class="section-header-text">
+        <div class="section-tag">Conectividad · Internet</div>
+        <h2 class="section-title">SIM y eSIM en Vietnam</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">La mejor opción</div>
+      <div class="tip-title">SIM física local: más barata y mejor cobertura que cualquier eSIM</div>
+      <div class="tip-body">
+        Si puedes, compra una <strong>SIM física local</strong> nada más llegar. Es la opción más económica y la que mejor funciona en Vietnam, especialmente en zonas rurales y de naturaleza.
+        <br><br>
+        La marca más recomendable es <strong>Viettel</strong> — la operadora con mayor cobertura en todo el país, incluyendo Phong Nha, Ninh Binh, Ha Giang y zonas remotas donde otras SIM fallan. La puedes comprar en el aeropuerto al llegar o en cualquier tienda Viettel de las ciudades.
+
+        <div class="tip-pro">
+          <strong>Precio orientativo:</strong> Un plan de datos con varios GB cuesta entre <span class="highlight">100.000 – 200.000 VND</span> (4–8€) según el plan. Mucho más barato que cualquier eSIM internacional.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Si prefieres no cambiar SIM</div>
+      <div class="tip-title">eSIM: más cara que la física, pero cómoda si ya vienes preparado</div>
+      <div class="tip-body">
+        Las eSIM funcionan bien en Vietnam y son una buena opción si no quieres manipular tu SIM física o llegas a deshoras. Ten en cuenta que son <strong>más caras que una SIM local</strong>. Estas son las mejor valoradas:
+
+        <br><br>
+        <strong>Airalo</strong> — La más popular entre viajeros. Opera sobre la red de Viettel (la mejor cobertura del país). Ofrece planes por datos fijos (5 GB / 30 días desde ≈ 11€) y planes ilimitados. Sin límite de hotspot. Buena opción si viajas con presupuesto ajustado entre eSIMs.
+
+        <br><br>
+        <strong>Holafly</strong> — Solo planes ilimitados, lo que la hace ideal si consumes muchos datos y no quieres contar GBs. Opera en Viettel, Mobifone y Vinaphone. El hotspot está limitado a 500 MB/día. Precio orientativo: ≈ 27€ / semana ilimitada. Más cara que Airalo pero sin preocupaciones de cuota.
+
+        <br><br>
+        <strong>Roamic</strong> — Buena alternativa con planes desde 2€ y activación instantánea por QR. Cobertura en más de 150 países. Reseñas positivas en atención al cliente (24/7 por chat, email y WhatsApp). Buena opción si ya la usas habitualmente para otros viajes.
+
+        <div class="tip-alert">
+          <strong>Recuerda:</strong> Cualquiera de estas eSIM te saldrá más cara que comprar una SIM física de Viettel en el aeropuerto. Si puedes, ve a por la física.
+        </div>
+        <div class="tip-pro">
+          <strong>Revolut:</strong> Si tienes Revolut, incluye datos de roaming en algunos planes de pago. Consulta tu plan antes de salir — puede que ya lo tengas cubierto sin coste extra.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMIDA -->
+  <section class="tip-section" id="comida">
+    <div class="section-header">
+      <div class="section-icon">🍜</div>
+      <div class="section-header-text">
+        <div class="section-tag">Gastronomía · Imprescindible</div>
+        <h2 class="section-title">Comida</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia</div>
+      <div class="tip-title">Todo estaba bueno. Pero aviso: el cilantro va en todo.</div>
+      <div class="tip-body">
+        La comida vietnamita es de las mejores de Asia. Fresca, equilibrada, llena de sabor y muy barata. El problema — o la característica — es que <strong>el cilantro aparece en casi todos los platos</strong>. Si no te gusta, di "không ngò" (sin cilantro) al pedir.
+        <br><br>
+        Platos que no puedes irte sin probar:
+        <br><br>
+        <strong>Phở</strong> — La sopa de fideos con caldo de huesos. El desayuno de Vietnam. Se come a cualquier hora pero los mejores están a las 7 de la mañana con los locales.<br><br>
+        <strong>Bánh mì</strong> — El bocadillo vietnamita. Pan crujiente con relleno de carne, paté, encurtidos y hierbas. Menos de 1€ en los puestos callejeros.<br><br>
+        <strong>Bún bò Huế</strong> — La versión picante del phở, típica del centro. Más compleja y con más sabor que el phở del norte.<br><br>
+        <strong>Cao lầu</strong> — Solo existe en Hội An. Fideos gruesos, cerdo, hierbas y caldo reducido. El tipo de plato que buscas específicamente en cada ciudad.<br><br>
+        <strong>Cơm tấm</strong> — Arroz roto con cerdo a la plancha, huevo y verduras. El almuerzo por excelencia en Ho Chi Minh. Por menos de 2€.
+
+        <div class="tip-pro">
+          <strong>Dónde comer:</strong> Igual que en Indonesia — sigue a los locales. Si el sitio tiene sillas de plástico en la acera y solo hay vietnamitas, es buena señal. Los mejores phở no tienen menú en inglés.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPRAS -->
+  <section class="tip-section" id="compras">
+    <div class="section-header">
+      <div class="section-icon">🛍️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Mercados · Regateo</div>
+        <h2 class="section-title">Compras y regateo</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Experiencia propia · Hanói</div>
+      <div class="tip-title">La regla de oro: empieza por menos de la mitad de lo que piden</div>
+      <div class="tip-body">
+        En los mercados y tiendas de ropa de Vietnam, el precio inicial que te dan está muy inflado. Los vendedores son duros negociando — así que tú también tienes que serlo.
+        <br><br>
+        <strong>La táctica que funciona:</strong> Lo que te digan ellos, tu primera contraoferta tiene que ser menos de la mitad. Si piden 200.000 VND, tú ofreces 80.000. Ellos bajarán, tú subirás un poco, y llegáis a un punto intermedio. Si no ceden a un precio razonable, empieza a irte — es cuando suelen llamarte de vuelta.
+        <br><br>
+        <strong>Actitud clave:</strong> No muestres que algo te gusta demasiado. Pregunta el precio con calma y sin entusiasmo. La emoción visible sube el precio.
+
+        <div class="tip-pro">
+          <strong>Hội An — ropa a medida en 24–48h:</strong> Hội An es el destino de ropa a medida de Vietnam. Hay cientos de sastres que hacen cualquier prenda con foto o catálogo en 24–48 horas, a precios muy por debajo de Europa. Puedes regatear especialmente si encargas varias piezas a la vez. Pruébatela antes de pagar.
+        </div>
+        <div class="tip-alert">
+          <strong>Tallas:</strong> Las tallas vietnamitas son más pequeñas que las europeas. Prueba siempre antes de comprar o encargar, o da tus medidas exactas en centímetros.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNDRY -->
+  <section class="tip-section" id="laundry">
+    <div class="section-header">
+      <div class="section-icon">👕</div>
+      <div class="section-header-text">
+        <div class="section-tag">Servicios · Practicidad</div>
+        <h2 class="section-title">Laundry: lavar la ropa en Vietnam</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Muy recomendable</div>
+      <div class="tip-title">Las lavanderías son baratas, rápidas y están en todas partes</div>
+      <div class="tip-body">
+        En todas las ciudades y pueblos turísticos de Vietnam encontrarás <strong>lavanderías por kilo</strong>. Dejas la ropa, vuelves en unas horas y la tienes limpia, seca y doblada. La relación calidad-precio es muy buena.
+        <br><br>
+        <strong>Cómo funciona:</strong> Entras, te pesan la bolsa de ropa y te dicen el precio total. Recoge en el horario que te indiquen — normalmente en el mismo día o al día siguiente si la llevas por la mañana.
+
+        <div class="tip-pro">
+          <strong>Precio orientativo:</strong> <span class="highlight">15.000 – 25.000 VND / kg</span> (menos de 1€ por kilo). Vale mucho la pena si llevas varios días viajando en sleep bus.
+        </div>
+        <div class="tip-alert">
+          <strong>Revisa bien la ropa al recogerla:</strong> A veces mezclan prendas de distintos clientes. Antes de irte, comprueba que tienes todo lo que dejaste.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTAFAS Y ALERTAS -->
+  <section class="tip-section" id="estafas">
+    <div class="section-header">
+      <div class="section-icon">⚠️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Seguridad · Lo que debes saber</div>
+        <h2 class="section-title">Alertas y situaciones comunes</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Verificado · Experiencia propia</div>
+      <div class="tip-title">Vietnam es seguro. Pero hay cosas que saber.</div>
+      <div class="tip-body">
+        Vietnam en general es un país muy seguro para viajar. No vivimos ningún intento de estafa real, pero hay situaciones habituales que conviene conocer:
+        <br><br>
+        <strong>Taxis sin taxímetro o con taxímetro trucado:</strong> El clásico. En Hanói especialmente. Usa Grab o negocia precio antes de subir. Nunca entres a un taxi sin acordar el precio.
+        <br><br>
+        <strong>En Hanói, por la calle te paran para enseñarte vídeos:</strong> Es algo conocido en ciertas zonas. No hace falta reaccionar de ninguna manera especial — simplemente sigue caminando.
+        <br><br>
+        <strong>Precios de turista:</strong> En mercados, transporte y excursiones el precio para extranjeros siempre es más alto. Compara siempre entre varios sitios antes de decidir.
+        <br><br>
+        <strong>Cobros incorrectos con tarjeta:</strong> Verifica siempre el importe en el datáfono antes de confirmar. Algunos establecimientos intentan cobrar de más.
+
+        <div class="tip-pro">
+          <strong>En los triciclos (xích lô):</strong> Son el transporte típico vietnamita y una experiencia turística. Acuerda siempre el precio antes, en VND y no en dólares. Algunos conductores dan el precio sin especificar la moneda — y luego reclaman que era en USD.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGUA -->
+  <section class="tip-section" id="agua">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Hidratación</div>
+        <h2 class="section-title">Agua: qué marcas son minerales y cuáles no</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Importante</div>
+      <div class="tip-title">El agua del grifo en Vietnam no es potable. Usa siempre agua embotellada</div>
+      <div class="tip-body">
+        En Vietnam <strong>el agua del grifo no es potable</strong> en ninguna zona. Usa siempre agua embotellada. Es barata y está en todas partes.
+        <br><br>
+        Las marcas locales más comunes en Vietnam son distintas a las de Indonesia:
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Dónde comprar</th>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Lavie</td>
+            <td style="color:#6db87a">✓ Mineral natural</td>
+            <td>Supermercados, minimarkets, tiendas de conveniencia — la más extendida del país</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Aquafina (PepsiCo)</td>
+            <td style="color:#e08a4a">⚠ Purificada (filtrada, sin minerales)</td>
+            <td>Circle K, GS25, minimarkets, 7-Eleven</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Dasani (Coca-Cola)</td>
+            <td style="color:#e08a4a">⚠ Purificada</td>
+            <td>Supermercados, tiendas de conveniencia</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Vital</td>
+            <td style="color:#6db87a">✓ Mineral</td>
+            <td>Supermercados y tiendas locales</td>
+          </tr>
+          <tr>
+            <td style="color:var(--white); font-weight:500">Number One (THP)</td>
+            <td style="color:#e08a4a">⚠ Purificada</td>
+            <td>Extendida en todo el país, precio muy bajo</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Consejo:</strong> <strong>Lavie</strong> es la opción mineral más común y la más fácil de encontrar en todo Vietnam. Precio orientativo: 500ml por <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">5.000–8.000 VND</span> (≈ 0,20€). 1,5L: <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">10.000–18.000 VND</span> (≈ 0,40€). En Circle K o GS25 siempre la encuentras.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALUD Y VISADO -->
+  <section class="tip-section" id="saludvisa">
+    <div class="section-header">
+      <div class="section-icon">💉</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Documentación</div>
+        <h2 class="section-title">Vacunas y visado: información oficial</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Fuente oficial</div>
+      <div class="tip-title">Dónde consultar información actualizada: Ministerio de Exteriores</div>
+      <div class="tip-body">
+        Para información oficial y actualizada sobre visados y vacunas para Vietnam, consulta directamente el <strong>Ministerio de Asuntos Exteriores de España</strong>. Sus fichas se actualizan con regularidad.
+
+        <div class="tip-pro">
+          <strong>🔗 Link directo para Vietnam:</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=vietnam" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Vietnam — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Resumen actualizado · Vietnam</div>
+      <div class="tip-title">Lo esencial sobre vacunas y entrada a Vietnam</div>
+      <div class="tip-body">
+        <strong>Visado:</strong> Desde el 15 de agosto de 2023, los ciudadanos españoles pueden entrar en Vietnam <strong>sin visado hasta 45 días</strong>. Solo necesitas el pasaporte con validez suficiente. No tienes que tramitar nada antes de llegar — es la gran diferencia respecto a Indonesia.
+
+        <div class="tip-pro">
+          <strong>Importante:</strong> Aunque no hay visado, el pasaporte debe tener validez mínima de 6 meses desde la fecha de entrada. Compruébalo antes de viajar.
+        </div>
+
+        <br>
+        <strong>Vacunas obligatorias:</strong> Ninguna para ciudadanos españoles que vengan directamente desde España.
+        <br><br>
+        <strong>Vacunas recomendadas</strong> (según el Ministerio de Sanidad):
+        Hepatitis A y B, Tétanos, Fiebre tifoidea, Rabia (especialmente en zonas rurales). Para estancias largas: Encefalitis japonesa, Gripe.
+
+        <div class="tip-alert">
+          <strong>Importante:</strong> La información de visados y vacunas puede cambiar. Consulta siempre exteriores.gob.es antes de viajar para tener los datos más actualizados.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- COMUNIDAD -->
+<section class="community-strip" id="comunidad">
+  <div class="community-inner">
+    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">La comunidad habla · Vietnam</div>
+    <h2 class="community-title">¿Has estado en Vietnam?</h2>
+    <p class="community-desc">Tips de ATM, experiencias con sleep bus, sitios de comida imprescindibles, zonas que no aparecen en las guías. Todo suma.</p>
+
+    <div class="community-form-grid">
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select class="form-select">
+          <option>Visado y entrada</option>
+          <option>Sleep bus</option>
+          <option>ATM y dinero</option>
+          <option>Transporte / Grab</option>
+          <option>Comida</option>
+          <option>Compras y regateo</option>
+          <option>Estafas y alertas</option>
+          <option>Zona específica</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tu experiencia</label>
+      <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir a Vietnam..."></textarea>
+    </div>
+    <button class="btn-primary">Enviar experiencia ↗</button>
+
+    <div class="exp-list">
+      <div class="exp-label">Primeras experiencias</div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Vietnam · Phong Nha</span>
+          <span class="exp-cat">Sleep bus</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">El sleep bus de Tam Coc a Phong Nha llegó 4 horas antes de lo previsto. Era el aniversario del fin de la guerra con EEUU y todo Vietnam estaba de vacaciones — todo lleno. Terminamos en un pub-hostel esperando a que cerrara para poder quedarnos. Moraleja: reserva siempre alojamiento antes de llegar, especialmente si el bus llega de noche y no conoces el sitio.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Vietnam · Hanói</span>
+          <span class="exp-cat">Compras y regateo</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">En las tiendas de ropa de Hanói, empieza siempre por menos de la mitad de lo que piden. Son muy duros negociando y si ven que cedes fácil, no bajarán. Si te piden 200.000 VND, ofrece 80.000. Si no ceden, empieza a irte — suele ser cuando aparece el precio real.</p>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span class="exp-badge">Vietnam · General</span>
+          <span class="exp-cat">ATM</span>
+          <span class="exp-author">por Genís</span>
+        </div>
+        <p class="exp-text">VPBank y ACB son los únicos cajeros sin comisión en Vietnam. En zonas rurales como Phong Nha, el más cercano puede ser Sacombank (cobra ≈ 2%). Saca suficiente dinero en las ciudades grandes para no depender de cajeros remotos con fee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  const sections = document.querySelectorAll('.tip-section');
+  const btns = document.querySelectorAll('.cat-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => { b.classList.toggle('active', b.getAttribute('onclick')?.includes(id)); });
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

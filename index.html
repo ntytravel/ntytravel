@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Nobody Tells You</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ef;
+    --gray: #888;
+    --light-gray: #e8e6e0;
+    --accent: #c8b89a;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+
+  .logo span { color: var(--accent); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav ul li a {
+    color: rgba(245,243,239,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul li a:hover { color: var(--white); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #111 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-accent {
+    position: absolute;
+    top: 15%;
+    right: 8%;
+    width: 320px;
+    height: 420px;
+    border: 0.5px solid rgba(200,184,154,0.15);
+    border-radius: 2px;
+  }
+
+  .hero-accent::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    border: 0.5px solid rgba(200,184,154,0.07);
+    border-radius: 2px;
+  }
+
+  .hero-photo-placeholder {
+    position: absolute;
+    top: 12%; right: 6%;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+  }
+
+  /* BOOK ANIMATION */
+  .book-wrap {
+    width: 220px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-20deg) rotateX(5deg);
+  }
+
+  .book-cover {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1e1a15 0%, #2a2218 60%, #1a1510 100%);
+    border-radius: 2px 8px 8px 2px;
+    box-shadow:
+      -6px 6px 20px rgba(0,0,0,0.7),
+      inset -3px 0 8px rgba(0,0,0,0.4);
+    border: 0.5px solid rgba(200,184,154,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .book-cover::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 14px;
+    background: linear-gradient(to right, #0d0b08, #1a1510);
+    border-right: 0.5px solid rgba(200,184,154,0.08);
+  }
+
+  .book-spine-line {
+    position: absolute;
+    left: 16px; top: 0; bottom: 0;
+    width: 0.5px;
+    background: rgba(200,184,154,0.08);
+  }
+
+  .book-title-wrap {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .book-nty {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    display: block;
+    text-shadow: 0 0 30px rgba(200,184,154,0.3);
+  }
+
+  .book-subtitle {
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(200,184,154,0.4);
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .book-dest-display {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+  }
+
+  .book-dest-name.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .book-dest-country {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,184,154,0.5);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    position: absolute;
+    margin-top: 1.6rem;
+  }
+
+  .book-dest-country.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .book-dots {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 5px;
+  }
+
+  .book-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(200,184,154,0.2);
+    transition: background 0.3s;
+  }
+
+  .book-dot.active {
+    background: var(--accent);
+  }
+
+  .book-page {
+    position: absolute;
+    top: 4px; right: -1px;
+    width: calc(100% - 14px);
+    height: calc(100% - 8px);
+    background: linear-gradient(to left, #f5f3ef 0%, #ede9e0 100%);
+    border-radius: 0 6px 6px 0;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    opacity: 0.06;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+  }
+
+  .book-page.turning {
+    transform: rotateY(-160deg);
+    opacity: 0.04;
+  }
+
+  .book-ornament {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.6rem;
+    color: rgba(200,184,154,0.2);
+    letter-spacing: 0.1em;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: rgba(245,243,239,0.55);
+    max-width: 420px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-cta {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary {
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    border-radius: 1px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: rgba(245,243,239,0.6);
+    border: 0.5px solid rgba(245,243,239,0.2);
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: rgba(245,243,239,0.5); color: var(--white); }
+
+  .section {
+    padding: 5rem 2.5rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 2.5rem;
+  }
+
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    margin-top: 3rem;
+    border: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .dest-card {
+    background: #111;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dest-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .dest-card:hover { background: #161616; }
+  .dest-card:hover::before { transform: scaleX(1); }
+
+  .dest-country {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+
+  .dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .dest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .dest-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,243,239,0.4);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    padding: 0.25rem 0.6rem;
+    border-radius: 1px;
+  }
+
+  .dest-arrow {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-size: 1rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .dest-card:hover .dest-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+  .tips-section {
+    background: #0d0d0d;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    margin-top: 3rem;
+    border: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .tip-cat {
+    padding: 1.5rem;
+    background: #0d0d0d;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .tip-cat:hover { background: #131313; }
+
+  .tip-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .tip-cat-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .tip-cat-desc {
+    font-size: 0.72rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .community-section {
+    background: var(--black);
+  }
+
+  .community-box {
+    border: 0.5px solid rgba(255,255,255,0.1);
+    padding: 3rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+
+  .community-box::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: rgba(200,184,154,0.08);
+    position: absolute;
+    top: -1rem;
+    left: 2rem;
+    line-height: 1;
+  }
+
+  .community-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    border-radius: 1px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: rgba(200,184,154,0.4);
+  }
+
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .existing-tips {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .tip-entry {
+    background: rgba(255,255,255,0.02);
+    border: 0.5px solid rgba(255,255,255,0.06);
+    padding: 1.2rem 1.5rem;
+    transition: background 0.2s;
+  }
+
+  .tip-entry:hover { background: rgba(255,255,255,0.04); }
+
+  .tip-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-dest-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 0.5px solid rgba(200,184,154,0.3);
+    padding: 0.2rem 0.5rem;
+  }
+
+  .tip-cat-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .tip-author {
+    font-size: 0.65rem;
+    color: var(--gray);
+    margin-left: auto;
+  }
+
+  .tip-text {
+    font-size: 0.85rem;
+    color: rgba(245,243,239,0.7);
+    line-height: 1.7;
+  }
+
+  footer {
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,243,239,0.4);
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: rgba(245,243,239,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat { text-align: left; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero { padding: 0 1.5rem 3rem; }
+    .hero-photo-placeholder { display: none; }
+    .hero-accent { display: none; }
+    .section { padding: 3rem 1.5rem; }
+    .divider { margin: 0 1.5rem; }
+    .community-form { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .stats-bar { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">N<span>T</span>Y</div>
+  <ul>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#tips">Tips</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+    <li><a href="#sobre">Sobre NTY</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-photo-placeholder">
+    <div class="book-wrap" id="bookWrap">
+      <div class="book-page" id="bookPage"></div>
+      <div class="book-cover">
+        <div class="book-spine-line"></div>
+        <div class="book-title-wrap">
+          <span class="book-nty">NTY</span>
+          <span class="book-subtitle">Nobody Tells You</span>
+        </div>
+        <div class="book-dest-display">
+          <span class="book-dest-name" id="destName"></span>
+          <span class="book-dest-country" id="destCountry"></span>
+        </div>
+        <div class="book-dots" id="bookDots"></div>
+        <div class="book-ornament">◈</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-accent"></div>
+
+  <div class="hero-tag">Nobody Tells You</div>
+  <h1 class="hero-title">
+    Lo que nadie<br>te <em>cuenta</em><br>cuando viajas.
+  </h1>
+  <p class="hero-desc">
+    Guías prácticas escritas por viajeros reales. Sin agencias, sin filtros, sin publicidad. Solo experiencias directas de gente que ya estuvo allí.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#destinos" class="btn-primary">Explorar destinos</a>
+    <a href="#comunidad" class="btn-ghost">Compartir experiencia ↗</a>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Destinos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">+30</span>
+      <span class="stat-label">Tips prácticos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Experiencias reales</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="destinos">
+  <div class="section-label">Donde puedes ir</div>
+  <h2 class="section-title">Destinos</h2>
+
+  <div class="destinations-grid">
+    <div class="dest-card" onclick="window.location.href='bali.html'" style="cursor:pointer">
+      <div class="dest-arrow">↗</div>
+      <div class="dest-country">🇮🇩 Indonesia</div>
+      <div class="dest-name">Bali</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Visa</span>
+        <span class="dest-tag">Transporte</span>
+        <span class="dest-tag">Comida</span>
+        <span class="dest-tag">ATM</span>
+        <span class="dest-tag">Alojamiento</span>
+      </div>
+    </div>
+
+    <div class="dest-card" onclick="window.location.href='lombok.html'" style="cursor:pointer">
+      <div class="dest-arrow">↗</div>
+      <div class="dest-country">🇮🇩 Indonesia</div>
+      <div class="dest-name">Lombok</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Ferries</span>
+        <span class="dest-tag">Playas</span>
+        <span class="dest-tag">Cambio</span>
+        <span class="dest-tag">SIM card</span>
+      </div>
+    </div>
+
+    <div class="dest-card" onclick="window.location.href='sulawesi.html'" style="cursor:pointer">
+      <div class="dest-arrow">↗</div>
+      <div class="dest-country">🇮🇩 Indonesia</div>
+      <div class="dest-name">Sulawesi</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Buceo</span>
+        <span class="dest-tag">Transporte</span>
+        <span class="dest-tag">Comida</span>
+        <span class="dest-tag">Seguridad</span>
+      </div>
+    </div>
+
+    <div class="dest-card" onclick="window.location.href='vietnam.html'" style="cursor:pointer">
+      <div class="dest-arrow">↗</div>
+      <div class="dest-country">🇻🇳 Vietnam</div>
+      <div class="dest-name">Vietnam</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Visa</span>
+        <span class="dest-tag">Trenes</span>
+        <span class="dest-tag">Estafas</span>
+        <span class="dest-tag">Cambio</span>
+        <span class="dest-tag">Comida</span>
+      </div>
+    </div>
+
+    <div class="dest-card" style="background: #0d0d0d; cursor: default; opacity: 0.45;">
+      <div class="dest-country">🇨🇴 Colombia</div>
+      <div class="dest-name" style="color: var(--gray);">Colombia</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Próximamente</span>
+      </div>
+    </div>
+
+    <div class="dest-card" onclick="window.location.href='thailand.html'" style="cursor:pointer">
+      <div class="dest-arrow">↗</div>
+      <div class="dest-country">🇹🇭 Tailandia</div>
+      <div class="dest-name">Tailandia</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Visa</span>
+        <span class="dest-tag">TDAC</span>
+        <span class="dest-tag">ATM</span>
+        <span class="dest-tag">Islas</span>
+        <span class="dest-tag">Ruta 16 días</span>
+      </div>
+    </div>
+
+    <div class="dest-card" style="background: #0d0d0d; cursor: default; opacity: 0.45;">
+      <div class="dest-country">🇰🇷 Corea del Sur</div>
+      <div class="dest-name" style="color: var(--gray);">Corea del Sur</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Próximamente</span>
+      </div>
+    </div>
+
+    <div class="dest-card" style="background: #0d0d0d; cursor: default; opacity: 0.45;">
+      <div class="dest-country">🇨🇳 China</div>
+      <div class="dest-name" style="color: var(--gray);">China</div>
+      <div class="dest-tags">
+        <span class="dest-tag">Próximamente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section tips-section" id="tips">
+  <div class="section-label">Lo que necesitas saber</div>
+  <h2 class="section-title">Categorías de tips</h2>
+
+  <div class="tips-grid">
+    <div class="tip-cat">
+      <span class="tip-icon">💳</span>
+      <div class="tip-cat-name">ATM sin fees</div>
+      <div class="tip-cat-desc">Qué cajeros usar, cuáles evitar y cómo no perder dinero en comisiones.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">💵</span>
+      <div class="tip-cat-name">Cambio de efectivo</div>
+      <div class="tip-cat-desc">Dónde cambiar bien, tasas reales y cómo evitar los cambios trampa.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">🛂</span>
+      <div class="tip-cat-name">Visa y entrada</div>
+      <div class="tip-cat-desc">Requisitos, costes reales y qué esperar en el control de fronteras.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">🚐</span>
+      <div class="tip-cat-name">Transporte</div>
+      <div class="tip-cat-desc">Motos, buses, ferries, Grab. Precios orientativos y cómo negociar.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">🍜</span>
+      <div class="tip-cat-name">Comida</div>
+      <div class="tip-cat-desc">Dónde come la gente local, qué pedir, qué evitar y cuánto pagar.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">📱</span>
+      <div class="tip-cat-name">SIM y conectividad</div>
+      <div class="tip-cat-desc">Operadores locales, datos, eSIM y qué funciona de verdad.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">⚠️</span>
+      <div class="tip-cat-name">Estafas comunes</div>
+      <div class="tip-cat-desc">Las trampas más frecuentes y cómo reconocerlas antes de caer.</div>
+    </div>
+    <div class="tip-cat">
+      <span class="tip-icon">🏨</span>
+      <div class="tip-cat-name">Alojamiento</div>
+      <div class="tip-cat-desc">Zonas, precios reales y qué plataformas usar según el destino.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section community-section" id="comunidad">
+  <div class="section-label">La comunidad habla</div>
+  <h2 class="section-title">Comparte tu experiencia</h2>
+
+  <div class="community-box">
+    <p style="font-size: 0.85rem; color: rgba(245,243,239,0.55); line-height: 1.8; position: relative; z-index: 1; max-width: 500px;">
+      ¿Has estado en alguno de estos destinos? Cuéntanos algo que te hubiera gustado saber antes de ir. Cada tip ayuda a otro viajero.
+    </p>
+
+    <div class="community-form">
+      <div class="form-group">
+        <label class="form-label">Destino</label>
+        <select class="form-select">
+          <option>Bali, Indonesia</option>
+          <option>Lombok, Indonesia</option>
+          <option>Sulawesi, Indonesia</option>
+          <option>Vietnam</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select class="form-select">
+          <option>ATM sin fees</option>
+          <option>Cambio de efectivo</option>
+          <option>Visa y entrada</option>
+          <option>Transporte</option>
+          <option>Comida</option>
+          <option>SIM y conectividad</option>
+          <option>Estafas comunes</option>
+          <option>Alojamiento</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Tu experiencia</label>
+        <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+      <div class="form-group" style="justify-content: flex-end;">
+        <button class="btn-primary" style="width: 100%; margin-top: 1.3rem;">Enviar experiencia ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 2rem;">
+    <div class="section-label" style="margin-bottom: 1rem;">Últimas aportaciones</div>
+    <div class="existing-tips">
+      <div class="tip-entry">
+        <div class="tip-meta">
+          <span class="tip-dest-badge">Bali</span>
+          <span class="tip-cat-badge">ATM sin fees</span>
+          <span class="tip-author">por Genís</span>
+        </div>
+        <p class="tip-text">En Bali el único cajero que no te cobra comisión es CIMB Niaga. Los de BCA y Mandiri tienen fee. Saca siempre en rupias, nunca aceptes la conversión del propio cajero.</p>
+      </div>
+      <div class="tip-entry">
+        <div class="tip-meta">
+          <span class="tip-dest-badge">Vietnam</span>
+          <span class="tip-cat-badge">Estafas comunes</span>
+          <span class="tip-author">por Genís</span>
+        </div>
+        <p class="tip-text">En Hanói hay taxis falsos con logos casi idénticos a los oficiales. Usa siempre Grab o pide al hotel que te llame uno de confianza. El precio siempre antes de subir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · 2025 · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  const destinations = [
+    { name: 'Bali', country: '🇮🇩 Indonesia' },
+    { name: 'Lombok', country: '🇮🇩 Indonesia' },
+    { name: 'Sulawesi', country: '🇮🇩 Indonesia' },
+    { name: 'Vietnam', country: '🇻🇳 Vietnam' },
+    { name: 'Colombia', country: '🇨🇴 Colombia' },
+    { name: 'Tailandia', country: '🇹🇭 Tailandia' },
+    { name: 'Corea del Sur', country: '🇰🇷 Corea del Sur' },
+    { name: 'China', country: '🇨🇳 China' },
+  ];
+
+  let current = 0;
+  const nameEl = document.getElementById('destName');
+  const countryEl = document.getElementById('destCountry');
+  const dotsEl = document.getElementById('bookDots');
+  const pageEl = document.getElementById('bookPage');
+
+  // Build dots
+  destinations.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'book-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(d);
+  });
+
+  function showDest(index) {
+    const dots = dotsEl.querySelectorAll('.book-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    nameEl.textContent = destinations[index].name;
+    countryEl.textContent = destinations[index].country;
+    nameEl.classList.add('visible');
+    countryEl.classList.add('visible');
+  }
+
+  function turnPage() {
+    // fade out current
+    nameEl.classList.remove('visible');
+    countryEl.classList.remove('visible');
+
+    // trigger page turn animation
+    pageEl.classList.add('turning');
+
+    setTimeout(() => {
+      current = (current + 1) % destinations.length;
+      showDest(current);
+      pageEl.classList.remove('turning');
+    }, 600);
+  }
+
+  // Init
+  showDest(0);
+
+  // Auto-advance every 2.5s
+  setInterval(turnPage, 2500);
+</script>
+</body>
+</html>

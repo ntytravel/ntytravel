@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTY — Tailandia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a { color: rgba(245,243,239,0.6); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+  nav ul li a:hover { color: var(--white); }
+
+  .dest-hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2.5rem 3.5rem; position: relative; overflow: hidden; margin-top: 60px; }
+  .dest-hero-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #14100a 0%, #0e0b08 40%, #0a0a0a 70%); }
+  .dest-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 60px 60px; }
+  .breadcrumb { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .breadcrumb a { color: rgba(200,184,154,0.5); text-decoration: none; }
+  .dest-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .dest-subtitle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-top: 0.8rem; position: relative; z-index: 1; }
+  .hero-desc { font-size: 0.9rem; color: rgba(245,243,239,0.45); max-width: 500px; line-height: 1.8; margin-top: 1.2rem; position: relative; z-index: 1; }
+  .tip-count-bar { display: flex; gap: 2.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+  .tc-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); display: block; }
+  .tc-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+  .cat-nav { position: sticky; top: 60px; z-index: 50; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 0.5px solid rgba(255,255,255,0.06); padding: 0 2.5rem; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.1rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .cat-btn:hover { color: var(--white); }
+  .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .tip-section { padding: 4rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+  .section-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2.5rem; }
+  .section-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.2rem; }
+  .section-tag { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.1; }
+
+  .tip-card { background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.07); padding: 1.5rem; margin-bottom: 1px; position: relative; transition: background 0.2s; }
+  .tip-card:hover { background: rgba(255,255,255,0.04); }
+  .tip-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .tip-card:hover::before { opacity: 1; }
+  .tip-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .tip-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+  .tip-body { font-size: 0.88rem; color: rgba(245,243,239,0.65); line-height: 1.85; }
+  .tip-body strong { color: rgba(245,243,239,0.9); font-weight: 500; }
+  .highlight { display: inline-block; background: rgba(200,184,154,0.1); border: 0.5px solid rgba(200,184,154,0.2); color: var(--accent); font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; margin: 0.2rem 0.2rem 0.2rem 0; border-radius: 1px; }
+  .tip-alert { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(200,50,50,0.06); border-left: 2px solid rgba(200,50,50,0.4); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.7; }
+  .tip-alert strong { color: rgba(220,100,100,0.9); font-weight: 500; }
+  .tip-pro { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(200,184,154,0.05); border-left: 2px solid var(--accent); font-size: 0.8rem; color: rgba(245,243,239,0.6); line-height: 1.7; }
+  .tip-pro strong { color: var(--accent); font-weight: 500; }
+
+  .tip-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .tip-table th { text-align: left; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); padding: 0.5rem 0.8rem; border-bottom: 0.5px solid rgba(255,255,255,0.08); font-weight: 400; }
+  .tip-table td { padding: 0.6rem 0.8rem; color: rgba(245,243,239,0.65); border-bottom: 0.5px solid rgba(255,255,255,0.04); vertical-align: top; }
+  .tip-table tr:last-child td { border-bottom: none; }
+  .tip-table .name { color: var(--white); font-weight: 500; }
+  .ok { color: #6db87a; }
+  .warn { color: #e08a4a; }
+  .bad { color: #c96060; }
+
+  /* RUTA DÍAS */
+  .route-timeline { position: relative; padding-left: 2rem; }
+  .route-timeline::before { content: ''; position: absolute; left: 0.45rem; top: 0; bottom: 0; width: 1px; background: rgba(200,184,154,0.15); }
+  .route-day { position: relative; margin-bottom: 2rem; }
+  .route-day::before { content: ''; position: absolute; left: -1.65rem; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--black); }
+  .route-day-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.8rem; }
+  .route-day-num { font-family: 'Playfair Display', serif; font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; white-space: nowrap; }
+  .route-day-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+  .route-day-body { font-size: 0.84rem; color: rgba(245,243,239,0.6); line-height: 1.85; }
+  .route-day-body strong { color: rgba(245,243,239,0.88); font-weight: 500; }
+  .route-day-body a { color: var(--accent); }
+
+  .transport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1.2rem; border: 0.5px solid rgba(255,255,255,0.07); }
+  .transport-card { padding: 1.2rem; background: rgba(255,255,255,0.02); }
+  .transport-card:first-child { border-right: 0.5px solid rgba(255,255,255,0.07); }
+  .transport-name { font-size: 0.78rem; font-weight: 500; color: var(--white); margin-bottom: 0.4rem; }
+  .transport-detail { font-size: 0.75rem; color: rgba(245,243,239,0.5); line-height: 1.7; }
+
+  .community-strip { background: #0d0d0d; border-top: 0.5px solid rgba(255,255,255,0.06); padding: 4rem 0; }
+  .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .community-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .community-desc { font-size: 0.85rem; color: rgba(245,243,239,0.45); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-select, .form-textarea { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09); color: var(--white); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; border-radius: 1px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(200,184,154,0.35); }
+  .form-select option { background: #1a1a1a; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .community-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-primary { background: var(--white); color: var(--black); border: none; padding: 0.85rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; border-radius: 1px; width: 100%; margin-top: 0.5rem; }
+  .btn-primary:hover { background: var(--accent); }
+
+  footer { border-top: 0.5px solid rgba(255,255,255,0.06); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: rgba(245,243,239,0.3); }
+  .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .dest-hero, .content-wrap, .community-inner { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .transport-grid, .community-form-grid { grid-template-columns: 1fr; }
+    .transport-card:first-child { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .cat-nav { padding: 0 1.2rem; }
+    .route-timeline { padding-left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N<span>T</span>Y</a>
+  <ul>
+    <li><a href="index.html#destinos">Destinos</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+  </ul>
+</nav>
+
+<section class="dest-hero">
+  <div class="dest-hero-bg"></div>
+  <div class="dest-hero-grid"></div>
+  <div class="breadcrumb"><a href="index.html">Destinos</a> / Tailandia</div>
+  <h1 class="dest-title">Tailandia</h1>
+  <p class="dest-subtitle">🇹🇭 Thailand · El país de las sonrisas</p>
+  <p class="hero-desc">De Bangkok a Phi Phi pasando por templos blancos, islas turquesa y buceo en Ko Tao. La ruta completa de 16 días con todo lo que necesitas saber antes de llegar.</p>
+  <div class="tip-count-bar">
+    <div class="tc-item"><span class="tc-num">16</span><span class="tc-label">Días de ruta</span></div>
+    <div class="tc-item"><span class="tc-num">8</span><span class="tc-label">Destinos</span></div>
+    <div class="tc-item"><span class="tc-num">100%</span><span class="tc-label">Verificado</span></div>
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <button class="cat-btn active" onclick="goToSection('entrada')">🛂 Entrada</button>
+  <button class="cat-btn" onclick="goToSection('atm')">💳 ATM</button>
+  <button class="cat-btn" onclick="goToSection('cambio')">💵 Exchange</button>
+  <button class="cat-btn" onclick="goToSection('transporte')">🚇 Transporte</button>
+  <button class="cat-btn" onclick="goToSection('ruta')">🗺️ Ruta 16 días</button>
+  <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
+  <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ENTRADA -->
+  <section class="tip-section" id="entrada">
+    <div class="section-header">
+      <div class="section-icon">🛂</div>
+      <div class="section-header-text">
+        <div class="section-tag">Entrada · Documentación</div>
+        <h2 class="section-title">Entrada a Tailandia: TDAC y visado</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Lo que nadie te dice antes de llegar</div>
+      <div class="tip-title">TDAC: el formulario digital obligatorio. Gratis, pero hay que hacerlo antes de salir de casa</div>
+      <div class="tip-body">
+        Desde 2024, todos los viajeros extranjeros que entran en Tailandia deben rellenar el <strong>Thailand Digital Arrival Card (TDAC)</strong>. Es el equivalente digital del antiguo formulario de papel que dabas en el avión — pero ahora es online y obligatorio.
+        <br><br>
+        Lo importante: es <strong>completamente gratuito</strong>. Hay webs de terceros que cobran por gestionarlo (10-15€) — es una estafa. La web oficial del gobierno es la única válida:
+
+        <div class="tip-pro">
+          <strong>🔗 Web oficial TDAC:</strong> <a href="https://tdac.immigration.go.th" target="_blank" rel="noopener" style="color:var(--accent);">tdac.immigration.go.th →</a><br>
+          Puedes completarlo hasta <strong>3 días antes de tu llegada</strong>. Hazlo desde casa con calma — necesitas datos del pasaporte, vuelo, alojamiento de la primera noche y datos de contacto.
+        </div>
+        <div class="tip-alert">
+          <strong>Ojo con las webs falsas:</strong> Busca "TDAC Thailand" y aparecen decenas de páginas que parecen oficiales pero cobran por el trámite. La única URL oficial es <strong>tdac.immigration.go.th</strong> (dominio .go.th = gobierno tailandés). Sin puntos ni subdominios raros.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Ciudadanos españoles</div>
+      <div class="tip-title">Sin visado: entrada libre hasta 60 días</div>
+      <div class="tip-body">
+        Los ciudadanos españoles pueden entrar en Tailandia <strong>sin visado</strong> con estancia de hasta <strong>60 días</strong> (desde la reforma de 2024 que amplió el período anterior de 30 días). Solo necesitas el pasaporte y el TDAC completado.
+        <br><br>
+        <strong>Requisitos del pasaporte:</strong> Mínimo 6 meses de validez desde la fecha de entrada. Compruébalo antes de viajar.
+
+        <div class="tip-pro">
+          <strong>¿Qué pasa si quieres quedarte más de 60 días?</strong> Puedes solicitar una extensión de 30 días adicionales en cualquier oficina de inmigración tailandesa por 1.900 THB (≈ 50€). O salir del país y volver (visa run) — aunque las autoridades tailandesas cada vez miran más los sellos repetidos.
+        </div>
+        <div class="tip-pro">
+          <strong>🔗 Información oficial actualizada:</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=tailandia" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Tailandia — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATM -->
+  <section class="tip-section" id="atm">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · Cajeros</div>
+        <h2 class="section-title">ATM en Tailandia: todos cobran comisión</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">La realidad</div>
+      <div class="tip-title">A diferencia de Indonesia, en Tailandia todos los cajeros cobran fee</div>
+      <div class="tip-body">
+        Esta es una de las grandes diferencias respecto a Indonesia: en Tailandia <strong>prácticamente todos los ATM cobran una comisión fija</strong> al usar tarjeta extranjera. No hay banco que se libre. El fee estándar en 2025-2026 es de <strong>220–250 THB por retirada</strong> (≈ 6–7€), independientemente de cuánto saques.
+
+        <br><br>
+        La estrategia es simple: <strong>saca la cantidad máxima posible de una vez</strong> para minimizar el número de retiradas (y por tanto el número de fees). La mayoría de bancos permiten sacar hasta 20.000–30.000 THB por operación.
+
+        <table class="tip-table" style="margin-top:1.2rem">
+          <tr>
+            <th>Banco</th>
+            <th>Fee por retirada</th>
+            <th>Límite por operación</th>
+            <th>Nota</th>
+          </tr>
+          <tr><td class="name">Kasikorn (KBank)</td><td class="warn">≈ 220–250 THB</td><td>30.000 THB</td><td>Límite más alto — minimiza los fees si sacas mucho</td></tr>
+          <tr><td class="name">Bangkok Bank</td><td class="warn">≈ 220 THB</td><td>20.000 THB</td><td>Muy extendido en todo el país</td></tr>
+          <tr><td class="name">SCB (Siam Commercial)</td><td class="warn">≈ 220–250 THB</td><td>20.000 THB</td><td>El banco "morado", muy común</td></tr>
+          <tr><td class="name">Krungsri (BAY)</td><td class="warn">≈ 220 THB</td><td>20.000 THB</td><td>Habitual en centros comerciales</td></tr>
+          <tr><td class="name">AEON</td><td class="ok">A veces sin fee</td><td>10.000–20.000 THB</td><td>El más favorable para tarjetas extranjeras, pero cada vez más escaso</td></tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Consejo NTY:</strong> La mejor estrategia para Tailandia es <strong>llevar euros en efectivo y cambiarlos en exchange</strong> — así evitas el fee del cajero completamente. Lleva suficiente efectivo para los primeros días hasta llegar a un buen exchange de Bangkok. Ver sección siguiente.
+        </div>
+        <div class="tip-alert">
+          <strong>Recuerda siempre:</strong> Cuando el cajero te ofrezca convertir a euros, di NO y elige pagar en baht (THB). El tipo de cambio del cajero es siempre mucho peor que el de tu banco.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMBIO / EXCHANGE -->
+  <section class="tip-section" id="cambio">
+    <div class="section-header">
+      <div class="section-icon">💵</div>
+      <div class="section-header-text">
+        <div class="section-tag">Dinero · Efectivo</div>
+        <h2 class="section-title">Dónde cambiar dinero: los mejores exchanges de Bangkok</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">La alternativa real al cajero</div>
+      <div class="tip-title">Trae euros en efectivo y cámbialos en Bangkok: diferencia de hasta 3–5% respecto al aeropuerto</div>
+      <div class="tip-body">
+        Dado que todos los cajeros cobran fee en Tailandia, la opción más inteligente para muchos viajeros es <strong>traer euros en efectivo desde España</strong> y cambiarlos en uno de los buenos exchanges de Bangkok. La diferencia entre cambiar en el aeropuerto y hacerlo en un exchange bueno puede ser del <strong>3 al 5%</strong> — en 500€ son entre 15 y 25€ perdidos.
+
+        <table class="tip-table" style="margin-top:1.2rem">
+          <tr>
+            <th>Exchange</th>
+            <th>Valoración</th>
+            <th>Ubicación</th>
+            <th>Nota</th>
+          </tr>
+          <tr>
+            <td class="name">SuperRich Thailand <span style="font-size:0.7em;color:var(--gray)">(verde)</span></td>
+            <td class="ok">⭐ Excelente</td>
+            <td>Ratchadamri Road, cerca de BTS Chit Lom</td>
+            <td>El más famoso, mejor tasa en Bangkok. Cola habitual.</td>
+          </tr>
+          <tr>
+            <td class="name">SuperRich 1965 <span style="font-size:0.7em;color:var(--gray)">(naranja)</span></td>
+            <td class="ok">⭐ Excelente</td>
+            <td>Zona Ratchaprasong / CentralWorld</td>
+            <td>Misma calidad que el verde, diferente empresa. Busca el logo naranja.</td>
+          </tr>
+          <tr>
+            <td class="name">Vasu Exchange</td>
+            <td class="ok">✓ Muy bueno</td>
+            <td>Sukhumvit Soi 7/1 (zona Nana BTS)</td>
+            <td>Muy popular entre turistas. Tasa ligeramente inferior a SuperRich pero menos cola.</td>
+          </tr>
+          <tr>
+            <td class="name">Cambios en centros comerciales</td>
+            <td class="warn">⚠ Aceptable</td>
+            <td>MBK, Terminal 21, CentralWorld</td>
+            <td>Cómodo pero tasa peor. Solo si no puedes ir a ninguno de los anteriores.</td>
+          </tr>
+          <tr>
+            <td class="name">Aeropuerto (Suvarnabhumi / DMK)</td>
+            <td class="bad">✗ Evitar</td>
+            <td>Terminales de llegada</td>
+            <td>La peor tasa del mercado. Solo cambia lo mínimo para el taxi al centro.</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Consejo práctico:</strong> Al llegar al aeropuerto, cambia solo 500–1.000 THB para el taxi o el metro. Una vez en Bangkok, ve a SuperRich o Vasu para cambiar el grueso del dinero del viaje.
+        </div>
+        <div class="tip-pro">
+          <strong>¿Cuántos euros llevar?</strong> Depende de cuánto gastes, pero para 16 días con alojamiento, comida local, transporte y actividades puedes estimar <strong>50–80€/día</strong> como media. Trae algo más de margen — mejor que quedarte corto.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTE BANGKOK -->
+  <section class="tip-section" id="transporte">
+    <div class="section-header">
+      <div class="section-icon">🚇</div>
+      <div class="section-header-text">
+        <div class="section-tag">Moverse · Bangkok y resto del país</div>
+        <h2 class="section-title">Transporte en Tailandia</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Bangkok · Lo esencial</div>
+      <div class="tip-title">Bangkok es un caos de tráfico. Con metro y Skytrain es otra ciudad</div>
+      <div class="tip-body">
+        Bangkok tiene uno de los tráficos más densos de Asia. A pie de calle — coche, taxi, tuk-tuk — puedes perder horas. La clave es usar el <strong>BTS Skytrain</strong> (metro elevado) y el <strong>MRT</strong> (metro subterráneo) siempre que puedas. Son rápidos, puntuales, con aire acondicionado y cubren las zonas más turísticas.
+
+        <div class="transport-grid">
+          <div class="transport-card">
+            <div class="transport-name">🚈 BTS Skytrain</div>
+            <div class="transport-detail">Metro elevado. Cubre Sukhumvit, Silom, Siam, Chatuchak. <strong>17–65 THB</strong> según distancia. Funciona de 5:15 a 00:00h. Compra tarjeta Rabbit Card si usas más de 2 días.</div>
+          </div>
+          <div class="transport-card">
+            <div class="transport-name">🚇 MRT Subway</div>
+            <div class="transport-detail">Metro subterráneo. Complementa el BTS con otras zonas. <strong>17–45 THB</strong> según distancia. De 5:30 a 00:00h. Muy útil para llegar a Chinatown (Hua Lamphong) y zonas del centro.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Apps de transporte</div>
+      <div class="tip-title">Grab vs Bolt: cuál elegir y cuándo</div>
+      <div class="tip-body">
+        Tanto Grab como Bolt funcionan bien en Bangkok y en las principales ciudades turísticas. La diferencia principal es el precio:
+
+        <table class="tip-table" style="margin-top:0.8rem">
+          <tr>
+            <th>App</th>
+            <th>Precio</th>
+            <th>Disponibilidad</th>
+            <th>Servicios</th>
+          </tr>
+          <tr>
+            <td class="name">Grab</td>
+            <td>Base, algo más caro</td>
+            <td class="ok">✓ Alta — más conductores</td>
+            <td>Coche, moto, comida (GrabFood), paquetes, taxi</td>
+          </tr>
+          <tr>
+            <td class="name">Bolt</td>
+            <td class="ok">10–25% más barato que Grab</td>
+            <td class="warn">⚠ Buena en Bangkok centro, menor en zonas periféricas</td>
+            <td>Coche, moto</td>
+          </tr>
+          <tr>
+            <td class="name">inDriver</td>
+            <td class="ok">Precio negociado</td>
+            <td class="warn">⚠ Menor que Grab/Bolt</td>
+            <td>Coche — pones tú el precio y los conductores aceptan o contraofrecen</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Estrategia recomendada:</strong> Instala Grab y Bolt antes de llegar. Para cada trayecto, compara precio en los dos — Bolt suele ser más barato para rutas cortas en el centro. Para zonas con menos cobertura o si Bolt no tiene conductores disponibles, Grab siempre funciona.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Más opciones en Bangkok</div>
+      <div class="tip-title">Tuk-tuk, barco por el río y songthaew</div>
+      <div class="tip-body">
+        <strong>Tuk-tuk:</strong> Icónico, divertido y perfecto para distancias cortas. Siempre negocia el precio antes de subir. Para trayectos turísticos en el centro puede ser caro — úsalo más por la experiencia que por el precio.
+        <br><br>
+        <strong>Barco Chao Phraya:</strong> El río atraviesa Bangkok y el barco expreso (Chao Phraya Express Boat) conecta muchos puntos de interés turístico. <strong>15–32 THB</strong>, muy rápido y te evitas el tráfico de tierra. Ideal para visitar el Wat Arun, el Gran Palacio y los templos ribereños.
+        <br><br>
+        <strong>Songthaew:</strong> Pickup con asientos en la caja trasera. Transporte local muy barato en ciudades como Chiang Mai. <strong>20–40 THB</strong> por trayecto fijo.
+
+        <div class="tip-alert">
+          <strong>Taxistas sin taxímetro:</strong> En Bangkok siempre pide que pongan el taxímetro (mèter, mèter en tailandés). Si el conductor se niega, bájate — te van a cobrar de más. Los taxis con taxímetro son la opción más barata para distancias largas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUTA 16 DÍAS -->
+  <section class="tip-section" id="ruta">
+    <div class="section-header">
+      <div class="section-icon">🗺️</div>
+      <div class="section-header-text">
+        <div class="section-tag">Ruta real · 16 días</div>
+        <h2 class="section-title">Guía día a día: de Bangkok a Phi Phi</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-body">
+        <div class="route-timeline">
+
+          <!-- DÍA 1 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 1</span>
+              <span class="route-day-title">Barcelona → Bangkok (escala Qatar)</span>
+            </div>
+            <div class="route-day-body">
+              Vuelo largo con escala en Doha (Qatar Airways). El trayecto total suele ser de unas <strong>14–17 horas</strong> incluyendo escala. Al llegar a <strong>Suvarnabhumi Airport (BKK)</strong>, la forma más cómoda y barata de llegar al centro es el <strong>Airport Rail Link</strong>: tren directo desde el aeropuerto hasta la estación Phaya Thai (BTS) en <strong>30 minutos por 45 THB</strong>. Desde ahí coges el BTS al hotel.
+              <br><br>
+              Si llegas tarde o con mucho equipaje, Grab desde el aeropuerto al centro cuesta unos <strong>250–400 THB</strong> según la zona.
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Primer día en Bangkok:</strong> Es día de llegada y adaptación. Haz el cambio de dinero mínimo en el aeropuerto solo para el transporte. Al día siguiente ve a SuperRich o Vasu a cambiar el resto.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 2 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 2</span>
+              <span class="route-day-title">Excursión a Ayutthaya</span>
+            </div>
+            <div class="route-day-body">
+              <strong>Ayutthaya</strong> fue la capital del Reino de Siam durante más de 400 años. Hoy sus ruinas son Patrimonio de la Humanidad de la UNESCO — templos en ruinas, Budas decapitados por invasores birmanos y la famosa cabeza de Buda entre raíces de árbol. Se puede hacer en un día desde Bangkok perfectamente.
+
+              <br><br>
+              <strong>Cómo llegar:</strong>
+              <table class="tip-table">
+                <tr>
+                  <th>Opción</th>
+                  <th>Salida</th>
+                  <th>Precio</th>
+                  <th>Duración</th>
+                  <th>Compra ticket</th>
+                </tr>
+                <tr>
+                  <td class="name">Tren</td>
+                  <td>Estación Krung Thep Aphiwat (Bang Sue)</td>
+                  <td class="ok">70–150 THB</td>
+                  <td>1h – 1h30min</td>
+                  <td>En taquilla el mismo día o app <a href="https://www.thairailwayticket.com" target="_blank" style="color:var(--accent)">thairailwayticket.com</a></td>
+                </tr>
+                <tr>
+                  <td class="name">Minivan</td>
+                  <td>Terminal Mo Chit (BTS Chatuchak)</td>
+                  <td class="ok">100–150 THB</td>
+                  <td>1h30–2h</td>
+                  <td>En taquilla del terminal</td>
+                </tr>
+                <tr>
+                  <td class="name">Tour organizado</td>
+                  <td>Sale de tu hotel</td>
+                  <td class="warn">800–1.500 THB</td>
+                  <td>Día completo</td>
+                  <td>Klook, Viator o agencias locales</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Qué ver en Ayutthaya:</strong><br>
+                🏛️ <strong>Wat Mahathat</strong> — la famosa cabeza de Buda entre raíces de árbol. Icono absoluto.<br>
+                🏛️ <strong>Wat Phra Si Sanphet</strong> — los tres chedis en fila, símbolo de Ayutthaya.<br>
+                🏛️ <strong>Wat Chaiwatthanaram</strong> — a orillas del río, espectacular al atardecer.<br>
+                🏛️ <strong>Wat Ratchaburana</strong> — cripta subterránea donde se hallaron tesoros antiguos.<br>
+                🏛️ <strong>Wat Yai Chai Mongkhon</strong> — gran chedi que puedes subir, al sureste del parque.<br><br>
+                <strong>Entrada:</strong> ~50 THB por templo individual, o pase conjunto por 220 THB (6 templos). <a href="https://www.google.com/maps/search/Ayutthaya+Historical+Park+Thailand" target="_blank" style="color:var(--accent)">Ver en Google Maps →</a>
+              </div>
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,184,154,0.05);border-left:2px solid var(--accent);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:var(--accent)">Consejo:</strong> Alquila una bicicleta al llegar (unos 60 THB/día) — es la mejor forma de moverte entre los templos del parque histórico.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 3 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 3</span>
+              <span class="route-day-title">Vuelo Bangkok → Chiang Mai + primera tarde</span>
+            </div>
+            <div class="route-day-body">
+              <strong>Importante: Bangkok tiene dos aeropuertos.</strong> Cuando compres el vuelo a Chiang Mai, fíjate bien desde cuál sale:
+              <br><br>
+              • <strong>Suvarnabhumi (BKK)</strong> — el aeropuerto internacional principal, al sureste de Bangkok.<br>
+              • <strong>Don Mueang (DMK)</strong> — aeropuerto de bajo coste, al norte. Más económico pero más lejos del centro.
+              <br><br>
+              Las aerolíneas de bajo coste como <strong>AirAsia, Nok Air y Lion Air</strong> suelen operar desde Don Mueang. Thai Airways y Bangkok Airways desde Suvarnabhumi. Precio orientativo: <strong>800–2.000 THB</strong> (23–60€) según aerolínea y antelación. Vuelo de 1h.
+              <br><br>
+              Al llegar a Chiang Mai (CNX), la primera tarde da para:
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,184,154,0.05);border-left:2px solid var(--accent);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:var(--accent)">Primera tarde en Chiang Mai:</strong><br>
+                🏛️ <strong>Wat Chedi Luang</strong> — en el centro de la Ciudad Vieja, uno de los templos más importantes de la ciudad.<br>
+                🏛️ <strong>Wat Phra Singh</strong> — impresionante templo dorado con el Buda más venerado de Chiang Mai.<br>
+                🌆 <strong>Night Bazaar</strong> (si es entre semana) — 2 km de puestos de comida, ropa y artesanía en Chang Klan Road.<br>
+                Si es <strong>domingo</strong>: <strong>Sunday Walking Street</strong> en Wualai Road — mercado nocturno con actuaciones y comida local.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 4 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 4</span>
+              <span class="route-day-title">Excursión a Chiang Rai</span>
+            </div>
+            <div class="route-day-body">
+              Chiang Rai está a unos <strong>200 km al norte</strong> de Chiang Mai. Se puede hacer como excursión de un día, aunque si tienes tiempo merece una noche.
+
+              <br><br>
+              <strong>Cómo llegar:</strong>
+              <table class="tip-table">
+                <tr>
+                  <th>Opción</th>
+                  <th>Precio</th>
+                  <th>Duración</th>
+                  <th>Dónde comprar</th>
+                </tr>
+                <tr>
+                  <td class="name">Bus / minivan</td>
+                  <td class="ok">150–200 THB</td>
+                  <td>3h</td>
+                  <td>Terminal Arcade de Chiang Mai o <a href="https://12go.asia" target="_blank" style="color:var(--accent)">12go.asia</a></td>
+                </tr>
+                <tr>
+                  <td class="name">Tour organizado</td>
+                  <td class="warn">1.200–2.000 THB</td>
+                  <td>Día completo con guía</td>
+                  <td>Agencias en la Ciudad Vieja de Chiang Mai</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Qué ver en Chiang Rai:</strong><br>
+                ⛩️ <strong>Wat Rong Khun (Templo Blanco)</strong> — el más impresionante de Tailandia. Diseño contemporáneo en blanco puro con incrustaciones de espejo. Entrada: 100 THB. <a href="https://www.google.com/maps/search/Wat+Rong+Khun+White+Temple+Chiang+Rai" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                💙 <strong>Wat Rong Suea Ten (Templo Azul)</strong> — entrada gratuita, interior espectacular. Más tranquilo que el blanco. <a href="https://www.google.com/maps/search/Wat+Rong+Suea+Ten+Blue+Temple+Chiang+Rai" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🌙 <strong>Night Bazaar de Chiang Rai</strong> — cerca de la Clock Tower, ambiente local auténtico.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 5 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 5</span>
+              <span class="route-day-title">Chiang Mai (día completo)</span>
+            </div>
+            <div class="route-day-body">
+              El día completo en Chiang Mai da para mucho más que la primera tarde. La ciudad tiene templos extraordinarios, mercados, talleres de artesanía y naturaleza a pocos kilómetros.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Qué hacer:</strong><br>
+                🏛️ <strong>Doi Suthep</strong> — el templo dorado en la montaña sobre Chiang Mai, a 15 km del centro. Vistas panorámicas de la ciudad. Songthaew desde la Ciudad Vieja por ~80 THB. <a href="https://www.google.com/maps/search/Wat+Phra+That+Doi+Suthep+Chiang+Mai" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏛️ <strong>Wat Chedi Luang</strong> — las ruinas del gran chedi del siglo XIV en el centro histórico. Por la noche lo iluminan.<br>
+                🛍️ <strong>Saturday Walking Street (Wualai Rd)</strong> — si es sábado: artesanía Lanna auténtica.<br>
+                🥊 <strong>Muay Thai</strong> — Chiang Mai tiene varios estadios con combates nocturnos. Experiencia única por 400–500 THB entrada.<br>
+                🧘 <strong>Cocina tailandesa</strong> — muchos talleres de cocina de medio día donde aprendes a hacer pad thai, curry verde y tom kha. Muy recomendables.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 6 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 6</span>
+              <span class="route-day-title">Chiang Mai → Ko Pha Ngan</span>
+            </div>
+            <div class="route-day-body">
+              Este es el tramo más largo de la ruta. Hay varias formas de llegar — nosotros hicimos <strong>vuelo a Surat Thani + transfer + ferry</strong>, que es la opción más cómoda.
+
+              <table class="tip-table">
+                <tr>
+                  <th>Opción</th>
+                  <th>Precio est.</th>
+                  <th>Duración total</th>
+                  <th>Detalle</th>
+                </tr>
+                <tr>
+                  <td class="name">✈️ Vuelo CNX → SUR + ferry</td>
+                  <td>1.800–3.500 THB</td>
+                  <td>≈ 5–7h</td>
+                  <td>AirAsia o Nok Air a Surat Thani. Al llegar, minivan/taxi al muelle (Donsak o Ban Don Pier) + ferry a Ko Pha Ngan. Tickets combo disponibles en el aeropuerto o en <a href="https://12go.asia" target="_blank" style="color:var(--accent)">12go.asia</a>.</td>
+                </tr>
+                <tr>
+                  <td class="name">🚌 Bus nocturno</td>
+                  <td>700–1.200 THB</td>
+                  <td>≈ 12–14h</td>
+                  <td>Sale tarde de Chiang Mai, llega a Surat Thani de madrugada. Más barato pero sacrificas una noche.</td>
+                </tr>
+                <tr>
+                  <td class="name">✈️ Vuelo CNX → BKK → SUR</td>
+                  <td>2.500–5.000 THB</td>
+                  <td>≈ 8–10h</td>
+                  <td>Con escala en Bangkok. Más opciones de horario pero más caro y largo.</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Ferry desde Surat Thani a Ko Pha Ngan:</strong> Las empresas principales son <strong>Lomprayah</strong> y <strong>Seatran</strong>. El trayecto dura unas <strong>2 horas</strong>. Precio: <strong>300–450 THB</strong>. Compra el ticket combinado (transfer aeropuerto + ferry) al llegar a Surat Thani — hay mostradores en el hall de llegadas.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 7 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 7</span>
+              <span class="route-day-title">Ko Pha Ngan</span>
+            </div>
+            <div class="route-day-body">
+              Ko Pha Ngan es famosa mundialmente por la <strong>Full Moon Party</strong>, pero la isla tiene mucho más que eso: playas tranquilas, naturaleza y ambiente relajado en el norte y este. La fiesta se concentra en <strong>Haad Rin</strong> al sur.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Mejores playas y zonas:</strong><br>
+                🏖️ <strong>Haad Rin</strong> — la playa de la Full Moon Party. De día tranquila, de noche (en luna llena) una locura de 30.000 personas. <a href="https://www.google.com/maps/search/Haad+Rin+beach+Ko+Pha+Ngan" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Haad Salad</strong> — norte de la isla, aguas cristalinas y ambiente tranquilo. Perfecta si buscas descanso. <a href="https://www.google.com/maps/search/Haad+Salad+Ko+Pha+Ngan" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Haad Thong Nai Pan</strong> — considerada la más bonita de la isla. En el noreste, más difícil de llegar pero vale la pena. <a href="https://www.google.com/maps/search/Thong+Nai+Pan+beach+Ko+Pha+Ngan" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Haad Yao</strong> — playa larga y tranquila en el oeste. Buen snorkel. <a href="https://www.google.com/maps/search/Haad+Yao+Ko+Pha+Ngan" target="_blank" style="color:var(--accent)">Maps →</a>
+              </div>
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,184,154,0.05);border-left:2px solid var(--accent);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:var(--accent)">Full Moon Party:</strong> Si tu ruta coincide con luna llena, la experiencia es única — pero es multitudinaria y muy comercial. Tickets en la entrada unos 200 THB. Lleva ropa que no te importe manchar (pintura de colores es tradición).
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 8 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 8</span>
+              <span class="route-day-title">Ko Pha Ngan → Ko Tao (ferry)</span>
+            </div>
+            <div class="route-day-body">
+              Ko Tao está a unos <strong>50 km al norte</strong> de Ko Pha Ngan. Es la capital del buceo accesible del sudeste asiático — aguas cristalinas, arrecifes de coral espectaculares y el precio más bajo del mundo para hacer el Open Water.
+
+              <table class="tip-table">
+                <tr>
+                  <th>Empresa</th>
+                  <th>Precio</th>
+                  <th>Duración</th>
+                  <th>Tipo</th>
+                </tr>
+                <tr>
+                  <td class="name">Lomprayah</td>
+                  <td>450–600 THB</td>
+                  <td>≈ 1h30min</td>
+                  <td>Catamarán de alta velocidad. El más rápido y cómodo.</td>
+                </tr>
+                <tr>
+                  <td class="name">Seatran</td>
+                  <td>350–450 THB</td>
+                  <td>≈ 2h</td>
+                  <td>Ferry convencional. Más barato, algo más lento.</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Compra online:</strong> <a href="https://lomprayah.com" target="_blank" style="color:var(--accent)">lomprayah.com</a> o <a href="https://12go.asia" target="_blank" style="color:var(--accent)">12go.asia</a>. En temporada alta (dic–mar, jul–ago) conviene reservar con días de antelación.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍAS 9-10 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍAS 9–10</span>
+              <span class="route-day-title">Ko Tao: buceo y playas</span>
+            </div>
+            <div class="route-day-body">
+              Ko Tao es el lugar más barato del mundo para sacarse el <strong>PADI Open Water</strong> (certificado de buceo). Dos días completos en Ko Tao dan para hacer el curso, hacer inmersiones o simplemente disfrutar de las playas y el snorkel desde la orilla.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Escuelas de buceo recomendadas — en español:</strong><br>
+                🤿 <strong>Pura Vida Diving</strong> — la escuela española más conocida de Ko Tao. Instrucción en español, catalán, inglés, francés y portugués. 5 estrellas en Google con más de 3.000 reseñas. <a href="https://www.puravidatailandia.com" target="_blank" style="color:var(--accent)">puravidatailandia.com</a> | <a href="https://www.google.com/maps/search/Pura+Vida+Diving+Koh+Tao" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🤿 <strong>La Bambona Diving</strong> — otra opción con instructores hispanohablantes.<br>
+                🤿 <strong>Isla Tortuga Divers</strong> — también con instructores en español.
+              </div>
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,184,154,0.05);border-left:2px solid var(--accent);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:var(--accent)">Precios orientativos:</strong><br>
+                Open Water completo: <span class="highlight">10.000–12.000 THB</span> (290–350€) — incluye equipo, dives, material y certificación.<br>
+                2 inmersiones guiadas (ya certificado): <span class="highlight">1.200–2.000 THB</span> (35–60€).
+              </div>
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Mejores playas de Ko Tao:</strong><br>
+                🏖️ <strong>Sairee Beach</strong> — la playa principal, ambiente animado, bares y restaurantes.<br>
+                🏖️ <strong>Shark Bay (Ao Leuk)</strong> — snorkel increíble con tiburones de puntas negras desde la orilla.<br>
+                🏖️ <strong>Tanote Bay</strong> — bahía tranquila en el este, agua cristalina. <a href="https://www.google.com/maps/search/Tanote+Bay+Ko+Tao" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Ao Mango / Ao Leuk</strong> — secreto mejor guardado de la isla. Poca gente, gran snorkel.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 11 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 11</span>
+              <span class="route-day-title">Ko Tao → Ko Samui → Krabi</span>
+            </div>
+            <div class="route-day-body">
+              Este tramo requiere combinar ferry y transporte terrestre. Las opciones principales:
+
+              <table class="tip-table">
+                <tr>
+                  <th>Ruta</th>
+                  <th>Precio est.</th>
+                  <th>Duración</th>
+                  <th>Nota</th>
+                </tr>
+                <tr>
+                  <td class="name">Ferry Ko Tao → Ko Samui + bus Ko Samui → Krabi</td>
+                  <td>900–1.500 THB</td>
+                  <td>≈ 6–8h total</td>
+                  <td>Ferry Lomprayah/Seatran hasta Samui (1h45min), luego bus+ferry a Krabi. Cómodo con ticket combo.</td>
+                </tr>
+                <tr>
+                  <td class="name">Ferry Ko Tao → Surat Thani + bus a Krabi</td>
+                  <td>700–1.200 THB</td>
+                  <td>≈ 7–9h</td>
+                  <td>Opción más económica. Ferry a Surat Thani (2h30min) + bus directo Surat Thani–Krabi (3h).</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Compra tickets combinados en:</strong> <a href="https://12go.asia" target="_blank" style="color:var(--accent)">12go.asia</a> o directamente en los mostradores de Lomprayah/Seatran en el muelle de Ko Tao. Reserva con al menos un día de antelación en temporada alta.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 12 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 12</span>
+              <span class="route-day-title">Krabi (Ao Nang)</span>
+            </div>
+            <div class="route-day-body">
+              Krabi es la base para explorar las playas de acantilados de piedra caliza del sur de Tailandia. La zona turística principal es <strong>Ao Nang</strong>, con buena oferta de alojamiento, restaurantes y acceso a las playas más espectaculares.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Qué ver y hacer en Krabi:</strong><br>
+                🏖️ <strong>Railay Beach</strong> — solo accesible en barco (longtail desde Ao Nang, 100 THB). Una de las playas más bonitas de Tailandia, rodeada de acantilados verticales. <a href="https://www.google.com/maps/search/Railay+Beach+Krabi" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Phra Nang Cave Beach</strong> — al final de Railay, cueva con estalagmitas y playa espectacular. No te la pierdas.<br>
+                🧗 <strong>Escalada en Railay</strong> — las paredes de caliza de Railay son un destino de escalada de fama mundial. Hay escuelas que ofrecen clases para principiantes por unos 1.000–1.500 THB.<br>
+                🌊 <strong>4 Islands Tour</strong> — excursión en barco a cuatro islotes cercanos con snorkel. Muy popular, desde 600–900 THB por persona. <a href="https://www.google.com/maps/search/4+Islands+Tour+Krabi" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🦈 <strong>Kayak por los manglares</strong> — los manglares de Ao Thalane son perfectos para explorar en kayak, medio día.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 13 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 13</span>
+              <span class="route-day-title">Krabi → Islas Phi Phi (ferry)</span>
+            </div>
+            <div class="route-day-body">
+              <strong>Salida desde Klong Jilad Pier</strong>, a unos 4 km de Krabi Town (taxi/songthaew desde Ao Nang: 100–150 THB).
+
+              <table class="tip-table">
+                <tr>
+                  <th>Empresa</th>
+                  <th>Precio</th>
+                  <th>Duración</th>
+                  <th>Horarios aprox.</th>
+                </tr>
+                <tr>
+                  <td class="name">Andaman Wave Master</td>
+                  <td>450–600 THB</td>
+                  <td>≈ 1h30–2h</td>
+                  <td>Salidas a las 09:00, 13:00, 15:00</td>
+                </tr>
+                <tr>
+                  <td class="name">Seatran Discovery</td>
+                  <td>400–550 THB</td>
+                  <td>≈ 1h45min</td>
+                  <td>Salidas a las 09:00, 11:00, 14:00</td>
+                </tr>
+                <tr>
+                  <td class="name">Songserm</td>
+                  <td>350–500 THB</td>
+                  <td>≈ 2h</td>
+                  <td>Salidas a las 09:00, 14:00</td>
+                </tr>
+              </table>
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Reserva online:</strong> <a href="https://www.ferryhopper.com" target="_blank" style="color:var(--accent)">ferryhopper.com</a> o <a href="https://12go.asia" target="_blank" style="color:var(--accent)">12go.asia</a>. En temporada alta (dic–abr) los ferries se llenan — reserva con antelación.
+              </div>
+              <div class="tip-alert" style="margin-top:0.8rem">
+                <strong>El ferry llega a Tonsai Pier</strong> en Ko Phi Phi Don. No hay coches ni motos en la isla — solo a pie. Los hoteles mandan porteadores al muelle.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 14 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 14</span>
+              <span class="route-day-title">Phi Phi: playas de día, fiesta de noche</span>
+            </div>
+            <div class="route-day-body">
+              Phi Phi Don es la isla habitada. Phi Phi Leh (la que salía en "The Beach" con Leonardo DiCaprio) está deshabitada y solo accesible en barco. La combinación de ambas en un día es uno de los momentos del viaje.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>De día:</strong><br>
+                🏖️ <strong>Maya Bay (Phi Phi Leh)</strong> — la playa de "The Beach". Solo accesible en excursión en barco (longtail o speedboat, 500–800 THB). Hay que ir temprano — a mediodía se llena. <a href="https://www.google.com/maps/search/Maya+Bay+Phi+Phi+Leh+Thailand" target="_blank" style="color:var(--accent)">Maps →</a><br>
+                🏖️ <strong>Loh Dalum Beach</strong> — la playa norte de Phi Phi Don, aguas turquesa y tranquila de día. De noche se convierte en zona de fiesta.<br>
+                🏖️ <strong>Nui Beach</strong> — escondida bajo los acantilados, acceso en kayak o nadando. Pequeña y espectacular.<br>
+                🐒 <strong>Monkey Beach</strong> — longtail desde el muelle, macacos en la orilla. Divertido pero cuidado con tus cosas.
+              </div>
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,184,154,0.05);border-left:2px solid var(--accent);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:var(--accent)">De noche — Loh Dalum Beach:</strong><br>
+                La vida nocturna de Phi Phi se concentra en la playa de Loh Dalum. <strong>Shows de fuego</strong> desde las 21h — muy espectaculares, completamente gratis desde la orilla. <strong>Ibiza Beach Club</strong> y <strong>Carlito's Bar</strong> son los más conocidos, con música hasta las 2-3h. Ambiente muy animado con viajeros de todo el mundo.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 15 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 15</span>
+              <span class="route-day-title">Phi Phi (mañana) → Bangkok</span>
+            </div>
+            <div class="route-day-body">
+              Última mañana en las islas. Coge el ferry de la tarde a <strong>Phuket o Krabi</strong> y desde ahí vuelo a Bangkok para dormir antes del regreso al día siguiente.
+              <br><br>
+              <strong>Ferry Phi Phi → Phuket:</strong> más opciones de vuelo desde Phuket (HKT) que desde Krabi (KBV). Trayecto en ferry: <strong>1h30–2h</strong>, unos <strong>350–500 THB</strong>. Desde Phuket airport a Bangkok con AirAsia o Thai Airways: <strong>900–2.000 THB</strong>.
+              <br><br>
+              <strong>Ferry Phi Phi → Krabi</strong> + vuelo a Bangkok también es opción si los precios son mejores.
+
+              <div class="tip-pro" style="margin-top:0.8rem">
+                <strong>Última noche en Bangkok:</strong> Zona de Sukhumvit (BTS Asok o Nana) — bien comunicada con el aeropuerto y con todo a mano. Si te queda energía: <strong>Khao San Road</strong> para el ambiente final de viaje, o cena en el mercado nocturno de <strong>Talat Neon</strong>.
+              </div>
+            </div>
+          </div>
+
+          <!-- DÍA 16 -->
+          <div class="route-day">
+            <div class="route-day-header">
+              <span class="route-day-num">DÍA 16</span>
+              <span class="route-day-title">Bangkok → Barcelona</span>
+            </div>
+            <div class="route-day-body">
+              Vuelo de regreso desde Suvarnabhumi (BKK) o Don Mueang (DMK) según aerolínea. El Airport Rail Link desde BTS Phaya Thai a Suvarnabhumi tarda <strong>30 minutos</strong> y cuesta 45 THB — mucho más cómodo que Grab en hora punta.
+              <div style="margin-top:0.8rem;padding:0.8rem 1rem;background:rgba(200,50,50,0.06);border-left:2px solid rgba(200,50,50,0.4);font-size:0.8rem;color:rgba(245,243,239,0.6);line-height:1.7">
+                <strong style="color:rgba(220,100,100,0.9)">Recuerda:</strong> Llevar el TDAC completado también para la salida no es obligatorio, pero asegúrate de tener el pasaporte y el boarding pass a mano. Los controles en Suvarnabhumi son más rápidos si llegas con tiempo.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /route-timeline -->
+      </div>
+    </div>
+  </section>
+
+  <!-- AGUA -->
+  <section class="tip-section" id="agua">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Hidratación</div>
+        <h2 class="section-title">Agua: qué marcas son seguras</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Importante</div>
+      <div class="tip-title">El agua del grifo en Tailandia no es potable. Usa siempre agua embotellada</div>
+      <div class="tip-body">
+        En Tailandia <strong>el agua del grifo no es potable</strong> en ninguna zona. La mayoría de las marcas locales son agua <strong>purificada</strong> (tratada, sin minerales) — no agua mineral de manantial como en Indonesia. Son igualmente seguras para beber.
+
+        <table class="tip-table" style="margin-top:1rem">
+          <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Dónde comprar</th>
+          </tr>
+          <tr>
+            <td class="name">Singha Water</td>
+            <td class="warn">Purificada (agua subterránea tratada)</td>
+            <td>7-Eleven, Family Mart, Lotus's, supermercados</td>
+          </tr>
+          <tr>
+            <td class="name">Chang Water (ThaiBev)</td>
+            <td class="warn">Purificada — Certificación NSF, muy fiable</td>
+            <td>7-Eleven, Family Mart, minimarkets, en todas partes</td>
+          </tr>
+          <tr>
+            <td class="name">Crystal</td>
+            <td class="warn">Purificada</td>
+            <td>7-Eleven, supermercados. La más barata del mercado.</td>
+          </tr>
+          <tr>
+            <td class="name">Mineré / Aura / Mont Fleur</td>
+            <td class="ok">✓ Agua mineral natural (norte de Tailandia)</td>
+            <td>Supermercados (Tops, Lotus's, BigC). Más cara y menos común.</td>
+          </tr>
+        </table>
+
+        <div class="tip-pro">
+          <strong>Recomendación:</strong> <strong>Chang o Singha</strong> son las opciones más seguras y baratas del día a día. Las encuentras literalmente en cada 7-Eleven (que está en cada esquina de Tailandia). Precio: 500ml por <span class="highlight">7–12 THB</span> (≈ 0,20€). 1,5L: <span class="highlight">15–25 THB</span>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALUD Y VISADO -->
+  <section class="tip-section" id="salud">
+    <div class="section-header">
+      <div class="section-icon">💉</div>
+      <div class="section-header-text">
+        <div class="section-tag">Salud · Documentación</div>
+        <h2 class="section-title">Vacunas y visado: información oficial</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Fuente oficial</div>
+      <div class="tip-title">Información actualizada: Ministerio de Asuntos Exteriores de España</div>
+      <div class="tip-body">
+        Consulta siempre la ficha oficial antes de viajar. Se actualiza regularmente con requisitos de entrada, vacunas y alertas.
+
+        <div class="tip-pro">
+          <strong>🔗 Link directo para Tailandia:</strong><br>
+          <a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Detalle-recomendaciones-de-viaje.aspx?trc=tailandia" target="_blank" rel="noopener" style="color:var(--accent);">Recomendaciones de viaje a Tailandia — exteriores.gob.es →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Resumen actualizado · Tailandia</div>
+      <div class="tip-title">Lo esencial sobre vacunas</div>
+      <div class="tip-body">
+        <strong>Vacunas obligatorias:</strong> Ninguna para ciudadanos españoles que lleguen directamente desde España.
+        <br><br>
+        <strong>Vacunas recomendadas</strong> (según Ministerio de Sanidad español):<br>
+        Hepatitis A y B, Tétanos-Difteria, Fiebre tifoidea. Para estancias largas o zonas rurales: Rabia, Encefalitis japonesa, Dengue (consulta con tu médico según perfil).
+
+        <div class="tip-alert">
+          <strong>Dengue en Tailandia:</strong> Es endémico, especialmente en temporada de lluvias (mayo–octubre). Usa repelente con DEET, especialmente al amanecer y atardecer. No hay vacuna universal disponible — la prevención es la protección contra mosquitos.
+        </div>
+        <div class="tip-alert">
+          <strong>Importante:</strong> Los requisitos pueden cambiar. Consulta siempre exteriores.gob.es antes de viajar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- COMUNIDAD -->
+<section class="community-strip" id="comunidad">
+  <div class="community-inner">
+    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">La comunidad habla · Tailandia</div>
+    <h2 class="community-title">¿Has estado en Tailandia?</h2>
+    <p class="community-desc">Cuéntanos algo que te hubiera gustado saber antes de ir. Tips sobre islas, comida, transporte, estafas — todo ayuda.</p>
+
+    <div class="community-form-grid">
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select class="form-select">
+          <option>Entrada / TDAC</option>
+          <option>ATM y dinero</option>
+          <option>Exchange</option>
+          <option>Transporte Bangkok</option>
+          <option>Bangkok</option>
+          <option>Ayutthaya</option>
+          <option>Chiang Mai / Chiang Rai</option>
+          <option>Ko Pha Ngan</option>
+          <option>Ko Tao / Buceo</option>
+          <option>Krabi</option>
+          <option>Phi Phi</option>
+          <option>Agua / Salud</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu nombre (opcional)</label>
+        <input type="text" class="form-input" placeholder="Viajero anónimo">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tu experiencia</label>
+      <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir a Tailandia..."></textarea>
+    </div>
+    <button class="btn-primary">Enviar experiencia ↗</button>
+
+    <div style="margin-top:2.5rem">
+      <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gray); margin-bottom:1rem;">Primeras experiencias</div>
+      <div style="border:0.5px solid rgba(255,255,255,0.06); padding:1.2rem 1.5rem; margin-bottom:1px;">
+        <div style="display:flex; gap:0.8rem; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap;">
+          <span style="font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); border:0.5px solid rgba(200,184,154,0.3); padding:0.18rem 0.5rem;">Tailandia</span>
+          <span style="font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray);">ATM y dinero</span>
+          <span style="font-size:0.62rem; color:var(--gray); margin-left:auto;">por Genís</span>
+        </div>
+        <p style="font-size:0.84rem; color:rgba(245,243,239,0.65); line-height:1.75;">En Tailandia todos los cajeros cobran fee (220–250 THB por retirada). La estrategia que funcionó: llevar euros en efectivo y cambiarlos en SuperRich Bangkok. Diferencia enorme respecto al aeropuerto.</p>
+      </div>
+      <div style="border:0.5px solid rgba(255,255,255,0.06); padding:1.2rem 1.5rem; margin-bottom:1px;">
+        <div style="display:flex; gap:0.8rem; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap;">
+          <span style="font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); border:0.5px solid rgba(200,184,154,0.3); padding:0.18rem 0.5rem;">Tailandia · Ko Tao</span>
+          <span style="font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray);">Buceo</span>
+          <span style="font-size:0.62rem; color:var(--gray); margin-left:auto;">por Genís</span>
+        </div>
+        <p style="font-size:0.84rem; color:rgba(245,243,239,0.65); line-height:1.75;">Pura Vida Diving en Ko Tao es una pasada para los que hablan español o catalán. Los instructores son top y el arrecife de Ko Tao es de los más bonitos que he visto. El Open Water aquí es mucho más barato que en Europa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NTY</div>
+  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+</footer>
+
+<script>
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  const sections = document.querySelectorAll('.tip-section');
+  const btns = document.querySelectorAll('.cat-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => { b.classList.toggle('active', b.getAttribute('onclick')?.includes(id)); });
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
