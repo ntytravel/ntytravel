@@ -177,56 +177,62 @@
   }
 
   .book-subtitle {
-    font-size: 0.5rem;
-    letter-spacing: 0.3em;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: rgba(200,184,154,0.4);
+    color: rgba(200,184,154,0.55);
     display: block;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
   }
 
   .book-dest-display {
     position: relative;
     z-index: 1;
     text-align: center;
-    height: 60px;
+    height: 132px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.55s ease;
+  }
+
+  .book-dest-display.visible {
+    opacity: 1;
+  }
+
+  .book-map-area {
+    width: 78px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-map-area svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: rgba(200,184,154,0.75);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(200,184,154,0.25));
   }
 
   .book-dest-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--white);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    position: absolute;
-  }
-
-  .book-dest-name.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .book-dest-country {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(200,184,154,0.5);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
-    position: absolute;
-    margin-top: 1.6rem;
-  }
-
-  .book-dest-country.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .book-dots {
@@ -703,7 +709,8 @@
           <span class="book-nty">NTY</span>
           <span class="book-subtitle">Nobody Tells You</span>
         </div>
-        <div class="book-dest-display">
+        <div class="book-dest-display" id="destDisplay">
+          <div class="book-map-area" id="bookMapArea"></div>
           <span class="book-dest-name" id="destName"></span>
           <span class="book-dest-country" id="destCountry"></span>
         </div>
@@ -968,14 +975,29 @@
 
 <script>
   const destinations = [
-    { name: 'Bali', country: '🇮🇩 Indonesia' },
-    { name: 'Lombok', country: '🇮🇩 Indonesia' },
-    { name: 'Sulawesi', country: '🇮🇩 Indonesia' },
-    { name: 'Vietnam', country: '🇻🇳 Vietnam' },
-    { name: 'Colombia', country: '🇨🇴 Colombia' },
-    { name: 'Tailandia', country: '🇹🇭 Tailandia' },
-    { name: 'Corea del Sur', country: '🇰🇷 Corea del Sur' },
-    { name: 'China', country: '🇨🇳 China' },
+    { name: 'Bali', flag: '🇮🇩', country: 'Indonesia',
+      map: `<path d="M7,26 Q19,17 33,20 Q41,24 39,31 Q26,36 8,31 Z"/>
+            <path d="M43,21 Q56,15 67,19 Q71,25 66,31 Q53,34 43,27 Z" opacity="0.68"/>
+            <path d="M70,23 Q77,19 81,24 Q81,30 74,30 Z" opacity="0.42"/>` },
+    { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia',
+      map: `<path d="M7,26 Q19,17 33,20 Q41,24 39,31 Q26,36 8,31 Z" opacity="0.28"/>
+            <path d="M43,21 Q58,14 70,18 Q75,24 70,31 Q56,35 43,28 Z"/>
+            <path d="M73,23 Q81,18 83,24 Q83,30 75,30 Z" opacity="0.28"/>` },
+    { name: 'Sulawesi', flag: '🇮🇩', country: 'Indonesia',
+      map: `<path d="M26,8 Q33,4 39,10 L37,22 Q32,28 24,26 Z"/>
+            <path d="M39,12 L51,8 Q58,10 59,20 Q55,28 46,25 Z"/>
+            <path d="M24,26 Q19,34 23,42 Q30,46 34,40 L32,30 Z"/>
+            <path d="M46,25 Q51,32 57,37 Q63,36 65,29 Q61,22 56,22 Z"/>` },
+    { name: 'Vietnam', flag: '🇻🇳', country: 'Vietnam',
+      map: `<path d="M37,3 Q50,3 52,12 Q54,23 46,30 Q39,35 41,45 Q43,57 36,64 Q29,64 27,53 Q25,41 32,33 Q39,25 36,15 Q32,6 37,3 Z"/>` },
+    { name: 'Colombia', flag: '🇨🇴', country: 'Colombia',
+      map: `<path d="M14,10 Q32,5 49,12 L53,28 Q51,44 40,48 Q28,50 17,44 L12,30 Q8,20 14,10 Z"/>` },
+    { name: 'Tailandia', flag: '🇹🇭', country: 'Tailandia',
+      map: `<path d="M27,4 L41,4 Q52,7 53,18 L52,30 Q48,36 43,40 L41,51 Q38,56 36,56 Q34,54 34,49 L34,40 Q27,34 21,28 L19,17 Q21,7 27,4 Z"/>` },
+    { name: 'Corea del Sur', flag: '🇰🇷', country: 'Corea del Sur',
+      map: `<path d="M18,16 Q37,11 54,18 Q57,28 49,39 Q38,45 22,42 Q11,37 11,26 Z"/>` },
+    { name: 'China', flag: '🇨🇳', country: 'China',
+      map: `<path d="M7,8 Q28,3 53,5 Q70,7 76,16 Q81,27 76,38 Q64,49 46,52 Q30,54 15,46 Q5,38 4,23 Z"/>` },
   ];
 
   let current = 0;
@@ -983,6 +1005,8 @@
   const countryEl = document.getElementById('destCountry');
   const dotsEl = document.getElementById('bookDots');
   const pageEl = document.getElementById('bookPage');
+  const displayEl = document.getElementById('destDisplay');
+  const mapAreaEl = document.getElementById('bookMapArea');
 
   // Build dots
   destinations.forEach((_, i) => {
@@ -994,20 +1018,16 @@
   function showDest(index) {
     const dots = dotsEl.querySelectorAll('.book-dot');
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
-    nameEl.textContent = destinations[index].name;
-    countryEl.textContent = destinations[index].country;
-    nameEl.classList.add('visible');
-    countryEl.classList.add('visible');
+    const dest = destinations[index];
+    nameEl.textContent = dest.name;
+    countryEl.textContent = dest.flag + ' ' + dest.country;
+    mapAreaEl.innerHTML = `<svg viewBox="0 0 80 48">${dest.map}</svg>`;
+    displayEl.classList.add('visible');
   }
 
   function turnPage() {
-    // fade out current
-    nameEl.classList.remove('visible');
-    countryEl.classList.remove('visible');
-
-    // trigger page turn animation
+    displayEl.classList.remove('visible');
     pageEl.classList.add('turning');
-
     setTimeout(() => {
       current = (current + 1) % destinations.length;
       showDest(current);
@@ -1017,9 +1037,7 @@
 
   // Init
   showDest(0);
-
-  // Auto-advance every 2.5s
-  setInterval(turnPage, 2500);
+  setInterval(turnPage, 2800);
 </script>
 </body>
 </html>
