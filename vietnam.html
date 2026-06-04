@@ -10,7 +10,7 @@
   :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
   body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
 
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.08); overflow: visible; }
   .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
   .logo span { color: var(--accent); }
   nav ul { list-style: none; display: flex; gap: 2rem; }
@@ -36,8 +36,10 @@
   .tc-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); display: block; }
   .tc-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
 
-  .cat-nav { position: sticky; top: 60px; z-index: 50; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 0.5px solid rgba(255,255,255,0.06); padding: 0 2.5rem; display: flex; overflow-x: auto; scrollbar-width: none; }
-  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-nav { position: sticky; top: 60px; z-index: 50; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 0.5px solid rgba(255,255,255,0.06); padding: 0 2.5rem; display: flex; overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(200,184,154,0.35) transparent; }
+  .cat-nav::-webkit-scrollbar { height: 3px; }
+  .cat-nav::-webkit-scrollbar-track { background: transparent; }
+  .cat-nav::-webkit-scrollbar-thumb { background: rgba(200,184,154,0.35); border-radius: 2px; }
   .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.1rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .cat-btn:hover { color: var(--white); }
   .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }

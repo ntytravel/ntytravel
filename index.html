@@ -156,22 +156,24 @@
   .dest-page {
     position: absolute;
     inset: 0;
-    background: linear-gradient(145deg, #1e1a15 0%, #171210 100%);
+    background: #faf8f3;
     border-radius: 0 6px 6px 0;
-    border: 0.5px solid rgba(200,184,154,0.07);
-    box-shadow: inset -3px 0 8px rgba(0,0,0,0.3);
+    border: 0.5px solid rgba(0,0,0,0.08);
+    box-shadow: inset -4px 0 12px rgba(0,0,0,0.08), 2px 0 6px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     transform-origin: left center;
     transform: rotateY(0deg);
     z-index: 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .dest-page.turning {
-    transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1);
     transform: rotateY(-162deg);
     z-index: 100;
   }
@@ -189,40 +191,43 @@
 
   /* Page content */
   .page-map {
-    width: 80px;
-    height: 46px;
+    width: 90px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .page-map svg {
     width: 100%; height: 100%;
-    fill: none;
-    stroke: rgba(200,184,154,0.72);
-    stroke-width: 1.6;
+    fill: rgba(30,60,100,0.12);
+    stroke: rgba(30,60,100,0.75);
+    stroke-width: 1.4;
     stroke-linejoin: round;
-    filter: drop-shadow(0 0 5px rgba(200,184,154,0.22));
+    stroke-linecap: round;
   }
 
   .page-dest-name {
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
     font-weight: 700;
-    color: var(--white);
+    color: #1a1a1a;
     letter-spacing: 0.02em;
   }
 
   .page-dest-country {
-    font-size: 0.5rem;
+    font-size: 0.48rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(200,184,154,0.5);
+    color: rgba(0,0,0,0.4);
   }
 
   .page-ornament {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    font-size: 0.55rem;
-    color: rgba(200,184,154,0.18);
+    bottom: 0.8rem;
+    right: 0.8rem;
+    font-size: 0.5rem;
+    color: rgba(0,0,0,0.12);
   }
 
   /* COVER */
@@ -1101,29 +1106,31 @@
 
 <script>
   const destinations = [
-    { name: 'Bali', flag: '🇮🇩', country: 'Indonesia',
-      map: `<path d="M7,26 Q19,17 33,20 Q41,24 39,31 Q26,36 8,31 Z"/>
-            <path d="M43,21 Q56,15 67,19 Q71,25 66,31 Q53,34 43,27 Z" opacity="0.68"/>
-            <path d="M70,23 Q77,19 81,24 Q81,30 74,30 Z" opacity="0.42"/>` },
-    { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia',
-      map: `<path d="M7,26 Q19,17 33,20 Q41,24 39,31 Q26,36 8,31 Z" opacity="0.28"/>
-            <path d="M43,21 Q58,14 70,18 Q75,24 70,31 Q56,35 43,28 Z"/>
-            <path d="M73,23 Q81,18 83,24 Q83,30 75,30 Z" opacity="0.28"/>` },
-    { name: 'Sulawesi', flag: '🇮🇩', country: 'Indonesia',
-      map: `<path d="M26,8 Q33,4 39,10 L37,22 Q32,28 24,26 Z"/>
-            <path d="M39,12 L51,8 Q58,10 59,20 Q55,28 46,25 Z"/>
-            <path d="M24,26 Q19,34 23,42 Q30,46 34,40 L32,30 Z"/>
-            <path d="M46,25 Q51,32 57,37 Q63,36 65,29 Q61,22 56,22 Z"/>` },
-    { name: 'Vietnam', flag: '🇻🇳', country: 'Vietnam',
-      map: `<path d="M37,3 Q50,3 52,12 Q54,23 46,30 Q39,35 41,45 Q43,57 36,64 Q29,64 27,53 Q25,41 32,33 Q39,25 36,15 Q32,6 37,3 Z"/>` },
-    { name: 'Tailandia', flag: '🇹🇭', country: 'Tailandia',
-      map: `<path d="M27,4 L41,4 Q52,7 53,18 L52,30 Q48,36 43,40 L41,51 Q38,56 36,56 Q34,54 34,49 L34,40 Q27,34 21,28 L19,17 Q21,7 27,4 Z"/>` },
-    { name: 'Colombia', flag: '🇨🇴', country: 'Colombia',
-      map: `<path d="M14,10 Q32,5 49,12 L53,28 Q51,44 40,48 Q28,50 17,44 L12,30 Q8,20 14,10 Z"/>` },
-    { name: 'Corea del Sur', flag: '🇰🇷', country: 'Corea del Sur',
-      map: `<path d="M18,16 Q37,11 54,18 Q57,28 49,39 Q38,45 22,42 Q11,37 11,26 Z"/>` },
-    { name: 'China', flag: '🇨🇳', country: 'China',
-      map: `<path d="M7,8 Q28,3 53,5 Q70,7 76,16 Q81,27 76,38 Q64,49 46,52 Q30,54 15,46 Q5,38 4,23 Z"/>` },
+    { name: 'Bali', flag: '🇮🇩', country: 'Indonesia', vb: '0 0 90 55',
+      map: `<path d="M6,28 Q10,18 18,15 Q28,11 42,13 Q56,11 68,17 Q76,22 74,30 Q70,40 56,44 Q40,48 24,43 Q12,38 6,28 Z"/>
+            <path d="M30,13 Q34,8 38,10 Q40,14 36,15 Z" opacity="0.5"/>` },
+    { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia', vb: '0 0 70 80',
+      map: `<path d="M32,6 Q44,4 52,12 Q60,22 58,36 Q54,50 42,56 Q30,58 22,48 Q14,36 16,22 Q20,8 32,6 Z"/>
+            <path d="M34,6 Q38,2 44,5 Q46,8 40,10 Z" opacity="0.6"/>` },
+    { name: 'Sulawesi', flag: '🇮🇩', country: 'Indonesia', vb: '0 0 90 90',
+      map: `<path d="M30,6 Q36,2 42,8 L40,26 Q36,32 28,30 Q22,26 24,18 Z"/>
+            <path d="M40,10 L56,4 Q64,6 66,18 Q64,28 54,28 L40,26"/>
+            <path d="M28,30 Q20,40 22,52 Q28,58 34,54 L36,40 L40,26"/>
+            <path d="M54,28 Q60,38 66,46 Q72,46 74,38 Q72,28 62,24 L54,28"/>` },
+    { name: 'Vietnam', flag: '🇻🇳', country: 'Vietnam', vb: '0 0 60 90',
+      map: `<path d="M32,2 Q44,2 48,10 Q50,20 44,26 Q38,30 36,38 Q36,50 40,60 Q42,72 36,80 Q30,82 26,74 Q22,62 26,52 Q30,42 28,30 Q24,18 26,10 Q28,4 32,2 Z"/>` },
+    { name: 'Tailandia', flag: '🇹🇭', country: 'Tailandia', vb: '0 0 70 90',
+      map: `<path d="M18,4 L38,4 Q52,6 54,16 Q56,28 48,36 Q44,42 42,52 Q40,62 38,66 Q36,66 34,62 Q32,54 32,46 Q28,40 22,34 Q14,26 14,16 Q14,8 18,4 Z"/>` },
+    { name: 'Colombia', flag: '🇨🇴', country: 'Colombia', vb: '0 0 80 70',
+      map: `<path d="M10,10 Q16,4 30,4 Q46,4 56,8 L62,20 Q68,28 60,38 Q52,46 40,50 Q28,54 16,48 Q6,42 6,30 Q6,18 10,10 Z"/>
+            <path d="M56,8 Q66,8 68,16 Q66,24 62,20 Z" opacity="0.5"/>` },
+    { name: 'Corea del Sur', flag: '🇰🇷', country: 'Corea del Sur', vb: '0 0 80 60',
+      map: `<path d="M14,14 Q28,6 50,10 Q62,14 64,26 Q62,40 46,46 Q30,50 16,44 Q6,36 8,24 Q10,16 14,14 Z"/>
+            <path d="M36,46 Q36,54 32,56 Q28,54 30,48 Z" opacity="0.6"/>
+            <path d="M44,48 Q46,56 42,58 Q38,56 40,50 Z" opacity="0.5"/>` },
+    { name: 'China', flag: '🇨🇳', country: 'China', vb: '0 0 90 70',
+      map: `<path d="M6,14 Q20,6 40,6 Q56,4 68,10 Q78,16 80,28 Q80,40 70,50 Q58,60 40,62 Q22,64 12,54 Q2,44 4,30 Q4,20 6,14 Z"/>
+            <path d="M68,10 Q78,8 82,14 Q80,20 76,16 Z" opacity="0.5"/>` },
   ];
 
   const pagesStack = document.getElementById('pagesStack');
@@ -1140,7 +1147,7 @@
     page.className = 'dest-page';
     page.style.zIndex = i + 1;
     page.innerHTML = `
-      <div class="page-map"><svg viewBox="0 0 80 48">${dest.map}</svg></div>
+      <div class="page-map"><svg viewBox="${dest.vb}">${dest.map}</svg></div>
       <div class="page-dest-name">${dest.flag} ${dest.name}</div>
       <div class="page-dest-country">${dest.country}</div>
       <div class="page-ornament">◈</div>
