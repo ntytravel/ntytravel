@@ -74,6 +74,12 @@
   .cat-nav::-webkit-scrollbar { height: 3px; }
   .cat-nav::-webkit-scrollbar-track { background: transparent; }
   .cat-nav::-webkit-scrollbar-thumb { background: rgba(200,184,154,0.35); border-radius: 2px; }
+  .lugares-dropdown { display: none; position: fixed; background: rgba(10,10,10,0.97); border: 0.5px solid rgba(255,255,255,0.12); backdrop-filter: blur(14px); min-width: 180px; padding: 0.4rem 0; z-index: 300; list-style: none; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+  .lugares-dropdown.open { display: block; }
+  .lugares-dropdown li a { display: block; padding: 0.65rem 1.2rem; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; font-weight: 300; color: rgba(245,243,239,0.65); text-decoration: none; border-bottom: 0.5px solid rgba(255,255,255,0.04); transition: all 0.15s; letter-spacing: 0.04em; }
+  .lugares-dropdown li:last-child a { border-bottom: none; }
+  .lugares-dropdown li a:hover { color: var(--accent); background: rgba(200,184,154,0.06); }
+  .cat-btn.lugares-btn { color: var(--accent); }
   .cat-btn { background: none; border: none; border-bottom: 2px solid transparent; color: rgba(245,243,239,0.4); font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.1rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .cat-btn:hover { color: var(--white); }
   .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
@@ -265,6 +271,7 @@
 </div>
 
 <nav class="cat-nav">
+  <button class="cat-btn lugares-btn" onclick="toggleLugares(this)">🗺️ Zonas ▾</button>
   <button class="cat-btn active" onclick="goToSection('intro')">🌊 Por qué ir</button>
   <button class="cat-btn" onclick="goToSection('aerolineas')">✈️ Vuelos internos</button>
   <button class="cat-btn" onclick="goToSection('guia')">🗺️ Guía día a día</button>
@@ -278,6 +285,14 @@
   <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
   <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
 </nav>
+
+<ul id="lugaresDropdown" class="lugares-dropdown">
+  <li><a href="#">Makassar</a></li>
+  <li><a href="#">Manado</a></li>
+  <li><a href="#">Bunaken</a></li>
+  <li><a href="#">Tana Toraja</a></li>
+  <li><a href="#">Togean</a></li>
+</ul>
 
 <div class="content-wrap">
 
@@ -1158,6 +1173,20 @@
       placeholder.replaceWith(img);
     };
     img.src = filename;
+  });
+
+  function toggleLugares(btn) {
+    var dd = document.getElementById('lugaresDropdown');
+    var rect = btn.getBoundingClientRect();
+    dd.style.top = (rect.bottom + 4) + 'px';
+    dd.style.left = rect.left + 'px';
+    dd.classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.lugares-btn') && !e.target.closest('#lugaresDropdown')) {
+      var dd = document.getElementById('lugaresDropdown');
+      if (dd) dd.classList.remove('open');
+    }
   });
 
   function goToSection(id) {
