@@ -14,8 +14,15 @@
   .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
   .logo span { color: var(--accent); }
   nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li { position: relative; }
   nav ul li a { color: rgba(245,243,239,0.6); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
   nav ul li a:hover { color: var(--white); }
+  .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%); background: rgba(10,10,10,0.97); border: 0.5px solid rgba(255,255,255,0.1); backdrop-filter: blur(14px); min-width: 160px; padding: 0.4rem 0; z-index: 200; list-style: none; }
+  nav ul li:hover .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu li a { display: block; padding: 0.55rem 1.1rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: none; color: rgba(245,243,239,0.65) !important; text-decoration: none; border-bottom: 0.5px solid rgba(255,255,255,0.04); transition: all 0.15s; }
+  .nav-dropdown-menu li:last-child a { border-bottom: none; }
+  .nav-dropdown-menu li a:hover { color: var(--accent) !important; background: rgba(200,184,154,0.06); }
+  .nav-chevron { font-size: 0.6rem; margin-left: 0.2rem; opacity: 0.5; }
 
   .dest-hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 2.5rem 3.5rem; position: relative; overflow: hidden; margin-top: 60px; }
   .dest-hero-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #14100a 0%, #0e0b08 40%, #0a0a0a 70%); }
@@ -117,8 +124,57 @@
 <nav>
   <a href="index.html" class="logo">N<span>T</span>Y</a>
   <ul>
-    <li><a href="index.html#destinos">Destinos</a></li>
-    <li><a href="#comunidad">Comunidad</a></li>
+    <li>
+      <a href="bali.html">Bali <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="bali.html">Canggu</a></li>
+        <li><a href="bali.html">Uluwatu</a></li>
+        <li><a href="bali.html">Ubud</a></li>
+        <li><a href="bali.html">Sidemen</a></li>
+        <li><a href="bali.html">Amed</a></li>
+        <li><a href="bali.html">Seminyak</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="lombok.html">Lombok <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="lombok.html">Kuta Lombok</a></li>
+        <li><a href="lombok.html">Senggigi</a></li>
+        <li><a href="lombok.html">Gili Trawangan</a></li>
+        <li><a href="lombok.html">Gili Air</a></li>
+        <li><a href="lombok.html">Sekotong</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="sulawesi.html">Sulawesi <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="sulawesi.html">Makassar</a></li>
+        <li><a href="sulawesi.html">Manado</a></li>
+        <li><a href="sulawesi.html">Bunaken</a></li>
+        <li><a href="sulawesi.html">Tana Toraja</a></li>
+        <li><a href="sulawesi.html">Togean</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="vietnam.html">Vietnam <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="vietnam.html">Hanói</a></li>
+        <li><a href="vietnam.html">Ho Chi Minh</a></li>
+        <li><a href="vietnam.html">Hoi An</a></li>
+        <li><a href="vietnam.html">Da Nang</a></li>
+        <li><a href="vietnam.html">Ha Long</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="thailand.html">Tailandia <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="thailand.html">Bangkok</a></li>
+        <li><a href="thailand.html">Chiang Mai</a></li>
+        <li><a href="thailand.html">Phuket</a></li>
+        <li><a href="thailand.html">Koh Samui</a></li>
+        <li><a href="thailand.html">Krabi</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

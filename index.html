@@ -109,34 +109,9 @@
 
   .hero-photo-placeholder {
     position: absolute;
-    top: 12%; right: 6%;
+    top: 10%; right: 6%;
     width: 300px;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1200px;
-  }
-
-  /* BOOK ANIMATION */
-  .book-wrap {
-    width: 220px;
-    height: 300px;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateY(-20deg) rotateX(5deg);
-  }
-
-  .book-cover {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(145deg, #1e1a15 0%, #2a2218 60%, #1a1510 100%);
-    border-radius: 2px 8px 8px 2px;
-    box-shadow:
-      -6px 6px 20px rgba(0,0,0,0.7),
-      inset -3px 0 8px rgba(0,0,0,0.4);
-    border: 0.5px solid rgba(200,184,154,0.12);
-    overflow: hidden;
+    height: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,7 +119,147 @@
     gap: 1rem;
   }
 
-  .book-cover::before {
+  /* ── BOOK REDESIGN ── */
+  .book-scene {
+    perspective: 1400px;
+    width: 220px;
+    height: 300px;
+  }
+
+  .book-body {
+    width: 220px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-18deg) rotateX(5deg);
+  }
+
+  /* Spine */
+  .book-spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 16px;
+    background: linear-gradient(to right, #080706, #1a1510);
+    border-right: 0.5px solid rgba(200,184,154,0.1);
+    z-index: 30;
+    border-radius: 2px 0 0 2px;
+  }
+
+  /* Pages stack */
+  .book-pages-stack {
+    position: absolute;
+    top: 4px; left: 16px; right: 0; bottom: 4px;
+    transform-style: preserve-3d;
+  }
+
+  /* Individual destination page */
+  .dest-page {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1e1a15 0%, #171210 100%);
+    border-radius: 0 6px 6px 0;
+    border: 0.5px solid rgba(200,184,154,0.07);
+    box-shadow: inset -3px 0 8px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    z-index: 1;
+  }
+
+  .dest-page.turning {
+    transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: rotateY(-162deg);
+    z-index: 100;
+  }
+
+  .dest-page.turned {
+    transform: rotateY(-162deg);
+    z-index: 0;
+  }
+
+  .dest-page.resetting {
+    transition: none !important;
+    transform: rotateY(0deg);
+    z-index: 1;
+  }
+
+  /* Page content */
+  .page-map {
+    width: 80px;
+    height: 46px;
+  }
+
+  .page-map svg {
+    width: 100%; height: 100%;
+    fill: none;
+    stroke: rgba(200,184,154,0.72);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(200,184,154,0.22));
+  }
+
+  .page-dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .page-dest-country {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,184,154,0.5);
+  }
+
+  .page-ornament {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.55rem;
+    color: rgba(200,184,154,0.18);
+  }
+
+  /* COVER */
+  .book-cover-wrap {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+    transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 20;
+  }
+
+  .book-cover-wrap.open {
+    transform: rotateY(-162deg);
+  }
+
+  .cover-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+  }
+
+  .cover-front {
+    background: #0a0a0a;
+    border-radius: 2px 8px 8px 2px;
+    box-shadow: -6px 6px 22px rgba(0,0,0,0.85), inset -3px 0 8px rgba(0,0,0,0.5);
+    border: 0.5px solid rgba(200,184,154,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .cover-front::before {
     content: '';
     position: absolute;
     left: 0; top: 0; bottom: 0;
@@ -153,91 +268,43 @@
     border-right: 0.5px solid rgba(200,184,154,0.08);
   }
 
-  .book-spine-line {
-    position: absolute;
-    left: 16px; top: 0; bottom: 0;
-    width: 0.5px;
-    background: rgba(200,184,154,0.08);
+  .cover-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, #1a1510, #1e1a15);
+    border-radius: 2px 8px 8px 2px;
   }
 
-  .book-title-wrap {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
-
-  .book-nty {
+  .cover-nty {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     letter-spacing: 0.25em;
     color: var(--accent);
-    display: block;
     text-shadow: 0 0 30px rgba(200,184,154,0.3);
+    position: relative;
+    z-index: 1;
   }
 
-  .book-subtitle {
+  .cover-subtitle {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(200,184,154,0.45);
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-ornament {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
     font-size: 0.6rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: rgba(200,184,154,0.55);
-    display: block;
-    margin-top: 0.4rem;
-  }
-
-  .book-dest-display {
-    position: relative;
+    color: rgba(200,184,154,0.2);
     z-index: 1;
-    text-align: center;
-    height: 132px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    opacity: 0;
-    transition: opacity 0.55s ease;
   }
 
-  .book-dest-display.visible {
-    opacity: 1;
-  }
-
-  .book-map-area {
-    width: 78px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .book-map-area svg {
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: rgba(200,184,154,0.75);
-    stroke-width: 1.6;
-    stroke-linejoin: round;
-    filter: drop-shadow(0 0 5px rgba(200,184,154,0.25));
-  }
-
-  .book-dest-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .book-dest-country {
-    font-size: 0.5rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(200,184,154,0.5);
-  }
-
+  /* Dots below the book */
   .book-dots {
-    position: relative;
-    z-index: 1;
     display: flex;
     gap: 5px;
   }
@@ -254,34 +321,48 @@
     background: var(--accent);
   }
 
-  .book-page {
+  /* Nav dropdown */
+  nav ul li { position: relative; }
+
+  .nav-dropdown-menu {
+    display: none;
     position: absolute;
-    top: 4px; right: -1px;
-    width: calc(100% - 14px);
-    height: calc(100% - 8px);
-    background: linear-gradient(to left, #f5f3ef 0%, #ede9e0 100%);
-    border-radius: 0 6px 6px 0;
-    transform-origin: left center;
-    transform: rotateY(0deg);
-    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    opacity: 0.06;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10,10,10,0.97);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(14px);
+    min-width: 170px;
+    padding: 0.4rem 0;
+    z-index: 200;
+    list-style: none;
   }
 
-  .book-page.turning {
-    transform: rotateY(-160deg);
-    opacity: 0.04;
+  nav ul li:hover .nav-dropdown-menu {
+    display: block;
   }
 
-  .book-ornament {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    font-size: 0.6rem;
-    color: rgba(200,184,154,0.2);
-    letter-spacing: 0.1em;
-    z-index: 1;
+  .nav-dropdown-menu li a {
+    display: block;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: rgba(245,243,239,0.65) !important;
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    transition: all 0.15s;
   }
+
+  .nav-dropdown-menu li:last-child a { border-bottom: none; }
+
+  .nav-dropdown-menu li a:hover {
+    color: var(--accent) !important;
+    background: rgba(200,184,154,0.06);
+  }
+
+  .nav-chevron { font-size: 0.6rem; margin-left: 0.2rem; opacity: 0.5; }
 
   .hero-tag {
     font-size: 0.65rem;
@@ -689,10 +770,57 @@
 <nav>
   <div class="logo">N<span>T</span>Y</div>
   <ul>
-    <li><a href="#destinos">Destinos</a></li>
-    <li><a href="#tips">Tips</a></li>
-    <li><a href="#comunidad">Comunidad</a></li>
-    <li><a href="#sobre">Sobre NTY</a></li>
+    <li>
+      <a href="bali.html">Bali <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="bali.html">Canggu</a></li>
+        <li><a href="bali.html">Uluwatu</a></li>
+        <li><a href="bali.html">Ubud</a></li>
+        <li><a href="bali.html">Sidemen</a></li>
+        <li><a href="bali.html">Amed</a></li>
+        <li><a href="bali.html">Seminyak</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="lombok.html">Lombok <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="lombok.html">Kuta Lombok</a></li>
+        <li><a href="lombok.html">Senggigi</a></li>
+        <li><a href="lombok.html">Gili Trawangan</a></li>
+        <li><a href="lombok.html">Gili Air</a></li>
+        <li><a href="lombok.html">Sekotong</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="sulawesi.html">Sulawesi <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="sulawesi.html">Makassar</a></li>
+        <li><a href="sulawesi.html">Manado</a></li>
+        <li><a href="sulawesi.html">Bunaken</a></li>
+        <li><a href="sulawesi.html">Tana Toraja</a></li>
+        <li><a href="sulawesi.html">Togean</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="vietnam.html">Vietnam <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="vietnam.html">Hanói</a></li>
+        <li><a href="vietnam.html">Ho Chi Minh</a></li>
+        <li><a href="vietnam.html">Hoi An</a></li>
+        <li><a href="vietnam.html">Da Nang</a></li>
+        <li><a href="vietnam.html">Ha Long</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="thailand.html">Tailandia <span class="nav-chevron">▾</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="thailand.html">Bangkok</a></li>
+        <li><a href="thailand.html">Chiang Mai</a></li>
+        <li><a href="thailand.html">Phuket</a></li>
+        <li><a href="thailand.html">Koh Samui</a></li>
+        <li><a href="thailand.html">Krabi</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -701,23 +829,21 @@
   <div class="hero-grid"></div>
 
   <div class="hero-photo-placeholder">
-    <div class="book-wrap" id="bookWrap">
-      <div class="book-page" id="bookPage"></div>
-      <div class="book-cover">
-        <div class="book-spine-line"></div>
-        <div class="book-title-wrap">
-          <span class="book-nty">NTY</span>
-          <span class="book-subtitle">Nobody Tells You</span>
+    <div class="book-scene">
+      <div class="book-body">
+        <div class="book-spine"></div>
+        <div class="book-pages-stack" id="pagesStack"></div>
+        <div class="book-cover-wrap" id="bookCover">
+          <div class="cover-face cover-front">
+            <div class="cover-nty">NTY</div>
+            <div class="cover-subtitle">Nobody Tells You</div>
+            <div class="cover-ornament">◈</div>
+          </div>
+          <div class="cover-face cover-back"></div>
         </div>
-        <div class="book-dest-display" id="destDisplay">
-          <div class="book-map-area" id="bookMapArea"></div>
-          <span class="book-dest-name" id="destName"></span>
-          <span class="book-dest-country" id="destCountry"></span>
-        </div>
-        <div class="book-dots" id="bookDots"></div>
-        <div class="book-ornament">◈</div>
       </div>
     </div>
+    <div class="book-dots" id="bookDots"></div>
   </div>
   <div class="hero-accent"></div>
 
@@ -990,23 +1116,41 @@
             <path d="M46,25 Q51,32 57,37 Q63,36 65,29 Q61,22 56,22 Z"/>` },
     { name: 'Vietnam', flag: '🇻🇳', country: 'Vietnam',
       map: `<path d="M37,3 Q50,3 52,12 Q54,23 46,30 Q39,35 41,45 Q43,57 36,64 Q29,64 27,53 Q25,41 32,33 Q39,25 36,15 Q32,6 37,3 Z"/>` },
-    { name: 'Colombia', flag: '🇨🇴', country: 'Colombia',
-      map: `<path d="M14,10 Q32,5 49,12 L53,28 Q51,44 40,48 Q28,50 17,44 L12,30 Q8,20 14,10 Z"/>` },
     { name: 'Tailandia', flag: '🇹🇭', country: 'Tailandia',
       map: `<path d="M27,4 L41,4 Q52,7 53,18 L52,30 Q48,36 43,40 L41,51 Q38,56 36,56 Q34,54 34,49 L34,40 Q27,34 21,28 L19,17 Q21,7 27,4 Z"/>` },
+    { name: 'Colombia', flag: '🇨🇴', country: 'Colombia',
+      map: `<path d="M14,10 Q32,5 49,12 L53,28 Q51,44 40,48 Q28,50 17,44 L12,30 Q8,20 14,10 Z"/>` },
     { name: 'Corea del Sur', flag: '🇰🇷', country: 'Corea del Sur',
       map: `<path d="M18,16 Q37,11 54,18 Q57,28 49,39 Q38,45 22,42 Q11,37 11,26 Z"/>` },
     { name: 'China', flag: '🇨🇳', country: 'China',
       map: `<path d="M7,8 Q28,3 53,5 Q70,7 76,16 Q81,27 76,38 Q64,49 46,52 Q30,54 15,46 Q5,38 4,23 Z"/>` },
   ];
 
-  let current = 0;
-  const nameEl = document.getElementById('destName');
-  const countryEl = document.getElementById('destCountry');
+  const pagesStack = document.getElementById('pagesStack');
+  const bookCover = document.getElementById('bookCover');
   const dotsEl = document.getElementById('bookDots');
-  const pageEl = document.getElementById('bookPage');
-  const displayEl = document.getElementById('destDisplay');
-  const mapAreaEl = document.getElementById('bookMapArea');
+  const n = destinations.length;
+  let currentIdx = 0;
+  let animating = false;
+  let coverOpen = false;
+
+  // Build pages in reverse so destinations[0] (Bali) ends up on top (highest z-index)
+  destinations.slice().reverse().forEach((dest, i) => {
+    const page = document.createElement('div');
+    page.className = 'dest-page';
+    page.style.zIndex = i + 1;
+    page.innerHTML = `
+      <div class="page-map"><svg viewBox="0 0 80 48">${dest.map}</svg></div>
+      <div class="page-dest-name">${dest.flag} ${dest.name}</div>
+      <div class="page-dest-country">${dest.country}</div>
+      <div class="page-ornament">◈</div>
+    `;
+    pagesStack.appendChild(page);
+  });
+
+  // pageEls[i] = DOM element for destinations[i]
+  const pageEls = destinations.map((_, i) => pagesStack.children[n - 1 - i]);
+  const origZ = Array.from(pageEls).map(p => parseInt(p.style.zIndex));
 
   // Build dots
   destinations.forEach((_, i) => {
@@ -1015,29 +1159,60 @@
     dotsEl.appendChild(d);
   });
 
-  function showDest(index) {
-    const dots = dotsEl.querySelectorAll('.book-dot');
-    dots.forEach((d, i) => d.classList.toggle('active', i === index));
-    const dest = destinations[index];
-    nameEl.textContent = dest.name;
-    countryEl.textContent = dest.flag + ' ' + dest.country;
-    mapAreaEl.innerHTML = `<svg viewBox="0 0 80 48">${dest.map}</svg>`;
-    displayEl.classList.add('visible');
+  function updateDots(i) {
+    dotsEl.querySelectorAll('.book-dot').forEach((d, j) => d.classList.toggle('active', j === i));
   }
 
   function turnPage() {
-    displayEl.classList.remove('visible');
-    pageEl.classList.add('turning');
+    if (animating || !coverOpen) return;
+    animating = true;
+    const el = pageEls[currentIdx];
+    el.classList.add('turning');
     setTimeout(() => {
-      current = (current + 1) % destinations.length;
-      showDest(current);
-      pageEl.classList.remove('turning');
-    }, 600);
+      el.classList.remove('turning');
+      el.classList.add('turned');
+      currentIdx = (currentIdx + 1) % n;
+      updateDots(currentIdx);
+      animating = false;
+    }, 900);
   }
 
-  // Init
-  showDest(0);
-  setInterval(turnPage, 2800);
+  function resetBook() {
+    bookCover.classList.remove('open');
+    coverOpen = false;
+    setTimeout(() => {
+      pageEls.forEach((p, i) => {
+        p.classList.add('resetting');
+        p.classList.remove('turned');
+        p.style.zIndex = origZ[i];
+      });
+      currentIdx = 0;
+      updateDots(0);
+      setTimeout(() => {
+        pageEls.forEach(p => p.classList.remove('resetting'));
+        setTimeout(() => {
+          bookCover.classList.add('open');
+          coverOpen = true;
+        }, 600);
+      }, 80);
+    }, 1200);
+  }
+
+  // Open cover on load
+  setTimeout(() => {
+    bookCover.classList.add('open');
+    coverOpen = true;
+  }, 1200);
+
+  // Auto-advance every 2.6s
+  setInterval(() => {
+    if (!coverOpen || animating) return;
+    if (currentIdx === n - 1) {
+      resetBook();
+    } else {
+      turnPage();
+    }
+  }, 2600);
 </script>
 </body>
 </html>
