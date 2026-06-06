@@ -275,11 +275,8 @@
   <button class="cat-btn active" onclick="goToSection('intro')">🌊 Por qué ir</button>
   <button class="cat-btn" onclick="goToSection('aerolineas')">✈️ Vuelos internos</button>
   <button class="cat-btn" onclick="goToSection('guia')">🗺️ Guía día a día</button>
-  <button class="cat-btn" onclick="goToSection('ciudades')">🏙️ Ciudades de escala</button>
-  <button class="cat-btn" onclick="goToSection('destinos')">✨ Otros destinos</button>
   <button class="cat-btn" onclick="goToSection('gastronomia')">🍽️ Gastronomía</button>
   <button class="cat-btn" onclick="goToSection('dinero')">💵 Dinero</button>
-  <button class="cat-btn" onclick="goToSection('lugares')">📍 Lugares</button>
   <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
   <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
 </nav>
@@ -287,10 +284,9 @@
 <ul id="lugaresDropdown" class="lugares-dropdown">
   <li><a href="#" onclick="goToSection('banggai');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🐟 Banggai Laut</a></li>
   <li><a href="#" onclick="goToSection('bunaken');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🤿 Bunaken</a></li>
-  <li><a href="#">Makassar</a></li>
-  <li><a href="#">Manado</a></li>
-  <li><a href="#">Tana Toraja</a></li>
-  <li><a href="#">Togean</a></li>
+  <li><a href="#" onclick="goToSection('ciudades');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏙️ Makassar · Manado · Luwuk</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏝️ Tana Toraja</a></li>
+  <li><a href="#" onclick="goToSection('destinos');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🌊 Togean · Wakatobi</a></li>
 </ul>
 
 <div class="content-wrap">
