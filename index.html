@@ -475,17 +475,26 @@
   }
 
   .destinations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
     gap: 1px;
     margin-top: 3rem;
     border: 0.5px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200,184,154,0.4) transparent;
   }
+  .destinations-grid::-webkit-scrollbar { height: 4px; }
+  .destinations-grid::-webkit-scrollbar-track { background: transparent; }
+  .destinations-grid::-webkit-scrollbar-thumb { background: rgba(200,184,154,0.4); border-radius: 2px; }
 
   .dest-card {
     background: #111;
     padding: 2rem 1.5rem;
     cursor: pointer;
+    min-width: 220px;
+    flex-shrink: 0;
     transition: background 0.2s;
     border-right: 0.5px solid rgba(255,255,255,0.06);
     position: relative;
@@ -776,32 +785,32 @@
     <li>
       <a href="bali.html">Bali <span class="nav-chevron">▾</span></a>
       <ul class="nav-dropdown-menu">
-        <li><a href="bali.html">Canggu</a></li>
-        <li><a href="bali.html">Uluwatu</a></li>
-        <li><a href="bali.html">Ubud</a></li>
-        <li><a href="bali.html">Sidemen</a></li>
-        <li><a href="bali.html">Amed</a></li>
-        <li><a href="bali.html">Seminyak</a></li>
+        <li><a href="bali.html#lugares">Canggu</a></li>
+        <li><a href="bali.html#lugares">Uluwatu</a></li>
+        <li><a href="bali.html#lugares">Ubud</a></li>
+        <li><a href="bali.html#lugares">Sidemen</a></li>
+        <li><a href="bali.html#lugares">Amed</a></li>
+        <li><a href="bali.html#lugares">Seminyak</a></li>
       </ul>
     </li>
     <li>
       <a href="lombok.html">Lombok <span class="nav-chevron">▾</span></a>
       <ul class="nav-dropdown-menu">
-        <li><a href="lombok.html">Kuta Lombok</a></li>
+        <li><a href="lombok.html#playas">Kuta Lombok</a></li>
         <li><a href="lombok.html">Senggigi</a></li>
-        <li><a href="lombok.html">Gili Trawangan</a></li>
-        <li><a href="lombok.html">Gili Air</a></li>
+        <li><a href="lombok.html#gili">Gili Trawangan</a></li>
+        <li><a href="lombok.html#gili">Gili Air</a></li>
         <li><a href="lombok.html">Sekotong</a></li>
       </ul>
     </li>
     <li>
       <a href="sulawesi.html">Sulawesi <span class="nav-chevron">▾</span></a>
       <ul class="nav-dropdown-menu">
-        <li><a href="sulawesi.html">Makassar</a></li>
-        <li><a href="sulawesi.html">Manado</a></li>
-        <li><a href="sulawesi.html">Bunaken</a></li>
-        <li><a href="sulawesi.html">Tana Toraja</a></li>
-        <li><a href="sulawesi.html">Togean</a></li>
+        <li><a href="sulawesi.html#ciudades">Makassar</a></li>
+        <li><a href="sulawesi.html#ciudades">Manado</a></li>
+        <li><a href="sulawesi.html#bunaken">Bunaken</a></li>
+        <li><a href="sulawesi.html#lugares">Tana Toraja</a></li>
+        <li><a href="sulawesi.html#destinos">Togean</a></li>
       </ul>
     </li>
     <li>
@@ -976,6 +985,51 @@
 </section>
 
 <div class="divider"></div>
+
+<section class="section" id="siguenos" style="padding: 4rem 2.5rem;">
+  <div class="section-label">Síguenos</div>
+  <h2 class="section-title" style="margin-bottom:0.6rem;">Experiencias en Instagram y TikTok</h2>
+  <p style="font-size:0.88rem; color:rgba(245,243,239,0.45); line-height:1.8; max-width:460px; margin-bottom:2.5rem;">
+    Las experiencias que no caben en un tip escrito las contamos en vídeo. Síguenos para ver la realidad de cada destino.
+  </p>
+  <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+
+    <a href="https://www.instagram.com/ntytravel" target="_blank" rel="noopener" style="text-decoration:none; flex:1; min-width:220px; max-width:300px;">
+      <div style="background:#111; border:0.5px solid rgba(255,255,255,0.1); padding:1.5rem; transition:border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='rgba(200,184,154,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:1rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="#c8b89a" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4" stroke="#c8b89a" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="#c8b89a"/>
+          </svg>
+          <div>
+            <div style="font-size:0.75rem; font-weight:500; color:var(--white); letter-spacing:0.05em;">@ntytravel</div>
+            <div style="font-size:0.6rem; color:var(--gray); letter-spacing:0.1em; text-transform:uppercase;">Instagram</div>
+          </div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(245,243,239,0.5); line-height:1.7;">Reels de viaje, tips en vídeo y experiencias reales desde Bali, Lombok, Sulawesi, Vietnam y más.</div>
+        <div style="margin-top:1rem; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase;">Ver perfil →</div>
+      </div>
+    </a>
+
+    <a href="https://www.tiktok.com/@ntytravel" target="_blank" rel="noopener" style="text-decoration:none; flex:1; min-width:220px; max-width:300px;">
+      <div style="background:#111; border:0.5px solid rgba(255,255,255,0.1); padding:1.5rem; transition:border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='rgba(200,184,154,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:1rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z" stroke="#c8b89a" stroke-width="1.2" fill="none"/>
+          </svg>
+          <div>
+            <div style="font-size:0.75rem; font-weight:500; color:var(--white); letter-spacing:0.05em;">@ntytravel</div>
+            <div style="font-size:0.6rem; color:var(--gray); letter-spacing:0.1em; text-transform:uppercase;">TikTok</div>
+          </div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(245,243,239,0.5); line-height:1.7;">Vídeos cortos con lo que nadie te cuenta antes de ir. Sin filtros, sin agencias.</div>
+        <div style="margin-top:1rem; font-size:0.7rem; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase;">Ver perfil →</div>
+      </div>
+    </a>
+
+  </div>
+</section>
 
 <div class="divider"></div>
 
