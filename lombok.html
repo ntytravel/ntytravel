@@ -230,17 +230,16 @@
   <button class="cat-btn" onclick="goToSection('atm')">💳 ATM / Dinero</button>
   <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
   <button class="cat-btn" onclick="goToSection('laundry')">👕 Laundry</button>
-  <button class="cat-btn" onclick="goToSection('gili')">🏝️ Islas Gili</button>
-  <button class="cat-btn" onclick="goToSection('rinjani')">🌋 Rinjani</button>
   <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
   <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
 </nav>
 
 <ul id="lugaresDropdown" class="lugares-dropdown">
-  <li><a href="#">Kuta Lombok</a></li>
+  <li><a href="#" onclick="goToSection('playas');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏖️ Playas de Kuta Lombok</a></li>
+  <li><a href="#" onclick="goToSection('isla');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🗺️ La isla completa</a></li>
+  <li><a href="#" onclick="goToSection('gili');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏝️ Islas Gili (Trawangan · Air · Meno)</a></li>
+  <li><a href="#" onclick="goToSection('rinjani');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🌋 Monte Rinjani</a></li>
   <li><a href="#">Senggigi</a></li>
-  <li><a href="#">Gili Trawangan</a></li>
-  <li><a href="#">Gili Air</a></li>
   <li><a href="#">Sekotong</a></li>
 </ul>
 
