@@ -588,12 +588,14 @@
 </nav>
 
 <ul id="lugaresDropdown" class="lugares-dropdown">
-  <li><a href="#">Canggu</a></li>
-  <li><a href="#">Uluwatu</a></li>
-  <li><a href="#">Ubud</a></li>
-  <li><a href="#">Sidemen</a></li>
-  <li><a href="#">Amed</a></li>
-  <li><a href="#">Seminyak</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Canggu</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Seminyak</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Kuta</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Uluwatu · Ungasan</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Nusa Dua · Sanur</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Ubud</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Sidemen</a></li>
+  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Amed</a></li>
 </ul>
 
 <div class="content-wrap">
@@ -1213,6 +1215,92 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- LUGARES -->
+  <section class="tip-section" id="lugares">
+    <div class="section-header">
+      <div class="section-icon">📍</div>
+      <div class="section-header-text">
+        <div class="section-tag">Bali · Zonas y destinos</div>
+        <h2 class="section-title">Zonas de Bali: qué hace cada una diferente</h2>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-label">Sur · Digital nomads y surf</div>
+      <div class="tip-title">Canggu</div>
+      <div class="tip-body">
+        La zona más trendy de Bali. Llena de cafés con buena conexión, coworkings, restaurantes de todo el mundo y una escena de surf activa. Ideal para nómadas digitales y estancias largas. El precio de vida es más alto que en otras zonas, pero la infraestructura (internet, sitios donde trabajar, variedad gastronómica) es difícil de superar.
+        <div class="tip-pro"><strong>Para quién:</strong> Nómadas digitales, surfers, gente que busca ambiente cosmopolita sin renunciar a Bali.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Sur · Lujo y moda</div>
+      <div class="tip-title">Seminyak</div>
+      <div class="tip-body">
+        La zona más exclusiva del sur de Bali. Tiendas de diseño, restaurantes de alta gama y beach clubs de nivel. Limita con Canggu al norte y con Kuta al sur. Más tranquila que Kuta pero con vida nocturna sofisticada. Precios elevados.
+        <div class="tip-pro"><strong>Para quién:</strong> Viajeros con más presupuesto, parejas, escapadas cortas en plan lujo.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Sur · Turismo masivo</div>
+      <div class="tip-title">Kuta</div>
+      <div class="tip-body">
+        La zona más turística y comercial de Bali. Surf en la playa de Kuta (buena para principiantes), vida nocturna intensa, gran cantidad de tiendas y restaurantes económicos. Puede resultar caótica y ruidosa, pero los precios son de los más bajos del sur y es el punto de referencia para muchos viajeros que llegan al aeropuerto.
+        <div class="tip-pro"><strong>Para quién:</strong> Primera vez en Bali, presupuesto ajustado, surf para principiantes.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Sur · Acantilados y templos</div>
+      <div class="tip-title">Uluwatu &amp; Ungasan</div>
+      <div class="tip-body">
+        La Península de Bukit, en el extremo sur de Bali. Uluwatu es famosa por el templo sobre el acantilado (uno de los más fotogénicos de Bali), el surf de nivel avanzado y los beach clubs encajados en la roca. Ungasan es más tranquila, con resorts de lujo escondidos entre acantilados.
+        <div class="tip-pro"><strong>Para quién:</strong> Surfers avanzados, viajeros que buscan vistas espectaculares, beach clubs exclusivos.</div>
+        <div class="tip-alert"><strong>Ojo con los monos del templo de Uluwatu:</strong> Son agresivos y roban cosas. Guarda bien gafas de sol, móvil y pendientes antes de entrar.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Sur · Calma y resorts</div>
+      <div class="tip-title">Nusa Dua &amp; Sanur</div>
+      <div class="tip-body">
+        <strong>Nusa Dua</strong> es la zona de grandes resorts internacionales, playa tranquila y aguas protegidas. Ideal para familias y quien quiera total tranquilidad. <strong>Sanur</strong> es más auténtica, con ambiente de pueblo balinés, playa tranquila y buen acceso a Nusa Penida (las lanchas rápidas salen desde aquí).
+        <div class="tip-pro"><strong>Sanur como base:</strong> Si piensas ir a Nusa Penida, Sanur es el mejor punto de partida — la travesía en fast boat dura unos 30–45 minutos.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Centro · Arte y espiritualidad</div>
+      <div class="tip-title">Ubud</div>
+      <div class="tip-body">
+        El corazón cultural de Bali. Rodeada de arrozales en terrazas, con una escena de arte, yoga y gastronomía muy desarrollada. Más fresca que el sur gracias a la altitud. Ubud es el lugar donde Bali se siente más "Bali" — lejos del turismo de playa y más cerca de la cultura balinesa real.
+        <div class="tip-pro"><strong>No te pierdas:</strong> El mercado de Ubud por la mañana, las terrazas de Tegallalang, el Monkey Forest y alguna ceremonia del templo local (son frecuentes y abiertas al público).</div>
+        <div class="tip-alert"><strong>Tráfico en Ubud:</strong> El centro puede estar colapsado a cualquier hora. Si tienes moto, úsala — es la única forma de moverse con fluidez.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Este · Autenticidad</div>
+      <div class="tip-title">Sidemen</div>
+      <div class="tip-body">
+        Un valle en el este de Bali, con arrozales, el volcán Agung al fondo y muy poco turismo. Uno de los lugares más auténticos y tranquilos de toda la isla. Perfecto para desconectar uno o dos días, hacer trekking entre campos de arroz y vivir un Bali sin filtered.
+        <div class="tip-pro"><strong>Para quién:</strong> Quien quiera escapar del sur masificado y ver cómo es Bali fuera del circuito turístico.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:1px">
+      <div class="tip-label">Este · Buceo y sunrises</div>
+      <div class="tip-title">Amed</div>
+      <div class="tip-body">
+        Un pueblo pesquero en la costa este, conocido por su buceo y snorkel de calidad (el USAT Liberty Wreck, un barco hundido de la Segunda Guerra Mundial, está a solo metros de la orilla). Ambiente tranquilo, pocas motos, muchos buzos. Los amaneceres desde aquí con el volcán Agung al fondo son de los mejores de Bali.
+        <div class="tip-pro"><strong>Liberty Wreck:</strong> Uno de los mejores wrecks de buceo de Indonesia, accesible desde la playa. Incluso en snorkel puedes ver parte del barco.</div>
+      </div>
+    </div>
+
   </section>
 
 </div><!-- /content-wrap -->
