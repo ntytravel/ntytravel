@@ -1094,6 +1094,8 @@
 </footer>
 
 <script>
+    var _lugaresTimer = null;
+
   function toggleLugares(btn) {
     var dd = document.getElementById('lugaresDropdown');
     var rect = btn.getBoundingClientRect();
@@ -1101,6 +1103,34 @@
     dd.style.left = rect.left + 'px';
     dd.classList.toggle('open');
   }
+
+  function openLugares(btn) {
+    clearTimeout(_lugaresTimer);
+    var dd = document.getElementById('lugaresDropdown');
+    var rect = btn.getBoundingClientRect();
+    dd.style.top = (rect.bottom + 4) + 'px';
+    dd.style.left = rect.left + 'px';
+    dd.classList.add('open');
+  }
+
+  function scheduleLugaresClose() {
+    _lugaresTimer = setTimeout(function() {
+      var dd = document.getElementById('lugaresDropdown');
+      if (dd) dd.classList.remove('open');
+    }, 150);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.querySelector('.lugares-btn');
+    var dd = document.getElementById('lugaresDropdown');
+    if (btn && dd) {
+      btn.addEventListener('mouseenter', function() { openLugares(btn); });
+      btn.addEventListener('mouseleave', scheduleLugaresClose);
+      dd.addEventListener('mouseenter', function() { clearTimeout(_lugaresTimer); });
+      dd.addEventListener('mouseleave', scheduleLugaresClose);
+    }
+  });
+
   document.addEventListener('click', function(e) {
     if (!e.target.closest('.lugares-btn') && !e.target.closest('#lugaresDropdown')) {
       var dd = document.getElementById('lugaresDropdown');
