@@ -1092,10 +1092,10 @@
   // fillColor = color primario de la bandera del país
   const destinations = [
     { name: 'Bali', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 272 170',
-      map: `<path d="M 6.0,26.3 L 24.3,18.2 L 62.9,12.1 L 121.8,6.0 L 156.3,6.0 L 196.9,10.1 L 235.5,36.5 L 257.9,62.9 L 266.0,97.4 L 243.7,103.5 L 233.5,123.8 L 219.3,138.0 L 192.9,148.2 L 166.5,154.3 L 152.3,160.4 L 140.1,164.4 L 129.9,158.3 L 142.1,140.1 L 156.3,140.1 L 150.2,144.1 L 111.6,142.1 L 71.0,127.9 L 32.4,109.6 L 12.1,85.2 L 6.0,52.7 Z"/>` },
+      map: `<path d="M 10,65 L 20,45 L 48,28 L 90,14 L 138,10 L 180,16 L 218,28 L 252,52 L 265,80 L 258,112 L 238,132 L 208,148 L 178,158 L 158,163 L 142,165 L 128,168 L 118,162 L 112,150 L 106,138 L 98,130 L 82,128 L 62,120 L 44,105 L 24,86 Z"/>` },
 
     { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 272 254',
-      map: `<path d="M 36.6,36.6 L 67.2,13.6 L 95.2,6.0 L 133.5,16.2 L 199.7,36.6 L 243.1,77.4 L 266.0,133.5 L 255.8,184.4 L 217.6,222.7 L 187.0,238.0 L 133.5,248.2 L 82.5,240.5 L 44.2,209.9 L 13.6,158.9 L 6.0,108.0 L 16.2,62.1 Z"/>` },
+      map: `<path d="M 32,48 L 58,20 L 105,8 L 150,12 L 192,26 L 228,56 L 252,98 L 260,145 L 252,188 L 228,220 L 195,242 L 155,250 L 112,246 L 72,228 L 40,200 L 16,162 L 8,120 L 16,78 Z"/>` },
 
     { name: 'Sulawesi', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 216 272',
       map: `<path d="M 168.7,31.8 L 203.8,6.0 L 210.0,13.9 L 181.4,49.2 L 154.7,56.0 L 120.5,49.1 L 61.3,50.8 L 30.3,56.0 L 25.2,82.9 L 57.0,114.5 L 76.2,98.4 L 142.5,86.3 L 139.6,102.6 L 124.1,97.5 L 108.6,118.3 L 77.4,132.1 L 111.0,177.6 L 104.5,189.8 L 136.4,230.8 L 136.1,254.2 L 117.2,264.6 L 103.2,252.1 L 120.4,223.0 L 85.5,236.8 L 76.7,227.0 L 81.3,213.2 L 55.7,192.4 L 58.3,157.8 L 34.6,168.6 L 37.6,210.0 L 39.1,260.8 L 16.5,266.0 L 6.0,258.8 L 6.0,240.4 L 11.5,222.9 L 6.0,188.8 L 6.0,93.7 L 17.6,58.9 L 25.0,44.3 L 55.2,17.9 L 83.0,28.4 L 127.8,33.3 Z"/>` },
@@ -1130,7 +1130,7 @@
     page.className = 'dest-page';
     page.style.zIndex = i + 1;
     page.innerHTML = `
-      <div class="page-map"><svg viewBox="${dest.vb}" style="fill:${dest.fill};stroke:${dest.stroke};opacity:0.85">${dest.map}</svg></div>
+      <div class="page-map"><svg viewBox="${dest.vb}" style="fill:#ffffff;stroke:#111111;stroke-width:1.5;opacity:1">${dest.map}</svg></div>
       <div class="page-dest-name">${dest.flag} ${dest.name}</div>
       <div class="page-dest-country">${dest.country}</div>
       <div class="page-ornament">◈</div>
