@@ -173,7 +173,7 @@
   }
 
   .dest-page.turning {
-    transition: transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform 1.4s cubic-bezier(0.76, 0, 0.24, 1);
     transform: rotateY(-162deg);
     z-index: 100;
   }
@@ -207,15 +207,6 @@
     overflow: visible;
   }
 
-  @keyframes island-breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.04); }
-  }
-
-  .page-map svg.breathing {
-    animation: island-breathe 3.8s ease-in-out infinite;
-    transform-origin: center center;
-  }
 
   .page-dest-name {
     font-family: 'Playfair Display', serif;
@@ -1103,11 +1094,11 @@
   // All map paths generated from real Natural Earth geographic data
   // fillColor = color primario de la bandera del país
   const destinations = [
-    { name: 'Bali', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 285 195',
-      map: `<path d="M 22,84 L 8,62 L 14,46 L 22,38 L 42,24 L 72,13 L 115,7 L 158,7 L 198,13 L 232,26 L 258,46 L 272,68 L 272,88 L 260,110 L 238,122 L 210,128 L 184,131 L 164,133 L 148,136 L 138,143 L 130,152 L 124,161 L 118,169 L 110,175 L 103,178 L 96,175 L 90,166 L 88,156 L 92,147 L 104,143 L 118,140 L 128,132 L 110,126 L 86,119 L 58,108 L 36,96 Z"/><path d="M 160,148 L 172,145 L 179,151 L 176,160 L 165,162 L 156,157 Z"/><path d="M 195,152 L 218,147 L 240,154 L 250,167 L 246,179 L 232,186 L 212,187 L 194,178 L 188,165 Z"/>` },
+    { name: 'Bali', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 285 190',
+      map: `<path d="M 18,73 L 28,57 L 36,39 L 55,22 L 90,14 L 129,14 L 168,16 L 211,24 L 239,40 L 256,57 L 266,71 L 264,95 L 252,121 L 235,135 L 217,141 L 184,147 L 161,149 L 151,151 L 147,155 L 145,159 L 145,165 L 151,171 L 147,175 L 139,173 L 135,167 L 137,159 L 141,153 L 141,151 L 125,149 L 98,155 L 69,159 L 45,151 L 29,143 L 18,125 L 16,105 Z"/><path d="M 216,139 L 224,138 L 228,142 L 225,147 L 217,148 L 213,144 Z"/><path d="M 211,141 L 229,139 L 247,145 L 247,157 L 237,169 L 222,173 L 211,163 L 207,151 Z"/>` },
 
-    { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 265 258',
-      map: `<path d="M 130,8 L 158,12 L 186,22 L 212,42 L 234,70 L 246,104 L 248,140 L 242,174 L 226,204 L 202,224 L 172,238 L 140,244 L 108,241 L 78,230 L 50,210 L 28,182 L 16,148 L 13,112 L 18,78 L 34,50 L 58,28 L 90,13 Z"/>` },
+    { name: 'Lombok', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 258 258',
+      map: `<path d="M 16,46 L 38,22 L 76,10 L 115,7 L 155,12 L 192,28 L 220,56 L 238,92 L 244,130 L 238,164 L 222,196 L 200,220 L 170,238 L 138,245 L 106,243 L 76,232 L 48,210 L 26,180 L 12,145 L 10,108 L 16,72 Z"/>` },
 
     { name: 'Sulawesi', flag: '🇮🇩', country: 'Indonesia', fill: '#CE1126', stroke: '#8a0c1a', vb: '0 0 216 272',
       map: `<path d="M 168.7,31.8 L 203.8,6.0 L 210.0,13.9 L 181.4,49.2 L 154.7,56.0 L 120.5,49.1 L 61.3,50.8 L 30.3,56.0 L 25.2,82.9 L 57.0,114.5 L 76.2,98.4 L 142.5,86.3 L 139.6,102.6 L 124.1,97.5 L 108.6,118.3 L 77.4,132.1 L 111.0,177.6 L 104.5,189.8 L 136.4,230.8 L 136.1,254.2 L 117.2,264.6 L 103.2,252.1 L 120.4,223.0 L 85.5,236.8 L 76.7,227.0 L 81.3,213.2 L 55.7,192.4 L 58.3,157.8 L 34.6,168.6 L 37.6,210.0 L 39.1,260.8 L 16.5,266.0 L 6.0,258.8 L 6.0,240.4 L 11.5,222.9 L 6.0,188.8 L 6.0,93.7 L 17.6,58.9 L 25.0,44.3 L 55.2,17.9 L 83.0,28.4 L 127.8,33.3 Z"/>` },
@@ -1150,36 +1141,6 @@
     pagesStack.appendChild(page);
   });
 
-  // Pre-compute path lengths for draw animation
-  document.querySelectorAll('.page-map svg path').forEach(path => {
-    try {
-      const len = Math.ceil(path.getTotalLength());
-      path.dataset.len = len;
-      path.style.strokeDasharray = len + ' ' + len;
-      path.style.strokeDashoffset = '0';
-    } catch(e) {}
-  });
-
-  function triggerDrawAnimation(pageEl) {
-    const svg = pageEl.querySelector('.page-map svg');
-    if (!svg) return;
-    svg.classList.remove('breathing');
-    const paths = pageEl.querySelectorAll('.page-map svg path');
-    paths.forEach((path, i) => {
-      const len = parseFloat(path.dataset.len) || 700;
-      path.style.transition = 'none';
-      path.style.strokeDashoffset = len;
-      path.style.fill = 'transparent';
-      void path.getBoundingClientRect();
-      const delay = i * 0.18;
-      path.style.transition = `stroke-dashoffset ${1.1 + i * 0.1}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s, fill 0.45s ease ${0.75 + delay}s`;
-      path.style.strokeDashoffset = '0';
-      path.style.fill = '#ffffff';
-    });
-    // Start breathing animation after draw completes
-    const maxDuration = (1.1 + paths.length * 0.1 + paths.length * 0.18 + 0.75) * 1000 + 300;
-    setTimeout(() => svg.classList.add('breathing'), maxDuration);
-  }
 
   // pageEls[i] = DOM element for destinations[i]
   const pageEls = destinations.map((_, i) => pagesStack.children[n - 1 - i]);
@@ -1201,15 +1162,13 @@
     animating = true;
     const el = pageEls[currentIdx];
     el.classList.add('turning');
-    const nextIdx = (currentIdx + 1) % n;
-    setTimeout(() => triggerDrawAnimation(pageEls[nextIdx]), 480);
     setTimeout(() => {
       el.classList.remove('turning');
       el.classList.add('turned');
-      currentIdx = nextIdx;
+      currentIdx = (currentIdx + 1) % n;
       updateDots(currentIdx);
       animating = false;
-    }, 900);
+    }, 1400);
   }
 
   function resetBook() {
@@ -1228,7 +1187,6 @@
         setTimeout(() => {
           bookCover.classList.add('open');
           coverOpen = true;
-          setTimeout(() => triggerDrawAnimation(pageEls[0]), 700);
         }, 600);
       }, 80);
     }, 1200);
@@ -1238,10 +1196,9 @@
   setTimeout(() => {
     bookCover.classList.add('open');
     coverOpen = true;
-    setTimeout(() => triggerDrawAnimation(pageEls[0]), 700);
   }, 1200);
 
-  // Auto-advance every 2.6s
+  // Auto-advance every 4s
   setInterval(() => {
     if (!coverOpen || animating) return;
     if (currentIdx === n - 1) {
@@ -1249,7 +1206,7 @@
     } else {
       turnPage();
     }
-  }, 2600);
+  }, 4000);
 </script>
 </body>
 </html>
