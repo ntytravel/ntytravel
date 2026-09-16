@@ -69,6 +69,20 @@ Formato sugerido por entrada:
 - Sección "La ruta que hicimos", primera tarjeta: se quitó "El objetivo: llegar de Hanói a Hội An en 9 días" del párrafo inicial (se mantiene la mención a sleep bus/moto/Grab y el resto de la frase). La "Nota NTY" de esa misma tarjeta se reescribió quitando la mención al reto de presupuesto diario (5€–35€) y al vídeo de YouTube — ese vídeo todavía no existe (saldrá en unos meses) — dejando solo la idea de que ahí abajo están los tips prácticos.
 - La sección "Sleep bus" (info práctica de cómo funciona) no se tocó — es contenido aparte del framing del hero.
 - Pendiente, no tocado hoy: un tercer punto sobre los nombres de las compañías de eSIM en la sección SIM — queda para otra sesión.
+- Commit: `4099241` (contenido) + `0caebc8` (registro en NOTAS.md)
+- Estado: subido a GitHub (`origin/main`).
+
+### 2026-09-16 — General (sitio completo: index + 5 destinos)
+7 cambios estructurales/visuales aplicados a todas las páginas:
+1. **Menú de navegación**: Bali/Lombok/Sulawesi se agruparon bajo un único desplegable "Indonesia ▾" (antes 3 entradas sueltas). Vietnam y Tailandia siguen como entradas propias. Los enlaces rápidos a sitios concretos (Canggu, Uluwatu, Gili Trawangan...) se quitaron de este menú global — siguen disponibles dentro de cada página en su propio menú "📍 Lugares".
+2. **Menú de categorías fijo en móvil**: ya estaba en `position:sticky` en el CSS, pero desaparecía al hacer scroll en móvil (bug reproducido también en el sitio real publicado). Causa encontrada: tablas anchas (`.tip-table`) desbordaban el ancho de pantalla, y combinado con `overflow-x:hidden` en `body`, es el bug conocido de iOS Safari que rompe `position:fixed`/`sticky`. Fix: `.tip-table` pasa a `display:block; overflow-x:auto` en móvil, y se añadió `position:relative` a `body` en las 6 páginas.
+3. **Footer**: año actualizado de 2025 a 2026 en `index.html` (las páginas de destino no mostraban año).
+4. **Home**: se eliminó la sección "Comparte tu experiencia" (formulario) de `index.html`, incluyendo su CSS muerto asociado. El botón del hero que enlazaba ahí ahora apunta a la sección "Síguenos".
+5. **Aviso de vigencia**: se añadió una línea en el footer de las 6 páginas: "Contenido basado en un viaje de la primera mitad de 2026 — algunos datos (precios, visados, apps) pueden haber cambiado."
+6. **Caja crema**: la sección "¿Has estado en [destino]?" (comparte tu experiencia) de las 5 páginas de destino ahora va dentro de una tarjeta con fondo crema `#f5f3ef` (el mismo tono ya usado como color de texto de marca) y texto oscuro, para que destaque del resto de la página oscura.
+7. **Breadcrumb**: se añadió "Inicio" delante de "Destinos" en las 5 páginas de destino (`Inicio / Destinos / Indonesia / Bali`, etc.).
+- Verificado visualmente en local (desktop y móvil) y contrastado contra el sitio real publicado para el bug del punto 2.
+- Nota: durante la verificación se investigó una aparente altura de página rota (~100.000px) en `thailand.html`, tanto en local como en producción — resultó ser un artefacto del panel de pruebas (viewport a 0px mientras estaba oculto), no un bug real. Descartado.
 - Commit: pendiente de hacer en este mismo cierre.
 - Estado: pendiente de push a GitHub.
 
