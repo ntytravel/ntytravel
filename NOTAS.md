@@ -61,6 +61,14 @@ Formato sugerido por entrada:
 - "Consejo clave antes de empezar" (banner del hero): se recortó, quitando la frase final sobre buscar en Google Maps y gestionar barcos/motos/traslados desde el alojamiento.
 - Sección "Por qué ir", primera tarjeta: se quitó "Y no hablamos de Bali." del título.
 - CTA de guía (misma tarjeta): reescrito para dejar claro que ofrecemos guías personalizadas de Sulawesi y que se consiguen escribiendo por Instagram o TikTok (@ntytravel), en vez del texto anterior de "guía completa en preparación".
+- Commit: `852554e` (incluye también el registro en NOTAS.md).
+- Estado: subido a GitHub (`origin/main`).
+
+### 2026-09-16 — Vietnam
+- Hero: subtítulo y descripción reescritos, quitando las menciones a "9 días", "reto de presupuesto" y "sleep bus" como gancho (nuevo: "Vietnam · De norte a sur" / "Hanói, Ninh Binh, Phong Nha, Hội An, Ho Chi Minh. La ruta real que hicimos, con los tips prácticos que aprendimos por el camino.").
+- Sección "La ruta que hicimos", primera tarjeta: se quitó "El objetivo: llegar de Hanói a Hội An en 9 días" del párrafo inicial (se mantiene la mención a sleep bus/moto/Grab y el resto de la frase). La "Nota NTY" de esa misma tarjeta se reescribió quitando la mención al reto de presupuesto diario (5€–35€) y al vídeo de YouTube — ese vídeo todavía no existe (saldrá en unos meses) — dejando solo la idea de que ahí abajo están los tips prácticos.
+- La sección "Sleep bus" (info práctica de cómo funciona) no se tocó — es contenido aparte del framing del hero.
+- Pendiente, no tocado hoy: un tercer punto sobre los nombres de las compañías de eSIM en la sección SIM — queda para otra sesión.
 - Commit: pendiente de hacer en este mismo cierre.
 - Estado: pendiente de push a GitHub.
 
@@ -68,6 +76,10 @@ Formato sugerido por entrada:
 
 - `sulawesi.html` tiene un desajuste de 1 `<div>` sin cerrar (295 aperturas / 294 cierres). Detectado el 2026-09-16 al revisar el archivo por un cambio no relacionado (enlace del menú de Lombok). No se ha tocado — revisar y arreglar cuando trabajemos el bloque de Sulawesi.
 - El CTA de guía personalizada en la sección "Por qué ir" (reescrito el 2026-09-16) habrá que volver a revisarlo cuando se haga el cambio estructural de alojar el PDF directamente en la web (en vez de entregarlo por DM). Ese cambio estructural **todavía no se ha hecho** — solo el texto del CTA se actualizó para reflejar el proceso actual (contacto por redes).
+
+## Pendiente para cuando toquemos Vietnam
+
+- Revisar los nombres de las compañías de eSIM en la sección SIM (punto que el usuario dejó explícitamente pendiente el 2026-09-16, sin más detalle todavía).
 
 ## Estado general al retomar (2026-09-16)
 
