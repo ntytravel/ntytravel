@@ -45,8 +45,21 @@ Formato sugerido por entrada:
 - SIM/eSIM: las dos tarjetas (SIM física + eSIM) se fusionaron en una sola, más corta. Se quitaron Holafly y Jetpac; se mantienen Airalo y Roamic como eSIM recomendadas junto al aviso de revisar el roaming del banco.
 - Agua: se quitó la frase genérica sobre que el agua es barata, el consejo del garrafón de 19L, y los precios orientativos de botella (se conserva la mención suelta a comprarla en Indomaret/Alfamart).
 - Comida: la sección "Platos típicos de Bali" se fusionó como tarjeta dentro de "Comida" y se eliminó como categoría separada (no estaba en el menú de navegación, así que no rompe enlaces). Se quitó el tip "Dónde comer auténtico y barato" por duplicar precios de warung ya mencionados en la primera tarjeta de Comida.
-- Commit: `93d5c40`
-- Estado: commiteado en local, **pendiente de push a GitHub**.
+- Commit: `93d5c40` (contenido) + `c767557` (registro en NOTAS.md)
+- Estado: subido a GitHub (`origin/main`).
+
+### 2026-09-16 — Lombok
+- Ferry: se borró la frase final redundante que remitía a la sección Transporte.
+- Transporte: la recomendación principal pasa a ser el taxi privado gestionado por el alojamiento (guesthouse/homestay). MyBlueBird se mantiene como nota aparte, marcada explícitamente como información general no probada por el usuario, con sus limitaciones (aeropuerto, sin servicio en Kuta Lombok).
+- Lugares: se eliminó la sección "Playas de Kuta" (y su botón/entrada de menú). En la tabla de "Zonas principales" se quitaron las filas de playas (Tanjung Aan, Selong Belanak), quedando solo Mataram y Senggigi. La sección de Islas Gili no se tocó.
+- Comida: se eliminó la sección "Comida: warungs recomendados en Kuta" (y su botón de menú). Se limpió una referencia colgante a esa sección desde "Platos típicos".
+- Efecto en otras páginas: `bali.html`, `index.html` y `sulawesi.html` tenían en su menú "Lombok" un enlace a `lombok.html#playas` ("Kuta Lombok"); se actualizó a `lombok.html#gili` y se renombró la etiqueta a "Islas Gili" para que no confunda.
+- Commit: pendiente de hacer en este mismo cierre.
+- Estado: pendiente de push a GitHub.
+
+## Pendiente para cuando toquemos Sulawesi
+
+- `sulawesi.html` tiene un desajuste de 1 `<div>` sin cerrar (295 aperturas / 294 cierres). Detectado el 2026-09-16 al revisar el archivo por un cambio no relacionado (enlace del menú de Lombok). No se ha tocado — revisar y arreglar cuando trabajemos el bloque de Sulawesi.
 
 ## Estado general al retomar (2026-09-16)
 
