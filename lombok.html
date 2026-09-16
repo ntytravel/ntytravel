@@ -225,16 +225,13 @@
   <button class="cat-btn active" onclick="goToSection('llegar')">🚢 Cómo llegar</button>
   <button class="cat-btn" onclick="goToSection('transporte')">🚐 Transporte</button>
   <button class="cat-btn" onclick="goToSection('moto')">🏍️ Moto</button>
-  <button class="cat-btn" onclick="goToSection('playas')">🏖️ Playas de Kuta</button>
   <button class="cat-btn" onclick="goToSection('atm')">💳 ATM / Dinero</button>
-  <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
   <button class="cat-btn" onclick="goToSection('laundry')">👕 Laundry</button>
   <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
   <button class="cat-btn" onclick="goToSection('salud')">💉 Salud y visado</button>
 </nav>
 
 <ul id="lugaresDropdown" class="lugares-dropdown">
-  <li><a href="#" onclick="goToSection('playas');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏖️ Playas de Kuta Lombok</a></li>
   <li><a href="#" onclick="goToSection('isla');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🗺️ La isla completa</a></li>
   <li><a href="#" onclick="goToSection('gili');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🏝️ Islas Gili (Trawangan · Air · Meno)</a></li>
   <li><a href="#" onclick="goToSection('rinjani');document.getElementById('lugaresDropdown').classList.remove('open');return false;">🌋 Monte Rinjani</a></li>
@@ -289,7 +286,7 @@
         </div>
 
         <div class="tip-alert" style="margin-top:1rem">
-          <strong>Importante:</strong> En Lombok <strong>Grab y Gojek no funcionan</strong> de forma generalizada. La app <strong>MyBlueBird</strong> sí funciona (especialmente en Mataram y el aeropuerto), pero al bajar del ferry en Bangsal lo más habitual es negociar directamente con taxistas locales. <strong>Acuerda siempre el precio antes de subir al coche</strong> — nunca después. Ver sección Transporte para más detalles sobre la app.
+          <strong>Importante:</strong> En Lombok <strong>Grab y Gojek no funcionan</strong> de forma generalizada. La app <strong>MyBlueBird</strong> sí funciona (especialmente en Mataram y el aeropuerto), pero al bajar del ferry en Bangsal lo más habitual es negociar directamente con taxistas locales. <strong>Acuerda siempre el precio antes de subir al coche</strong> — nunca después.
         </div>
       </div>
     </div>
@@ -307,18 +304,15 @@
 
     <div class="tip-card">
       <div class="tip-label">Lo que cambia respecto a Bali</div>
-      <div class="tip-title">Grab y Gojek no funcionan — pero MyBlueBird sí</div>
+      <div class="tip-title">Grab y Gojek no funcionan: el taxi del alojamiento es la opción más fiable</div>
       <div class="tip-body">
         A diferencia de Bali, en Lombok <strong>Grab y Gojek no funcionan de forma generalizada</strong>. En zonas como Kuta Lombok son prácticamente inutilizables (no hay conductores disponibles el 99% del tiempo).
         <br><br>
-        La alternativa con app que sí funciona es <strong>MyBlueBird</strong> — la app oficial de los taxis azules Bluebird, el operador de taxis más establecido de Indonesia. Funciona especialmente bien en <strong>Mataram y el entorno del aeropuerto</strong>. Permite fijar el precio antes de subir, igual que Grab, y el conductor llega con el taxímetro.
+        La opción más fiable para moverte por la isla es pedir un <strong>taxi privado a través de tu alojamiento</strong> (guesthouse/homestay). Suelen tener contacto directo con conductores de confianza y te ayudan a acordar el precio de antemano — es la recomendación principal, sea cual sea la zona en la que estés.
         <br><br>
-        Fuera de zonas urbanas (Kuta, playas alejadas), igualmente tendrás que negociar directamente con taxistas locales. <strong>Pregunta el precio antes de subir y no lo confirmes hasta tenerlo claro.</strong>
-        <div class="tip-pro">
-          <strong>Descarga antes de llegar:</strong> MyBlueBird está disponible en App Store y Google Play. Crea la cuenta desde casa — al llegar solo tienes que abrir la app y pedir el taxi.
-        </div>
+        <strong>Pregunta siempre el precio antes de subir y no lo confirmes hasta tenerlo claro.</strong>
         <div class="tip-alert">
-          <strong>Importante:</strong> MyBlueBird <strong>no puede recogerte dentro del aeropuerto</strong> — los taxis de la app esperan en la zona de llegadas exterior. Si llegas en avión, sal hasta la zona de recogida exterior para que el conductor pueda llegar.
+          <strong>MyBlueBird (información general, no la hemos probado nosotros mismos):</strong> Es la app oficial de los taxis Blue Bird, el operador más establecido de Indonesia. Según información general, funciona bien dentro de la ciudad de <strong>Mataram</strong>, pero tiene limitaciones importantes: en el <strong>aeropuerto</strong> hay restricciones y es difícil que te recojan, y en la zona de <strong>Kuta Lombok</strong> no llega el servicio. Si la pruebas, no dependas de ella como única opción.
         </div>
       </div>
     </div>
@@ -462,39 +456,6 @@
     </div>
   </section>
 
-  <!-- PLAYAS DE KUTA -->
-  <section class="tip-section" id="playas">
-    <div class="section-header">
-      <div class="section-icon">🏖️</div>
-      <div class="section-header-text">
-        <div class="section-tag">Sur de Lombok · Playas</div>
-        <h2 class="section-title">Las playas de Kuta y alrededores</h2>
-      </div>
-    </div>
-
-    <div class="tip-card">
-      <div class="tip-label">Para relajarse · Aguas tranquilas</div>
-      <div class="tip-title">Las mejores playas para bañarse y estar tranquilo</div>
-      <div class="tip-body">
-        <strong>Tanjung Aan</strong> — A unos 10 minutos en moto de Kuta. Agua turquesa brillante, dos bahías separadas por un promontorio rocoso, arena muy blanca y fina. Poca corriente. Una de las playas más bonitas de Indonesia. Perfecta para bañarse y descansar.
-        <span class="highlight">~10 min de Kuta</span>
-        <br><br>
-        <strong>Mawun</strong> — Bahía cerrada con forma perfecta de herradura. El oleaje queda bloqueado por los acantilados de los lados, lo que la convierte en una piscina natural. Muy poca gente, aguas calmas. Ideal para familias o para descansar tranquilo.
-        <span class="highlight">~15 min de Kuta</span>
-        <br><br>
-        <strong>Selong Belanak</strong> — Larga bahía de arena blanca con oleaje suave. El extremo norte es ideal para bañarse con calma; el extremo sur tiene algo más de corriente. Ambiente relajado, hay algunos chiringuitos locales.
-        <span class="highlight">~20 min de Kuta</span>
-        <br><br>
-        <strong>Kuta Beach</strong> — La playa del pueblo. No la más espectacular, pero cómoda para la tarde al volver de explorar. Hay warungs a pie de playa y ambiente tranquilo.
-        <span class="highlight">Centro de Kuta</span>
-        <div class="tip-pro">
-          <strong>Cómo ir:</strong> En todas estas playas, la moto es la mejor opción. Las carreteras están en buen estado hasta la mayoría de ellas, aunque los últimos tramos a veces son de tierra. Con moto alquilada en Kuta llegas a todas en menos de 25 minutos.
-        </div>
-      </div>
-    </div>
-
-  </section>
-
   <!-- LA ISLA COMPLETA -->
   <section class="tip-section" id="isla">
     <div class="section-header">
@@ -618,61 +579,6 @@
     </div>
   </section>
 
-  <!-- COMIDA -->
-  <section class="tip-section" id="comida">
-    <div class="section-header">
-      <div class="section-icon">🍜</div>
-      <div class="section-header-text">
-        <div class="section-tag">Gastronomía · Presupuesto</div>
-        <h2 class="section-title">Comida: warungs recomendados en Kuta</h2>
-      </div>
-    </div>
-
-    <div class="tip-card">
-      <div class="tip-label">Experiencia propia · Kuta Lombok</div>
-      <div class="tip-title">Comer en Lombok por 2€: los warungs que funcionan de verdad</div>
-      <div class="tip-body">
-        En Lombok los precios son iguales o más baratos que en Bali. Con 2€ comes bien, de verdad. Los tres que siguen están todos en la zona de <strong>Kuta Lombok</strong> y son recomendación directa nuestra.
-      </div>
-    </div>
-
-    <div class="tip-card" style="margin-top:1px">
-      <div class="tip-label">Desayuno · Kuta Lombok</div>
-      <div class="tip-title">Warung Mama — desayuno grande por ~2€</div>
-      <div class="tip-body">
-        El sitio para el desayuno en Kuta. <strong>5 huevos, 2 tostadas y fruta</strong> por algo así como 2 euros. Abundante, sabroso y a buen precio — perfecto para empezar el día antes de salir a explorar en moto.
-
-        <div class="tip-pro">
-          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Mama+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="tip-card" style="margin-top:1px">
-      <div class="tip-label">Comida local · Kuta Lombok</div>
-      <div class="tip-title">Warung Bu De — comida local recién hecha, a tu medida</div>
-      <div class="tip-body">
-        Tienen la comida <strong>preparada pero recién hecha</strong>. Llegas, hablas con las chicas, y les dices qué quieres en el plato — lo montas tú a tu medida. También tienen menú si lo prefieres. Comida local auténtica y muy buena, por unos <strong>2 euros</strong>.
-
-        <div class="tip-pro">
-          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Bu+De+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="tip-card" style="margin-top:1px">
-      <div class="tip-label">Pescado · Kuta Lombok</div>
-      <div class="tip-title">Warung Maorin Seafood — el mejor pescado de la zona</div>
-      <div class="tip-body">
-        Para los días que quieres comer pescado fresco. Es algo más caro que los otros dos warungs, pero el pescado está muy bueno. Vale la pena gastarse un poco más para una buena comida de marisco y pescado local.
-
-        <div class="tip-pro">
-          <strong>📍 Ubicación:</strong> <a href="https://www.google.com/maps/search/Warung+Maorin+Seafood+Kuta+Lombok" target="_blank" rel="noopener" style="color:var(--accent);">Ver en Google Maps (ruta y reseñas) →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- PLATOS TÍPICOS -->
   <section class="tip-section" id="platos-tipicos">
     <div class="section-header">
@@ -729,7 +635,7 @@
         </table>
 
         <div class="tip-pro">
-          <strong>Dónde comer auténtico:</strong> Los warungs locales son siempre la mejor opción. En Kuta, <strong>Warung Bu De</strong> y <strong>Warung Mama</strong> (ver sección de Comida) son referencias fiables. Para probar Ayam Taliwang auténtico, pregunta en tu alojamiento dónde van los locales — hay varios warungs especializados en Kuta y en Mataram.
+          <strong>Dónde comer auténtico:</strong> Los warungs locales son siempre la mejor opción. En Kuta, <strong>Warung Bu De</strong> y <strong>Warung Mama</strong> son referencias fiables. Para probar Ayam Taliwang auténtico, pregunta en tu alojamiento dónde van los locales — hay varios warungs especializados en Kuta y en Mataram.
         </div>
         <div class="tip-alert">
           <strong>Aviso picante:</strong> La cocina sasak es significativamente más picante que la balinesa. Si no aguantas bien el picante, pide siempre "tidak pedas" (sin picante) o "sedikit pedas" (poco picante) al encargar.
@@ -785,8 +691,6 @@
 
         <table class="tip-table" style="margin-top:1rem">
           <tr><th>Zona</th><th>A qué distancia de Kuta</th><th>Por qué ir</th></tr>
-          <tr><td class="name">Tanjung Aan</td><td>≈ 10 min en moto</td><td>Una de las mejores playas de la isla. Aguas turquesa, arena blanca, poca gente</td></tr>
-          <tr><td class="name">Selong Belanak</td><td>≈ 20 min en moto</td><td>Playa grande y tranquila, ideal para surf o simplemente estar</td></tr>
           <tr><td class="name">Mataram</td><td>≈ 40 min en taxi</td><td>La capital de Lombok. Supermercados, hospitales, bancos. No es turística pero útil</td></tr>
           <tr><td class="name">Senggigi</td><td>≈ 1h</td><td>Principal núcleo turístico del norte. Más tranquilo que antes pero buena base</td></tr>
         </table>
