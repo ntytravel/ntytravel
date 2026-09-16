@@ -54,12 +54,20 @@ Formato sugerido por entrada:
 - Lugares: se eliminó la sección "Playas de Kuta" (y su botón/entrada de menú). En la tabla de "Zonas principales" se quitaron las filas de playas (Tanjung Aan, Selong Belanak), quedando solo Mataram y Senggigi. La sección de Islas Gili no se tocó.
 - Comida: se eliminó la sección "Comida: warungs recomendados en Kuta" (y su botón de menú). Se limpió una referencia colgante a esa sección desde "Platos típicos".
 - Efecto en otras páginas: `bali.html`, `index.html` y `sulawesi.html` tenían en su menú "Lombok" un enlace a `lombok.html#playas` ("Kuta Lombok"); se actualizó a `lombok.html#gili` y se renombró la etiqueta a "Islas Gili" para que no confunda.
+- Commit: `b7a96c7` (contenido) + `746d4e2` (registro en NOTAS.md)
+- Estado: subido a GitHub (`origin/main`).
+
+### 2026-09-16 — Sulawesi
+- "Consejo clave antes de empezar" (banner del hero): se recortó, quitando la frase final sobre buscar en Google Maps y gestionar barcos/motos/traslados desde el alojamiento.
+- Sección "Por qué ir", primera tarjeta: se quitó "Y no hablamos de Bali." del título.
+- CTA de guía (misma tarjeta): reescrito para dejar claro que ofrecemos guías personalizadas de Sulawesi y que se consiguen escribiendo por Instagram o TikTok (@ntytravel), en vez del texto anterior de "guía completa en preparación".
 - Commit: pendiente de hacer en este mismo cierre.
 - Estado: pendiente de push a GitHub.
 
 ## Pendiente para cuando toquemos Sulawesi
 
 - `sulawesi.html` tiene un desajuste de 1 `<div>` sin cerrar (295 aperturas / 294 cierres). Detectado el 2026-09-16 al revisar el archivo por un cambio no relacionado (enlace del menú de Lombok). No se ha tocado — revisar y arreglar cuando trabajemos el bloque de Sulawesi.
+- El CTA de guía personalizada en la sección "Por qué ir" (reescrito el 2026-09-16) habrá que volver a revisarlo cuando se haga el cambio estructural de alojar el PDF directamente en la web (en vez de entregarlo por DM). Ese cambio estructural **todavía no se ha hecho** — solo el texto del CTA se actualizó para reflejar el proceso actual (contacto por redes).
 
 ## Estado general al retomar (2026-09-16)
 
