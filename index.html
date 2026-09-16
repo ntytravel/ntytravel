@@ -22,6 +22,7 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
+    position: relative;
   }
 
   nav {
@@ -602,121 +603,6 @@
     line-height: 1.6;
   }
 
-  .community-section {
-    background: var(--black);
-  }
-
-  .community-box {
-    border: 0.5px solid rgba(255,255,255,0.1);
-    padding: 3rem;
-    margin-top: 3rem;
-    position: relative;
-  }
-
-  .community-box::before {
-    content: '"';
-    font-family: 'Playfair Display', serif;
-    font-size: 8rem;
-    color: rgba(200,184,154,0.08);
-    position: absolute;
-    top: -1rem;
-    left: 2rem;
-    line-height: 1;
-  }
-
-  .community-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .form-group.full { grid-column: 1 / -1; }
-
-  .form-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .form-input, .form-select, .form-textarea {
-    background: rgba(255,255,255,0.04);
-    border: 0.5px solid rgba(255,255,255,0.1);
-    color: var(--white);
-    padding: 0.75rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 300;
-    border-radius: 1px;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: rgba(200,184,154,0.4);
-  }
-
-  .form-select option { background: #1a1a1a; }
-  .form-textarea { resize: vertical; min-height: 100px; }
-
-  .existing-tips {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .tip-entry {
-    background: rgba(255,255,255,0.02);
-    border: 0.5px solid rgba(255,255,255,0.06);
-    padding: 1.2rem 1.5rem;
-    transition: background 0.2s;
-  }
-
-  .tip-entry:hover { background: rgba(255,255,255,0.04); }
-
-  .tip-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .tip-dest-badge {
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 0.5px solid rgba(200,184,154,0.3);
-    padding: 0.2rem 0.5rem;
-  }
-
-  .tip-cat-badge {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .tip-author {
-    font-size: 0.65rem;
-    color: var(--gray);
-    margin-left: auto;
-  }
-
-  .tip-text {
-    font-size: 0.85rem;
-    color: rgba(245,243,239,0.7);
-    line-height: 1.7;
-  }
-
   footer {
     border-top: 0.5px solid rgba(255,255,255,0.08);
     padding: 2rem 2.5rem;
@@ -733,10 +619,18 @@
     color: rgba(245,243,239,0.4);
   }
 
+  .footer-text { text-align: right; }
   .footer-copy {
     font-size: 0.7rem;
     color: rgba(245,243,239,0.25);
     letter-spacing: 0.05em;
+  }
+  .footer-disclaimer {
+    font-size: 0.62rem;
+    color: rgba(245,243,239,0.18);
+    line-height: 1.5;
+    margin-top: 0.4rem;
+    max-width: 380px;
   }
 
   .stats-bar {
@@ -773,9 +667,9 @@
     .hero-accent { display: none; }
     .section { padding: 3rem 1.5rem; }
     .divider { margin: 0 1.5rem; }
-    .community-form { grid-template-columns: 1fr; }
-    .form-group.full { grid-column: 1; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-text { text-align: center; }
+    .footer-disclaimer { max-width: none; }
     .stats-bar { gap: 1.5rem; }
   }
 </style>
@@ -786,34 +680,11 @@
   <div class="logo">N<span>T</span>Y</div>
   <ul>
     <li>
-      <a href="bali.html">Bali <span class="nav-chevron">▾</span></a>
+      <a href="#">Indonesia <span class="nav-chevron">▾</span></a>
       <ul class="nav-dropdown-menu">
-        <li><a href="bali.html#lugares">Canggu</a></li>
-        <li><a href="bali.html#lugares">Uluwatu</a></li>
-        <li><a href="bali.html#lugares">Ubud</a></li>
-        <li><a href="bali.html#lugares">Sidemen</a></li>
-        <li><a href="bali.html#lugares">Amed</a></li>
-        <li><a href="bali.html#lugares">Seminyak</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="lombok.html">Lombok <span class="nav-chevron">▾</span></a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="lombok.html#gili">Islas Gili</a></li>
-        <li><a href="lombok.html">Senggigi</a></li>
-        <li><a href="lombok.html#gili">Gili Trawangan</a></li>
-        <li><a href="lombok.html#gili">Gili Air</a></li>
-        <li><a href="lombok.html">Sekotong</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="sulawesi.html">Sulawesi <span class="nav-chevron">▾</span></a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="sulawesi.html#ciudades">Makassar</a></li>
-        <li><a href="sulawesi.html#ciudades">Manado</a></li>
-        <li><a href="sulawesi.html#bunaken">Bunaken</a></li>
-        <li><a href="sulawesi.html#lugares">Tana Toraja</a></li>
-        <li><a href="sulawesi.html#destinos">Togean</a></li>
+        <li><a href="bali.html">Bali</a></li>
+        <li><a href="lombok.html">Lombok</a></li>
+        <li><a href="sulawesi.html">Sulawesi</a></li>
       </ul>
     </li>
     <li>
@@ -872,7 +743,7 @@
 
   <div class="hero-cta">
     <a href="#destinos" class="btn-primary">Explorar destinos</a>
-    <a href="#comunidad" class="btn-ghost">Compartir experiencia ↗</a>
+    <a href="#siguenos" class="btn-ghost">Síguenos ↗</a>
   </div>
 
   <div class="stats-bar">
@@ -1036,58 +907,12 @@
 
 <div class="divider"></div>
 
-<section class="section community-section" id="comunidad">
-  <div class="section-label">La comunidad habla</div>
-  <h2 class="section-title">Comparte tu experiencia</h2>
-
-  <div class="community-box">
-    <p style="font-size: 0.85rem; color: rgba(245,243,239,0.55); line-height: 1.8; position: relative; z-index: 1; max-width: 500px;">
-      ¿Has estado en alguno de estos destinos? Cuéntanos algo que te hubiera gustado saber antes de ir. Cada tip ayuda a otro viajero.
-    </p>
-
-    <div class="community-form">
-      <div class="form-group">
-        <label class="form-label">Destino</label>
-        <select class="form-select">
-          <option>Bali, Indonesia</option>
-          <option>Lombok, Indonesia</option>
-          <option>Sulawesi, Indonesia</option>
-          <option>Vietnam</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Categoría</label>
-        <select class="form-select">
-          <option>ATM sin fees</option>
-          <option>Cambio de efectivo</option>
-          <option>Visa y entrada</option>
-          <option>Transporte</option>
-          <option>Comida</option>
-          <option>SIM y conectividad</option>
-          <option>Estafas comunes</option>
-          <option>Alojamiento</option>
-          <option>Otro</option>
-        </select>
-      </div>
-      <div class="form-group full">
-        <label class="form-label">Tu experiencia</label>
-        <textarea class="form-textarea" placeholder="Cuéntanos lo que nadie te contó antes de ir..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tu nombre (opcional)</label>
-        <input type="text" class="form-input" placeholder="Viajero anónimo">
-      </div>
-      <div class="form-group" style="justify-content: flex-end;">
-        <button class="btn-primary" style="width: 100%; margin-top: 1.3rem;">Enviar experiencia ↗</button>
-      </div>
-    </div>
-  </div>
-
-</section>
-
 <footer>
   <div class="footer-logo">NTY</div>
-  <div class="footer-copy">Nobody Tells You · 2025 · Hecho por viajeros, para viajeros</div>
+  <div class="footer-text">
+    <div class="footer-copy">Nobody Tells You · 2026 · Hecho por viajeros, para viajeros</div>
+    <div class="footer-disclaimer">Contenido basado en un viaje de la primera mitad de 2026 — algunos datos (precios, visados, apps) pueden haber cambiado.</div>
+  </div>
 </footer>
 
 <script>

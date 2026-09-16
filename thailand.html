@@ -8,7 +8,7 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root { --black: #0a0a0a; --white: #f5f3ef; --gray: #888; --accent: #c8b89a; }
-  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; position: relative; }
 
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(255,255,255,0.08); overflow: visible; }
   .logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
@@ -100,6 +100,21 @@
 
   .community-strip { background: #0d0d0d; border-top: 0.5px solid rgba(255,255,255,0.06); padding: 4rem 0; }
   .community-inner { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+  .community-card { background: var(--white); border-radius: 6px; padding: 2.5rem; }
+  .community-card .community-title { color: var(--black); }
+  .community-card .community-desc { color: rgba(10,10,10,0.6); }
+  .community-card .form-label { color: rgba(10,10,10,0.45); }
+  .community-card .form-input, .community-card .form-select, .community-card .form-textarea { background: rgba(10,10,10,0.03); border-color: rgba(10,10,10,0.12); color: var(--black); }
+  .community-card .form-input:focus, .community-card .form-select:focus, .community-card .form-textarea:focus { border-color: #8a6d3f; }
+  .community-card .form-select option { background: #fff; color: #0a0a0a; }
+  .community-card .exp-item { border-color: rgba(10,10,10,0.08); }
+  .community-card .exp-item:hover { background: rgba(10,10,10,0.03); }
+  .community-card .exp-label { color: rgba(10,10,10,0.4); }
+  .community-card .exp-cat, .community-card .exp-author { color: rgba(10,10,10,0.4); }
+  .community-card .exp-text { color: rgba(10,10,10,0.7); }
+  .community-card .exp-badge { color: #8a6d3f; border-color: rgba(138,109,63,0.4); }
+  .community-card .btn-primary { background: var(--black); color: var(--white); }
+  .community-card .btn-primary:hover { background: #2a2a2a; }
   .community-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
   .community-desc { font-size: 0.85rem; color: rgba(245,243,239,0.45); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
@@ -115,6 +130,8 @@
   footer { border-top: 0.5px solid rgba(255,255,255,0.06); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: rgba(245,243,239,0.3); }
   .footer-copy { font-size: 0.68rem; color: rgba(245,243,239,0.2); }
+  .footer-text { text-align: right; }
+  .footer-disclaimer { font-size: 0.6rem; color: rgba(245,243,239,0.15); line-height: 1.5; margin-top: 0.4rem; max-width: 380px; }
 
   @media (max-width: 768px) {
     nav ul { display: none; }
@@ -124,6 +141,9 @@
     footer { flex-direction: column; gap: 0.8rem; text-align: center; }
     .cat-nav { padding: 0 1.2rem; }
     .route-timeline { padding-left: 1.5rem; }
+    .tip-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .footer-text { text-align: center; }
+    .footer-disclaimer { max-width: none; }
   }
 </style>
 </head>
@@ -133,34 +153,11 @@
   <a href="index.html" class="logo">N<span>T</span>Y</a>
   <ul>
     <li>
-      <a href="bali.html">Bali <span class="nav-chevron">▾</span></a>
+      <a href="#">Indonesia <span class="nav-chevron">▾</span></a>
       <ul class="nav-dropdown-menu">
-        <li><a href="bali.html">Canggu</a></li>
-        <li><a href="bali.html">Uluwatu</a></li>
-        <li><a href="bali.html">Ubud</a></li>
-        <li><a href="bali.html">Sidemen</a></li>
-        <li><a href="bali.html">Amed</a></li>
-        <li><a href="bali.html">Seminyak</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="lombok.html">Lombok <span class="nav-chevron">▾</span></a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="lombok.html">Kuta Lombok</a></li>
-        <li><a href="lombok.html">Senggigi</a></li>
-        <li><a href="lombok.html">Gili Trawangan</a></li>
-        <li><a href="lombok.html">Gili Air</a></li>
-        <li><a href="lombok.html">Sekotong</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="sulawesi.html">Sulawesi <span class="nav-chevron">▾</span></a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="sulawesi.html">Makassar</a></li>
-        <li><a href="sulawesi.html">Manado</a></li>
-        <li><a href="sulawesi.html">Bunaken</a></li>
-        <li><a href="sulawesi.html">Tana Toraja</a></li>
-        <li><a href="sulawesi.html">Togean</a></li>
+        <li><a href="bali.html">Bali</a></li>
+        <li><a href="lombok.html">Lombok</a></li>
+        <li><a href="sulawesi.html">Sulawesi</a></li>
       </ul>
     </li>
     <li>
@@ -189,7 +186,7 @@
 <section class="dest-hero">
   <div class="dest-hero-bg"></div>
   <div class="dest-hero-grid"></div>
-  <div class="breadcrumb"><a href="index.html">Destinos</a> / Tailandia</div>
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / <a href="index.html">Destinos</a> / Tailandia</div>
   <h1 class="dest-title">Tailandia</h1>
   <p class="dest-subtitle">🇹🇭 Thailand · El país de las sonrisas</p>
   <p class="hero-desc">De Bangkok a Phi Phi pasando por templos blancos, islas turquesa y buceo en Ko Tao. La ruta completa de 16 días con todo lo que necesitas saber antes de llegar.</p>
@@ -1169,8 +1166,8 @@
 
 <!-- COMUNIDAD -->
 <section class="community-strip" id="comunidad">
-  <div class="community-inner">
-    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">La comunidad habla · Tailandia</div>
+  <div class="community-inner community-card">
+    <div style="font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:#8a6d3f; margin-bottom:0.5rem;">La comunidad habla · Tailandia</div>
     <h2 class="community-title">¿Has estado en Tailandia?</h2>
     <p class="community-desc">Cuéntanos algo que te hubiera gustado saber antes de ir. Tips sobre islas, comida, transporte, estafas — todo ayuda.</p>
 
@@ -1228,7 +1225,10 @@
 
 <footer>
   <div class="footer-logo">NTY</div>
-  <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+  <div class="footer-text">
+    <div class="footer-copy">Nobody Tells You · Hecho por viajeros, para viajeros</div>
+    <div class="footer-disclaimer">Contenido basado en un viaje de la primera mitad de 2026 — algunos datos (precios, visados, apps) pueden haber cambiado.</div>
+  </div>
 </footer>
 
 <script>
