@@ -101,7 +101,7 @@ Formato sugerido por entrada:
   - **Guía personalizada (de pago):** se mantiene el contacto por Instagram/TikTok, sin botón de descarga.
 - El usuario subió el PDF (`NTY_Sulawesi_Guia_1.pdf`, 9 páginas, contenido verificado por Claude antes de publicarlo — coincide con la ruta de la web y termina con su propio CTA de la guía personalizada vía palabra clave "SULAWESI PRO"). Claude lo añadió al repo en la raíz junto al resto de páginas.
 - Verificado: el enlace del botón apunta al nombre exacto del archivo y el archivo existe en la raíz del repo.
-- Sin tocar: el CTA pequeño de la sección "Por qué ir" ("¿Quieres una guía personalizada de Sulawesi?...") — ya hablaba correctamente solo de la guía de pago. Se propuso dejarlo igual, sin confirmación explícita del usuario todavía.
+- Sin tocar, confirmado por el usuario: el CTA pequeño de la sección "Por qué ir" ("¿Quieres una guía personalizada de Sulawesi?...") — ya hablaba correctamente solo de la guía de pago, se deja tal cual.
 - Estado: subido a GitHub (`origin/main`), PDF incluido.
 
 ### 2026-09-16 — Vietnam
