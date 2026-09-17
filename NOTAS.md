@@ -83,8 +83,8 @@ Formato sugerido por entrada:
 7. **Breadcrumb**: se añadió "Inicio" delante de "Destinos" en las 5 páginas de destino (`Inicio / Destinos / Indonesia / Bali`, etc.).
 - Verificado visualmente en local (desktop y móvil) y contrastado contra el sitio real publicado para el bug del punto 2.
 - Nota: durante la verificación se investigó una aparente altura de página rota (~100.000px) en `thailand.html`, tanto en local como en producción — resultó ser un artefacto del panel de pruebas (viewport a 0px mientras estaba oculto), no un bug real. Descartado.
-- Commit: pendiente de hacer en este mismo cierre.
-- Estado: pendiente de push a GitHub.
+- Commit: `d718196` (contenido) + `0119197` (registro en NOTAS.md)
+- Estado: subido a GitHub (`origin/main`).
 
 ## Pendiente para cuando toquemos Sulawesi
 
