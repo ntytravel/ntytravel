@@ -80,7 +80,7 @@ Formato sugerido por entrada:
 - Menú de categorías: "💳 ATM" se movió a la segunda posición (justo después de "📍 Lugares ▾"), antes estaba en la posición 5 entre "Sleep bus" y "Transporte".
 - Se eliminó la categoría "⚠️ Alertas" por completo: botón del menú y la sección `id="estafas"` entera (taxis sin taxímetro, precios de turista, xích lô, etc.).
 - Se fusionaron "Comida" y "Platos típicos" (esta última no tenía botón propio en el menú) en una sola sección `id="comida"`, título "Comida y platos típicos". La tabla de 10 platos se recortó a los 5 que aparecían en ambas secciones originales (criterio: intersección de las dos listas) — Phở, Bánh Mì, Cơm Tấm, Cao Lầu, Bún Bò Huế. El tip-pro sobre tiendas de conveniencia (Circle K, GS25, FamilyMart) se eliminó — no encajaba ni en Comida ni en Compras, así que se descartó a petición del usuario.
-- Pendiente: el contador "10 Categorías" del hero no se actualizó (no se pidió). Con los cambios de hoy hay 11 categorías reales en el menú (contando solo botones, sin "Lugares") — ya había un desajuste antes de tocar nada. Revisar si se quiere ajustar, como se hizo en Lombok.
+- Contador del hero actualizado: "10 Categorías" → "11 Categorías" (recuento real de botones del menú, sin contar "📍 Lugares").
 - Pendiente sin tocar: nombres de compañías de eSIM en la sección SIM (sigue igual desde el 2026-09-16).
 - Estado: subido a GitHub (`origin/main`).
 
