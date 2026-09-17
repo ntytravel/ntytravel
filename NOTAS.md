@@ -75,6 +75,15 @@ Formato sugerido por entrada:
 - Menú de categorías: se movió "💵 Dinero" a la primera posición de contenido (justo después de "🗺️ Zonas ▾"), antes ocupada por "🌊 Por qué ir". Es ahora la pestaña activa por defecto. Solo se reordenaron los botones del menú, el contenido no se tocó.
 - Estado: subido a GitHub (`origin/main`).
 
+### 2026-09-17 — Sulawesi (Bloque 3, puntos 1–4)
+1. Se eliminó la sección completa "Makassar, Manado y Luwuk: las ciudades de paso" (`id="ciudades"`) y su entrada "🏙️ Makassar · Manado · Luwuk" del desplegable "Zonas".
+2. Se eliminó la tarjeta de Wakatobi dentro de la sección "Otros destinos" (`id="destinos"`, que conserva Togean y Tana Toraja). La entrada del desplegable "🌊 Togean · Wakatobi" pasó a llamarse solo "🌊 Togean".
+3. Se eliminó la sección completa "Platos típicos de Sulawesi" (`id="gastronomia"`) y su botón "🍽️ Gastronomía" del menú de categorías.
+4. Arreglado el desajuste de `<div>` (297/296 → ahora 256/256 tras los recortes anteriores). La causa: en la sección "Guía día a día", el bloque de ruta antiguo (oculto con `style="display:none"` cuando se pasó a modelo de guía PDF por DM) tenía un `<div>` de apertura sin su cierre correspondiente — el comentario `<!-- end hidden -->` estaba puesto en el `</div>` equivocado (el de `route-timeline`, no el del wrapper `display:none`). Añadido el `</div>` que faltaba.
+- No se han tocado los puntos de: contadores del hero (12 Días de ruta / 4 Zonas — no dependen de las secciones eliminadas), ni enlaces desde otras páginas (verificado, ninguna otra página enlaza a `sulawesi.html#ciudades` ni `#gastronomia`).
+- Pendiente (punto 5, diagnóstico entregado, sin aplicar todavía): reorganizar la sección "Todos los sitios de la ruta" (`id="lugares"`, fotos por zona) para que destaque antes en la página, y revisar las fotos. Ver conversación para el diagnóstico completo — incluye un bug de navegación no reportado antes: el enlace "🏝️ Tana Toraja" del desplegable apunta a `goToSection('lugares')` (la sección de fotos), no a la tarjeta de Tana Toraja real (que vive dentro de `id="destinos"`).
+- Estado: subido a GitHub (`origin/main`).
+
 ### 2026-09-16 — Vietnam
 - Hero: subtítulo y descripción reescritos, quitando las menciones a "9 días", "reto de presupuesto" y "sleep bus" como gancho (nuevo: "Vietnam · De norte a sur" / "Hanói, Ninh Binh, Phong Nha, Hội An, Ho Chi Minh. La ruta real que hicimos, con los tips prácticos que aprendimos por el camino.").
 - Sección "La ruta que hicimos", primera tarjeta: se quitó "El objetivo: llegar de Hanói a Hội An en 9 días" del párrafo inicial (se mantiene la mención a sleep bus/moto/Grab y el resto de la frase). La "Nota NTY" de esa misma tarjeta se reescribió quitando la mención al reto de presupuesto diario (5€–35€) y al vídeo de YouTube — ese vídeo todavía no existe (saldrá en unos meses) — dejando solo la idea de que ahí abajo están los tips prácticos.
