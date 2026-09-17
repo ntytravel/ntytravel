@@ -48,6 +48,13 @@ Formato sugerido por entrada:
 - Commit: `93d5c40` (contenido) + `c767557` (registro en NOTAS.md)
 - Estado: subido a GitHub (`origin/main`).
 
+### 2026-09-17 — Bali (Bloque 3, cambio 1/2: desplegable "Lugares")
+- Diagnóstico: los 8 enlaces del desplegable "📍 Lugares ▾" llamaban todos a `goToSection('lugares')` — idéntico para los 8, sin distinguir destino. Como la sección `id="lugares"` es "Zonas de Bali", en la práctica ya aterrizaban ahí, pero siempre al principio de la sección (tarjeta de Canggu), nunca en la tarjeta del lugar concreto que se clicaba, porque ninguna tarjeta tenía `id` propio. Bug secundario encontrado: el resaltado del menú (scroll-spy vía `IntersectionObserver`) nunca marcaba "Lugares" como activo al hacer scroll hasta esa sección, por una comparación case-sensitive (`toggleLugares` con L mayúscula vs id `lugares` en minúscula).
+- Aplicado (opción B, confirmada por el usuario): cada una de las 9 tarjetas de "Zonas de Bali" tiene ahora su propio `id` (`zona-canggu`, `zona-seminyak`, `zona-kuta`, `zona-uluwatu`, `zona-nusadua`, `zona-sanur`, `zona-ubud`, `zona-sidemen`, `zona-amed`). El desplegable se actualizó para que cada lugar enlace a su propia tarjeta. "Nusa Dua · Sanur" se separó en dos entradas independientes (antes era una sola entrada para dos tarjetas distintas).
+- Bug del scroll-spy arreglado: la comparación ahora se hace en minúsculas por ambos lados.
+- Pendiente (Bloque 3, cambio 2/2): añadir tarjetas de Jimbaran y Nusa Penida a "Zonas de Bali", marcadas como información no verificada (mismo criterio que MyBlueBird en Lombok) — texto propuesto, pendiente de aprobación del usuario antes de aplicar.
+- Estado: subido a GitHub (`origin/main`).
+
 ### 2026-09-16 — Lombok
 - Ferry: se borró la frase final redundante que remitía a la sección Transporte.
 - Transporte: la recomendación principal pasa a ser el taxi privado gestionado por el alojamiento (guesthouse/homestay). MyBlueBird se mantiene como nota aparte, marcada explícitamente como información general no probada por el usuario, con sus limitaciones (aeropuerto, sin servicio en Kuta Lombok).

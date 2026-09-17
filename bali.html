@@ -585,14 +585,15 @@
 </nav>
 
 <ul id="lugaresDropdown" class="lugares-dropdown">
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Canggu</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Seminyak</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Kuta</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Uluwatu · Ungasan</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Nusa Dua · Sanur</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Ubud</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Sidemen</a></li>
-  <li><a href="#" onclick="goToSection('lugares');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Amed</a></li>
+  <li><a href="#" onclick="goToSection('zona-canggu');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Canggu</a></li>
+  <li><a href="#" onclick="goToSection('zona-seminyak');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Seminyak</a></li>
+  <li><a href="#" onclick="goToSection('zona-kuta');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Kuta</a></li>
+  <li><a href="#" onclick="goToSection('zona-uluwatu');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Uluwatu · Ungasan</a></li>
+  <li><a href="#" onclick="goToSection('zona-nusadua');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Nusa Dua</a></li>
+  <li><a href="#" onclick="goToSection('zona-sanur');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Sanur</a></li>
+  <li><a href="#" onclick="goToSection('zona-ubud');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Ubud</a></li>
+  <li><a href="#" onclick="goToSection('zona-sidemen');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Sidemen</a></li>
+  <li><a href="#" onclick="goToSection('zona-amed');document.getElementById('lugaresDropdown').classList.remove('open');return false;">Amed</a></li>
 </ul>
 
 <div class="content-wrap">
@@ -1162,7 +1163,7 @@
       </div>
     </div>
 
-    <div class="tip-card">
+    <div class="tip-card" id="zona-canggu">
       <div class="tip-label">Sur · Digital nomads y surf</div>
       <div class="tip-title">Canggu</div>
       <div class="tip-body">
@@ -1171,7 +1172,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-seminyak" style="margin-top:1px">
       <div class="tip-label">Sur · Lujo y moda</div>
       <div class="tip-title">Seminyak</div>
       <div class="tip-body">
@@ -1180,7 +1181,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-kuta" style="margin-top:1px">
       <div class="tip-label">Sur · Turismo masivo</div>
       <div class="tip-title">Kuta</div>
       <div class="tip-body">
@@ -1189,7 +1190,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-uluwatu" style="margin-top:1px">
       <div class="tip-label">Sur · Acantilados y templos</div>
       <div class="tip-title">Uluwatu &amp; Ungasan</div>
       <div class="tip-body">
@@ -1201,7 +1202,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-nusadua" style="margin-top:1px">
       <div class="tip-label">Sur · Lujo y resorts</div>
       <div class="tip-title">Nusa Dua</div>
       <div class="tip-body">
@@ -1210,7 +1211,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-sanur" style="margin-top:1px">
       <div class="tip-label">Sur · Tranquilidad y autenticidad</div>
       <div class="tip-title">Sanur</div>
       <div class="tip-body">
@@ -1221,7 +1222,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-ubud" style="margin-top:1px">
       <div class="tip-label">Centro · Arte y espiritualidad</div>
       <div class="tip-title">Ubud</div>
       <div class="tip-body">
@@ -1231,7 +1232,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-sidemen" style="margin-top:1px">
       <div class="tip-label">Este · Autenticidad</div>
       <div class="tip-title">Sidemen</div>
       <div class="tip-body">
@@ -1241,7 +1242,7 @@
       </div>
     </div>
 
-    <div class="tip-card" style="margin-top:1px">
+    <div class="tip-card" id="zona-amed" style="margin-top:1px">
       <div class="tip-label">Este · Buceo y atardeceres</div>
       <div class="tip-title">Amed</div>
       <div class="tip-body">
@@ -1409,7 +1410,7 @@
       if (e.isIntersecting) {
         const id = e.target.id;
         btns.forEach(b => {
-          b.classList.toggle('active', b.getAttribute('onclick')?.includes(id));
+          b.classList.toggle('active', b.getAttribute('onclick')?.toLowerCase().includes(id.toLowerCase()));
         });
       }
     });
