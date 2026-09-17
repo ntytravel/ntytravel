@@ -86,6 +86,12 @@ Formato sugerido por entrada:
 - Commit: `d718196` (contenido) + `0119197` (registro en NOTAS.md)
 - Estado: subido a GitHub (`origin/main`).
 
+### 2026-09-17 — Lombok
+- Menú de categorías: se movió "💳 ATM / Dinero" a la primera posición (justo después de "📍 Lugares"), antes ocupada por "🚢 Cómo llegar". Es ahora la pestaña activa por defecto, igual que en `bali.html`. El orden del contenido en el documento no se tocó — solo el orden de los botones del menú.
+- Nueva categoría "📶 SIM / eSIM": mismo contenido y formato que la tarjeta de `bali.html` (SIM física Telkomsel + eSIM Airalo/Roamic + aviso de roaming del banco), solo cambia el título a "SIM y eSIM en Lombok". Colocada en el documento justo después de la sección ATM (a petición del usuario: son las dos cosas que se resuelven nada más llegar).
+- Pendiente: el contador "6 Categorías" del hero no se actualizó — no estaba pedido y el número no parece llevar una correspondencia 1:1 estricta con los botones del menú en ninguna página (en Bali tampoco coincide). Revisar si se quiere ajustar.
+- Estado: subido a GitHub (`origin/main`).
+
 ## Pendiente para cuando toquemos Sulawesi
 
 - `sulawesi.html` tiene un desajuste de 1 `<div>` sin cerrar (295 aperturas / 294 cierres). Detectado el 2026-09-16 al revisar el archivo por un cambio no relacionado (enlace del menú de Lombok). No se ha tocado — revisar y arreglar cuando trabajemos el bloque de Sulawesi.
