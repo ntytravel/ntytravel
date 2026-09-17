@@ -37,6 +37,12 @@ Formato sugerido por entrada:
 - Se elimina `bali.html.webloc` de la raíz del repo (acceso directo de macOS, no formaba parte de la web).
 - Commit: `1b5f1e6`
 
+### 2026-09-17 — Tailandia
+- Se eliminó la tarjeta completa "Tuk-tuk, barco por el río y songthaew" de la sección "Transporte en Tailandia" (`id="transporte"`) — incluía la info de tuk-tuk, barco Chao Phraya, songthaew y el aviso de taxistas sin taxímetro. Era la 4ª de 4 tarjetas de esa sección; se pidió borrar la frase del título y, al revisarlo, resultó ser el título de toda la tarjeta, así que se confirmó con el usuario borrar la tarjeta entera.
+- La sección "Transporte" queda con 3 tarjetas: Skytrain/MRT, Grab vs Bolt, y la estafa "está cerrado". Se comprobó que sigue leyéndose bien sin la cuarta tarjeta.
+- Pendiente, sin tocar: la guía de Tailandia de 16 días en PDF — se hará cuando el usuario tenga el documento listo, mismo criterio que con Sulawesi.
+- Estado: subido a GitHub (`origin/main`).
+
 ### 2026-09-16 — Bali
 - Exchange: la "regla de oro" ahora menciona que hay un vídeo con la experiencia real, con enlaces a Instagram y TikTok (antes solo aparecía el @ sin contexto).
 - Visado, opción B: la referencia a la web oficial (`evisa.imigrasi.go.id`) ahora es un link directo.
