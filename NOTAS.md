@@ -94,6 +94,16 @@ Formato sugerido por entrada:
 - Pendiente: decisión del usuario sobre la tarjeta de Bunaken (sustituir foto o ajustar texto).
 - Estado: subido a GitHub (`origin/main`).
 
+### 2026-09-17 — Sulawesi (CTA de guías: gratis vs. personalizada)
+- Se detectó que la tarjeta de CTA (sección "Guía día a día") mezclaba dos productos distintos en un único mensaje: hablaba de "guía completa en PDF" pero se pedía por DM y decía "te la enviamos gratis" — no dejaba claro que en realidad son dos guías diferentes (gratuita de ruta propia vs. personalizada de pago).
+- Rediseñada en dos bloques `tip-pro` claramente diferenciados dentro de la misma tarjeta:
+  - **Guía gratuita:** botón de descarga directa (`<a download>`, mismo estilo `.btn-primary` que ya usa el formulario de comunidad). Apunta a `NTY_Sulawesi_Guia_1.pdf`.
+  - **Guía personalizada (de pago):** se mantiene el contacto por Instagram/TikTok, sin botón de descarga.
+- El usuario subió el PDF (`NTY_Sulawesi_Guia_1.pdf`, 9 páginas, contenido verificado por Claude antes de publicarlo — coincide con la ruta de la web y termina con su propio CTA de la guía personalizada vía palabra clave "SULAWESI PRO"). Claude lo añadió al repo en la raíz junto al resto de páginas.
+- Verificado: el enlace del botón apunta al nombre exacto del archivo y el archivo existe en la raíz del repo.
+- Sin tocar: el CTA pequeño de la sección "Por qué ir" ("¿Quieres una guía personalizada de Sulawesi?...") — ya hablaba correctamente solo de la guía de pago. Se propuso dejarlo igual, sin confirmación explícita del usuario todavía.
+- Estado: subido a GitHub (`origin/main`), PDF incluido.
+
 ### 2026-09-16 — Vietnam
 - Hero: subtítulo y descripción reescritos, quitando las menciones a "9 días", "reto de presupuesto" y "sleep bus" como gancho (nuevo: "Vietnam · De norte a sur" / "Hanói, Ninh Binh, Phong Nha, Hội An, Ho Chi Minh. La ruta real que hicimos, con los tips prácticos que aprendimos por el camino.").
 - Sección "La ruta que hicimos", primera tarjeta: se quitó "El objetivo: llegar de Hanói a Hội An en 9 días" del párrafo inicial (se mantiene la mención a sleep bus/moto/Grab y el resto de la frase). La "Nota NTY" de esa misma tarjeta se reescribió quitando la mención al reto de presupuesto diario (5€–35€) y al vídeo de YouTube — ese vídeo todavía no existe (saldrá en unos meses) — dejando solo la idea de que ahí abajo están los tips prácticos.
