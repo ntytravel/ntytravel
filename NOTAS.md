@@ -64,6 +64,10 @@ Formato sugerido por entrada:
 - Commit: `852554e` (incluye también el registro en NOTAS.md).
 - Estado: subido a GitHub (`origin/main`).
 
+### 2026-09-17 — Sulawesi
+- Menú de categorías: se movió "💵 Dinero" a la primera posición de contenido (justo después de "🗺️ Zonas ▾"), antes ocupada por "🌊 Por qué ir". Es ahora la pestaña activa por defecto. Solo se reordenaron los botones del menú, el contenido no se tocó.
+- Estado: subido a GitHub (`origin/main`).
+
 ### 2026-09-16 — Vietnam
 - Hero: subtítulo y descripción reescritos, quitando las menciones a "9 días", "reto de presupuesto" y "sleep bus" como gancho (nuevo: "Vietnam · De norte a sur" / "Hanói, Ninh Binh, Phong Nha, Hội An, Ho Chi Minh. La ruta real que hicimos, con los tips prácticos que aprendimos por el camino.").
 - Sección "La ruta que hicimos", primera tarjeta: se quitó "El objetivo: llegar de Hanói a Hội An en 9 días" del párrafo inicial (se mantiene la mención a sleep bus/moto/Grab y el resto de la frase). La "Nota NTY" de esa misma tarjeta se reescribió quitando la mención al reto de presupuesto diario (5€–35€) y al vídeo de YouTube — ese vídeo todavía no existe (saldrá en unos meses) — dejando solo la idea de que ahí abajo están los tips prácticos.
