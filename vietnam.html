@@ -203,16 +203,15 @@
 
 <nav class="cat-nav">
   <button class="cat-btn lugares-btn" onclick="toggleLugares(this)">📍 Lugares ▾</button>
+  <button class="cat-btn" onclick="goToSection('atm')">💳 ATM</button>
   <button class="cat-btn active" onclick="goToSection('visado')">🛂 Visado</button>
   <button class="cat-btn" onclick="goToSection('ruta')">📍 Ruta</button>
   <button class="cat-btn" onclick="goToSection('sleepbus')">🚌 Sleep bus</button>
-  <button class="cat-btn" onclick="goToSection('atm')">💳 ATM</button>
   <button class="cat-btn" onclick="goToSection('transporte')">🛺 Transporte</button>
   <button class="cat-btn" onclick="goToSection('sim')">📱 SIM / eSIM</button>
   <button class="cat-btn" onclick="goToSection('comida')">🍜 Comida</button>
   <button class="cat-btn" onclick="goToSection('compras')">🛍️ Compras</button>
   <button class="cat-btn" onclick="goToSection('laundry')">👕 Laundry</button>
-  <button class="cat-btn" onclick="goToSection('estafas')">⚠️ Alertas</button>
   <button class="cat-btn" onclick="goToSection('agua')">💧 Agua</button>
   <button class="cat-btn" onclick="goToSection('saludvisa')">💉 Salud y visado</button>
 </nav>
@@ -491,7 +490,7 @@
       <div class="section-icon">🍜</div>
       <div class="section-header-text">
         <div class="section-tag">Gastronomía · Imprescindible</div>
-        <h2 class="section-title">Comida</h2>
+        <h2 class="section-title">Comida y platos típicos</h2>
       </div>
     </div>
 
@@ -500,17 +499,38 @@
       <div class="tip-title">Todo estaba bueno. Pero aviso: el cilantro va en todo.</div>
       <div class="tip-body">
         La comida vietnamita es de las mejores de Asia. Fresca, equilibrada, llena de sabor y muy barata. El problema — o la característica — es que <strong>el cilantro aparece en casi todos los platos</strong>. Si no te gusta, di "không ngò" (sin cilantro) al pedir.
-        <br><br>
-        Platos que no puedes irte sin probar:
-        <br><br>
-        <strong>Phở</strong> — La sopa de fideos con caldo de huesos. El desayuno de Vietnam. Se come a cualquier hora pero los mejores están a las 7 de la mañana con los locales.<br><br>
-        <strong>Bánh mì</strong> — El bocadillo vietnamita. Pan crujiente con relleno de carne, paté, encurtidos y hierbas. Menos de 1€ en los puestos callejeros.<br><br>
-        <strong>Bún bò Huế</strong> — La versión picante del phở, típica del centro. Más compleja y con más sabor que el phở del norte.<br><br>
-        <strong>Cao lầu</strong> — Solo existe en Hội An. Fideos gruesos, cerdo, hierbas y caldo reducido. El tipo de plato que buscas específicamente en cada ciudad.<br><br>
-        <strong>Cơm tấm</strong> — Arroz roto con cerdo a la plancha, huevo y verduras. El almuerzo por excelencia en Ho Chi Minh. Por menos de 2€.
+
+        <table class="tip-table" style="margin-top:1.2rem">
+          <tr><th>Plato</th><th>Descripción</th><th>Dónde es típico</th></tr>
+          <tr>
+            <td class="name">🍜 Phở</td>
+            <td>Sopa de fideos de arroz en caldo de huesos de cocción larga (vaca o pollo), con hierbas frescas, brotes de soja, lima y chile. El plato más reconocible de Vietnam.</td>
+            <td>Todo el país, especialmente Hanói</td>
+          </tr>
+          <tr>
+            <td class="name">🥖 Bánh Mì</td>
+            <td>Baguette vietnamita rellena de paté, jamón vietnamita, pepino, cilantro, zanahoria encurtida y jalapeño. Entre 15.000 y 35.000 VND (1–1,5€). Una de las mejores cosas que vas a comer en el viaje.</td>
+            <td>Todo el país</td>
+          </tr>
+          <tr>
+            <td class="name">🍚 Cơm Tấm</td>
+            <td>Arroz roto con costilla de cerdo a la brasa, huevo frito, paté de cerdo y pepino. El desayuno o almuerzo de Saigón por excelencia.</td>
+            <td>Ho Chi Minh (Saigón)</td>
+          </tr>
+          <tr>
+            <td class="name">🍜 Cao Lầu</td>
+            <td>Fideos gruesos de arroz con cerdo asado, hierbas y croutons — la receta original solo se puede hacer con el agua de un pozo específico de Hội An. Único e irrepetible.</td>
+            <td>Solo en Hội An</td>
+          </tr>
+          <tr>
+            <td class="name">🌶️ Bún Bò Huế</td>
+            <td>Sopa picante de fideos de arroz gruesos con ternera, cerdo y hueso, en un caldo rojo de lemongrass y pasta de camarones. Más intensa y picante que el Phở.</td>
+            <td>Huế y centro del país</td>
+          </tr>
+        </table>
 
         <div class="tip-pro">
-          <strong>Dónde comer:</strong> Igual que en Indonesia — sigue a los locales. Si el sitio tiene sillas de plástico en la acera y solo hay vietnamitas, es buena señal. Los mejores phở no tienen menú en inglés.
+          <strong>Dónde comer:</strong> Igual que en Indonesia — sigue a los locales. Si el sitio tiene sillas de plástico en la acera y solo hay vietnamitas, es buena señal. Los mejores phở no tienen menú en inglés. Un plato completo en puesto callejero: 30.000–60.000 VND (1,5–2,5€); en restaurantes turísticos puede costar 3 o 4 veces más por la misma calidad.
         </div>
       </div>
     </div>
@@ -574,37 +594,6 @@
     </div>
   </section>
 
-  <!-- ESTAFAS Y ALERTAS -->
-  <section class="tip-section" id="estafas">
-    <div class="section-header">
-      <div class="section-icon">⚠️</div>
-      <div class="section-header-text">
-        <div class="section-tag">Seguridad · Lo que debes saber</div>
-        <h2 class="section-title">Alertas y situaciones comunes</h2>
-      </div>
-    </div>
-
-    <div class="tip-card">
-      <div class="tip-label">Verificado · Experiencia propia</div>
-      <div class="tip-title">Vietnam es seguro. Pero hay cosas que saber.</div>
-      <div class="tip-body">
-        Vietnam en general es un país muy seguro para viajar. No vivimos ningún intento de estafa real, pero hay situaciones habituales que conviene conocer:
-        <br><br>
-        <strong>Taxis sin taxímetro o con taxímetro trucado:</strong> El clásico. En Hanói especialmente. Usa Grab o negocia precio antes de subir. Nunca entres a un taxi sin acordar el precio.
-        <br><br>
-        <strong>En Hanói, por la calle te paran para enseñarte vídeos:</strong> Es algo conocido en ciertas zonas. No hace falta reaccionar de ninguna manera especial — simplemente sigue caminando.
-        <br><br>
-        <strong>Precios de turista:</strong> En mercados, transporte y excursiones el precio para extranjeros siempre es más alto. Compara siempre entre varios sitios antes de decidir.
-        <br><br>
-        <strong>Cobros incorrectos con tarjeta:</strong> Verifica siempre el importe en el datáfono antes de confirmar. Algunos establecimientos intentan cobrar de más.
-
-        <div class="tip-pro">
-          <strong>En los triciclos (xích lô):</strong> Son el transporte típico vietnamita y una experiencia turística. Acuerda siempre el precio antes, en VND y no en dólares. Algunos conductores dan el precio sin especificar la moneda — y luego reclaman que era en USD.
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- AGUA -->
   <section class="tip-section" id="agua">
     <div class="section-header">
@@ -658,90 +647,6 @@
 
         <div class="tip-pro">
           <strong>Consejo:</strong> <strong>Lavie</strong> es la opción mineral más común y la más fácil de encontrar en todo Vietnam. Precio orientativo: 500ml por <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">5.000–8.000 VND</span> (≈ 0,20€). 1,5L: <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">10.000–18.000 VND</span> (≈ 0,40€). En Circle K o GS25 siempre la encuentras.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PLATOS TÍPICOS -->
-  <section class="tip-section" id="platos-tipicos">
-    <div class="section-header">
-      <div class="section-icon">🍽️</div>
-      <div class="section-header-text">
-        <div class="section-tag">Gastronomía · Cocina vietnamita</div>
-        <h2 class="section-title">Platos típicos de Vietnam</h2>
-      </div>
-    </div>
-
-    <div class="tip-card">
-      <div class="tip-label">Lo imprescindible · De norte a sur</div>
-      <div class="tip-title">Lo que tienes que probar en Vietnam</div>
-      <div class="tip-body">
-        La cocina vietnamita es una de las mejores del mundo: ligera, fresca, basada en hierbas aromáticas y caldos elaborados. Cada región tiene sus especialidades — lo que comes en Hanói no es lo mismo que en Ho Chi Minh o en Hội An.
-
-        <table class="tip-table" style="margin-top:1.2rem">
-          <tr>
-            <th>Plato</th>
-            <th>Descripción</th>
-            <th>Dónde es típico</th>
-          </tr>
-          <tr>
-            <td class="name">🍜 Phở</td>
-            <td>Sopa de fideos de arroz en caldo de huesos largo de cocción (vaca o pollo), con hierbas frescas, brotes de soja, lima y chile. El plato más reconocible de Vietnam. El Phở bò (de vaca) del norte es más simple y sutil que el del sur.</td>
-            <td>Todo el país, pero especialmente Hanói</td>
-          </tr>
-          <tr>
-            <td class="name">🥖 Bánh Mì</td>
-            <td>Baguette vietnamita heredada de la colonización francesa, rellena de paté de hígado, jamón vietnamita, pepino, cilantro, zanahoria encurtida y jalapeño. Cuesta entre 15.000 y 35.000 VND (1–1,5€). Una de las mejores cosas que vas a comer en el viaje.</td>
-            <td>Todo el país</td>
-          </tr>
-          <tr>
-            <td class="name">🍖 Bún Chả</td>
-            <td>Carne de cerdo a la brasa (en albóndigas y en filetes) servida con fideos de arroz finos, hierbas frescas y un cuenco de salsa de pescado dulce con encurtidos. El plato más típico de Hanói — Obama lo comió aquí con Anthony Bourdain.</td>
-            <td>Hanói</td>
-          </tr>
-          <tr>
-            <td class="name">🌿 Gỏi Cuốn</td>
-            <td>Rollito fresco de papel de arroz con gambas, cerdo, fideos, lechuga y hierbas. Sin freír — se come frío y es ligero. Con salsa de cacahuete o de hoisin. El aperitivo fresco por excelencia.</td>
-            <td>Todo el país</td>
-          </tr>
-          <tr>
-            <td class="name">🥞 Bánh Xèo</td>
-            <td>Crep crujiente de harina de arroz y cúrcuma rellena de gambas, cerdo y brotes de soja. Se come enrollada en hoja de lechuga con hierbas y mojada en salsa de pescado. Muy popular en el centro y sur.</td>
-            <td>Centro y sur</td>
-          </tr>
-          <tr>
-            <td class="name">🍚 Cơm Tấm</td>
-            <td>Arroz roto (los granos partidos durante el proceso de molienda) con costilla de cerdo a la brasa, huevo frito, paté de cerdo y pepino. El desayuno o almuerzo de Saigón por excelencia. Económico y contundente.</td>
-            <td>Ho Chi Minh (Saigón)</td>
-          </tr>
-          <tr>
-            <td class="name">🍜 Cao Lầu</td>
-            <td>Fideos gruesos de arroz (preparados con agua del pozo Bá Lễ) con cerdo asado, hierbas y croutons de arroz. Plato exclusivo de Hội An — la receta original solo se puede hacer con el agua de ese pozo específico. Único e irrepetible.</td>
-            <td>Solo en Hội An</td>
-          </tr>
-          <tr>
-            <td class="name">🌶️ Bún Bò Huế</td>
-            <td>Sopa picante de fideos de arroz gruesos con ternera, cerdo y hueso, en un caldo rojo de lemongrass y pasta de camarones. Más intensa y picante que el Phở. Especialidad de Huế (zona central).</td>
-            <td>Huế y centro del país</td>
-          </tr>
-          <tr>
-            <td class="name">🫔 Bánh Cuốn</td>
-            <td>Finas láminas de harina de arroz al vapor rellenas de cerdo picado y setas, servidas con salsa de pescado, pepino y hierbas. Desayuno ligero y delicado del norte.</td>
-            <td>Hanói y norte</td>
-          </tr>
-          <tr>
-            <td class="name">☕ Cà Phê Trứng</td>
-            <td>Café de Hanói mezclado con yema de huevo batida con azúcar y leche condensada, formando una crema espumosa encima del café. Dulce, intenso y único. Inventado en Hanói en los años 40. Solo en cafés tradicionales del casco antiguo.</td>
-            <td>Hanói</td>
-          </tr>
-        </table>
-
-        <div class="tip-pro">
-          <strong>Dónde comer auténtico:</strong> Los puestos de calle y los restaurantes pequeños sin menú en inglés son siempre la mejor opción. Un plato completo en puesto callejero: <span style="display:inline-block;background:rgba(200,184,154,0.1);border:0.5px solid rgba(200,184,154,0.2);color:var(--accent);font-size:0.72rem;padding:0.2rem 0.6rem;margin:0.1rem;">30.000–60.000 VND</span> (1,5–2,5€). En restaurantes turísticos puede costar 3 o 4 veces más por la misma calidad.
-        </div>
-        <div class="tip-pro">
-          <strong>Las tiendas de conveniencia (Circle K, GS25, FamilyMart)</strong> sirven como fondo de armario: bocadillos calientes, café, bebidas y snacks a cualquier hora. Presentes en todas las ciudades.
         </div>
       </div>
     </div>
